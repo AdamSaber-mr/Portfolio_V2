@@ -22,7 +22,7 @@ export default function FooterCTA({ s, maxw, goContact }: Props) {
           <a href={`mailto:${CONTACT_EMAIL}`} style={sx("font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); text-decoration:none;")}>
             {CONTACT_EMAIL}
           </a>
-          <a href="https://github.com/adamsaber-mr" style={sx("font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); text-decoration:none;")}>
+          <a href="https://github.com/adamsaber-mr" target="_blank" rel="noopener noreferrer" style={sx("font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); text-decoration:none;")}>
             GitHub ↗
           </a>
         </div>

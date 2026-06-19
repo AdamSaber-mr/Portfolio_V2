@@ -31,12 +31,20 @@ export default function Contact({ s, lang, form, setForm, submit, sent }: Props)
             <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(38px,6vw,72px); line-height:1.0; font-weight:700; letter-spacing:-.03em;")}>{s.contactTitle}</h1>
             <p style={sx('font-size:18px; line-height:1.6; color:var(--muted); margin-top:22px; max-width:380px;')}>{s.contactBody}</p>
             <div style={sx('margin-top:36px;')}>
-              {links.map((c, i) => (
-                <a key={i} href={c.href} style={sx('display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 0; border-top:1px solid var(--line); text-decoration:none; color:var(--ink);')}>
-                  <span style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint);")}>{c.label}</span>
-                  <span style={sx('font-size:15px; font-weight:600;')}>{c.value} ↗</span>
-                </a>
-              ))}
+              {links.map((c, i) => {
+                const external = c.href.startsWith('http');
+                return (
+                  <a
+                    key={i}
+                    href={c.href}
+                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    style={sx('display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 0; border-top:1px solid var(--line); text-decoration:none; color:var(--ink);')}
+                  >
+                    <span style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint);")}>{c.label}</span>
+                    <span style={sx('font-size:15px; font-weight:600;')}>{c.value} ↗</span>
+                  </a>
+                );
+              })}
             </div>
           </div>
 
