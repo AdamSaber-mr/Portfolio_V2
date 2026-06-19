@@ -1,8 +1,12 @@
+import { lazy, Suspense } from 'react'
 import type { Lang, Strings, Project } from '../data/content'
 import type { Page } from '../components/Nav'
-import Gem3D from '../components/Gem3D'
 import ProjectCard from '../components/ProjectCard'
 import FooterCTA from '../components/FooterCTA'
+
+// The gem pulls in three.js (~600kB). Split it into its own chunk so the hero
+// text paints immediately instead of waiting on the 3D bundle.
+const Gem3D = lazy(() => import('../components/Gem3D'))
 
 interface HomeProps {
   s: Strings
@@ -25,7 +29,9 @@ export default function Home({ s, lang, dark, projects, go }: HomeProps) {
           position: 'relative',
         }}
       >
-        <Gem3D dark={dark} />
+        <Suspense fallback={null}>
+          <Gem3D dark={dark} />
+        </Suspense>
         <div
           style={{
             position: 'relative',
