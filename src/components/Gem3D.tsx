@@ -68,7 +68,7 @@ export default function Gem3D({ dark }: Gem3DProps) {
     // ---- scene ----
     const geo = new THREE.IcosahedronGeometry(1.6, 1)
     const mat = new THREE.MeshStandardMaterial({
-      color: 0x4a3f88,
+      color: 0x5b4fa6,
       metalness: 0.45,
       roughness: 0.18,
       flatShading: true,
@@ -77,7 +77,7 @@ export default function Gem3D({ dark }: Gem3DProps) {
     scene.add(mesh)
     meshRef.current = mesh
 
-    scene.add(new THREE.AmbientLight(0x4a4a64, 0.9))
+    scene.add(new THREE.AmbientLight(0x5c5c80, 1.05))
     const l1 = new THREE.PointLight(0x8b7cff, 1.5, 30)
     l1.position.set(4, 3, 5)
     scene.add(l1)
@@ -102,7 +102,7 @@ export default function Gem3D({ dark }: Gem3DProps) {
 
     const applyThemeColors = () => {
       const d = darkRef.current
-      mat.color.set(d ? 0x4a3f88 : 0x6a5cf0)
+      mat.color.set(d ? 0x5b4fa6 : 0x9a8cf2)
       mat.metalness = d ? 0.45 : 0.25
       mat.roughness = d ? 0.18 : 0.35
       l1.intensity = d ? 1.9 : 1.2
@@ -184,7 +184,7 @@ export default function Gem3D({ dark }: Gem3DProps) {
     const l1 = l1Ref.current
     if (!mesh || !l1) return
     const mat = mesh.material as THREE.MeshStandardMaterial
-    mat.color.set(dark ? 0x4a3f88 : 0x6a5cf0)
+    mat.color.set(dark ? 0x5b4fa6 : 0x9a8cf2)
     mat.metalness = dark ? 0.45 : 0.25
     mat.roughness = dark ? 0.18 : 0.35
     l1.intensity = dark ? 1.9 : 1.2
