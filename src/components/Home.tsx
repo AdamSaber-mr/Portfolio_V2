@@ -1,5 +1,6 @@
 import { sx } from '../lib/sx';
 import { clickable } from '../lib/a11y';
+import { asset } from '../lib/asset';
 import { PROJECTS, loc, type Lang, type Strings } from '../data';
 import FooterCTA from './FooterCTA';
 import TechChips from './TechChips';
@@ -29,7 +30,7 @@ export default function Home({ s, lang, go }: Props) {
             </div>
           </div>
           <div data-reveal="" style={sx('position:relative; width:100%; max-width:440px; justify-self:end; aspect-ratio:1/1; border-radius:28px; overflow:hidden; border:1px solid var(--line); box-shadow:0 40px 90px -30px rgba(0,0,0,.6); z-index:1;')}>
-            <img src="/assets/me_header.png" alt="Adam Saber" style={sx('width:100%; height:100%; object-fit:cover; display:block;')} />
+            <img src={asset('assets/me_header.png')} alt="Adam Saber — portret" style={sx('width:100%; height:100%; object-fit:cover; display:block;')} />
             <div style={sx('position:absolute; inset:0; background:linear-gradient(135deg, rgba(139,124,255,.12), transparent 55%); pointer-events:none;')}></div>
           </div>
         </div>
@@ -44,7 +45,7 @@ export default function Home({ s, lang, go }: Props) {
           {featured.map((p, i) => (
             <div key={i} data-reveal="" className="card3d" {...clickable(() => go('work'), p.name)} style={sx('break-inside:avoid; margin-bottom:20px; background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; cursor:pointer;')}>
               <div style={sx(`aspect-ratio:${p.ratio}; background:${p.color}; position:relative; overflow:hidden;`)}>
-                <img src={p.image} alt={p.name} loading="lazy" style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
+                <img src={asset(p.image)} alt={`${p.name} — screenshot`} loading="lazy" style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
               </div>
               <div style={sx('padding:16px 17px 18px;')}>
                 <div style={sx('display:flex; justify-content:space-between; align-items:baseline; gap:10px;')}>

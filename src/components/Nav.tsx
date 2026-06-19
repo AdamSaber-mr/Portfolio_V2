@@ -1,5 +1,6 @@
 import { sx } from '../lib/sx';
 import { clickable } from '../lib/a11y';
+import { asset } from '../lib/asset';
 import type { Strings } from '../data';
 import type { Page } from '../App';
 
@@ -22,7 +23,7 @@ export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggl
     <div style={sx('position:sticky; top:0; z-index:100; backdrop-filter:blur(20px) saturate(160%); -webkit-backdrop-filter:blur(20px) saturate(160%); background:var(--navbg); border-bottom:1px solid var(--line);')}>
       <div className="nav-inner" style={sx('max-width:1440px; margin:0 auto; padding:18px 56px; display:flex; align-items:center; justify-content:space-between; gap:16px;')}>
         <div {...clickable(() => go('home'), 'Adam Saber, naar home')} style={sx('cursor:pointer; display:flex; align-items:center; gap:11px;')}>
-          <img src="/assets/logo.png" alt="Adam Saber" style={sx('width:40px; height:40px; border-radius:50%; object-fit:cover; object-position:50% 18%; display:block; border:1px solid var(--line);')} />
+          <img src={asset('assets/logo.png')} alt="Adam Saber" style={sx('width:40px; height:40px; border-radius:50%; object-fit:cover; object-position:50% 18%; display:block; border:1px solid var(--line);')} />
           <span style={sx("font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; letter-spacing:-.01em;")}>Adam Saber</span>
         </div>
         <div className="nav-links" style={sx('display:flex; gap:26px; align-items:center; font-size:14px; font-weight:500;')}>

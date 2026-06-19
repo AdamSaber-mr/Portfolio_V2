@@ -1,4 +1,5 @@
 import { sx } from '../lib/sx';
+import { asset } from '../lib/asset';
 import { buildJourney, buildSkills, type Lang, type Strings } from '../data';
 import FooterCTA from './FooterCTA';
 import type { Page } from '../App';
@@ -28,7 +29,7 @@ export default function About({ s, lang, go }: Props) {
           </div>
           <div data-reveal="" style={sx('display:flex; justify-content:center; align-items:center;')}>
             <div style={sx('width:100%; max-width:400px; border-radius:22px; overflow:hidden; border:1px solid var(--line); box-shadow:0 34px 64px -26px rgba(0,0,0,.55);')}>
-              <img src="/assets/me_3.png" alt="Adam Saber" style={sx('width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 38%; display:block;')} />
+              <img src={asset('assets/me_3.png')} alt="Adam Saber aan het werk" style={sx('width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 38%; display:block;')} />
             </div>
           </div>
         </div>
