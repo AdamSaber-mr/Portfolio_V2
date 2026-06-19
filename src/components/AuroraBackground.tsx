@@ -49,7 +49,14 @@ export default function AuroraBackground({ dark, page }: Props) {
     const host = hostRef.current;
     if (!host) return;
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+    // Some devices/browsers can't create a WebGL context. Fail soft: skip the
+    // animated background instead of letting the error blank the whole app.
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+    } catch {
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.domElement.style.cssText = 'width:100%;height:100%;display:block;';
