@@ -1,0 +1,72 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; }
+body { -webkit-font-smoothing: antialiased; background: #0a0b0d; }
+::selection { background: #8b7cff; color: #0a0b0d; }
+
+.root {
+  --bg: #0a0b0d; --surface: #121419; --ink: #eef0f3; --ink2: #c7ccd6; --muted: #9aa0aa;
+  --faint: #5c626c; --line: #1e222b; --line2: #1a1d24; --accent: #8b7cff;
+  --accentink: #0a0b0d; --navbg: rgba(12, 13, 17, .45);
+}
+.root[data-theme="light"] {
+  --bg: #f4f3f8; --surface: #ffffff; --ink: #16151c; --ink2: #3c3a48; --muted: #5d5b6b;
+  --faint: #9b99a8; --line: #e3e1ec; --line2: #ecebf3; --accent: #6a5cf0;
+  --accentink: #ffffff; --navbg: rgba(248, 247, 252, .5);
+}
+
+.navlink { position: relative; cursor: pointer; color: var(--muted); transition: color .2s; }
+.navlink:hover { color: var(--ink); }
+.card3d { transition: transform .4s cubic-bezier(.2, .7, .2, 1), border-color .3s; }
+.card3d:hover { transform: translateY(-5px); border-color: var(--accent); }
+.btn { cursor: pointer; transition: transform .15s ease, opacity .2s, background .2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.icon-btn { cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+.icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+input, textarea { font-family: inherit; }
+input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+
+.jwave-pulse { stroke-dasharray: 70 930; stroke-dashoffset: 0; animation: jwaveflow 3s linear infinite; }
+@keyframes jwaveflow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -1000; } }
+.jstep { animation: jrise .55s cubic-bezier(.2, .7, .2, 1) both; }
+.jstep:nth-child(1) { animation-delay: .05s; }
+.jstep:nth-child(2) { animation-delay: .13s; }
+.jstep:nth-child(3) { animation-delay: .21s; }
+.jstep:nth-child(4) { animation-delay: .29s; }
+.jstep:nth-child(5) { animation-delay: .37s; }
+@keyframes jrise { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
+.jnode { position: relative; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; color: var(--c); background: var(--surface); border: 2px solid var(--c); z-index: 2; box-shadow: 0 0 18px -2px var(--c); }
+.jnode::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--c); opacity: .5; animation: jring 2.6s ease-out infinite; }
+@keyframes jring { 0% { transform: scale(.85); opacity: .55; } 100% { transform: scale(1.6); opacity: 0; } }
+.jchip { transition: transform .15s ease; }
+.jchip:hover { transform: translateY(-2px); }
+
+/* ===== motion layer ===== */
+#bgfx { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+#bgfx canvas { display: block; }
+.root > * { position: relative; z-index: 1; }
+#bgfx { z-index: 0; }
+[data-reveal] { opacity: 0; transform: translateY(30px); transition: opacity .8s cubic-bezier(.2, .75, .25, 1), transform .8s cubic-bezier(.2, .75, .25, 1); }
+[data-reveal].is-in { opacity: 1; transform: none; }
+.pageintro { animation: pageintro .9s cubic-bezier(.22, .61, .36, 1) both; }
+@keyframes pageintro { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: none; } }
+
+/* ===== 3D project carousel ===== */
+.work3d-card { transition: transform .62s cubic-bezier(.2, .7, .2, 1), opacity .5s ease; will-change: transform; transform-style: preserve-3d; }
+.work3d-card:hover { filter: brightness(1.06); }
+.carnav { cursor: pointer; user-select: none; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; background: var(--surface); color: var(--ink); font-size: 22px; line-height: 1; transition: transform .15s ease, border-color .2s, color .2s; }
+.carnav:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+/* ===== skills bento ===== */
+.skillcard { transition: transform .35s cubic-bezier(.2, .7, .2, 1), border-color .3s; }
+.skillcard:hover { transform: translateY(-4px); border-color: var(--accent); }
+
+@media (max-width: 860px) {
+  .nav-inner { padding: 16px 22px !important; }
+  .nav-links { gap: 16px !important; }
+  .page-pad { padding-left: 22px !important; padding-right: 22px !important; }
+  .hero-grid, .about-bio, .contact-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .featured-cols { columns: 1 !important; }
+  .journey-steps { grid-template-columns: 1fr 1fr !important; row-gap: 24px !important; }
+  .skills-grid { grid-template-columns: 1fr !important; }
+}
