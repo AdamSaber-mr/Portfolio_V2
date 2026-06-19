@@ -70,32 +70,40 @@ export default function AuroraBackground({ dark, page }: Props) {
       u_dark: { value: dark ? 1 : 0 },
       u_seed: { value: 0 },
     };
+    const geo = new THREE.PlaneGeometry(2, 2);
     const mat = new THREE.ShaderMaterial({ uniforms, transparent: true, vertexShader: VERT, fragmentShader: FRAG });
-    scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat));
+    scene.add(new THREE.Mesh(geo, mat));
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let seed = 0;
     let raf = 0;
-    const tick = () => {
-      raf = requestAnimationFrame(tick);
-      uniforms.u_time.value = performance.now() * 0.001;
+    const render = () => {
       uniforms.u_dark.value = darkRef.current ? 1 : 0;
       const target = PAGE_INDEX[pageRef.current] * 16.0;
       seed += (target - seed) * 0.022;
       uniforms.u_seed.value = seed;
       renderer.render(scene, cam);
     };
-    tick();
+    const tick = () => {
+      raf = requestAnimationFrame(tick);
+      uniforms.u_time.value = performance.now() * 0.001;
+      render();
+    };
+    if (reduceMotion) render(); // one static frame, no animation loop
+    else tick();
 
     const onResize = () => {
       const w = window.innerWidth, h = window.innerHeight;
       renderer.setSize(w, h);
       uniforms.u_res.value.set(w, h);
+      if (reduceMotion) render();
     };
     window.addEventListener('resize', onResize);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', onResize);
+      geo.dispose();
       mat.dispose();
       renderer.dispose();
       if (renderer.domElement.parentNode === host) host.removeChild(renderer.domElement);
