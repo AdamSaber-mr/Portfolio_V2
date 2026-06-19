@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+
+# build info
+tsconfig.tsbuildinfo
+
+# materialized skill files (restore with: npx skills experimental_install)
+.agents/
+agent/
+.claude/skills/
