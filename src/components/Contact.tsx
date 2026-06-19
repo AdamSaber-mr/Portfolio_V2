@@ -25,7 +25,7 @@ export default function Contact({ s, lang, form, setForm, submit, sent }: Props)
 
   return (
     <div data-screen-label="Contact" className="pageintro">
-      <div className="page-pad" style={sx('max-width:1320px; margin:0 auto; padding:48px 56px; min-height:calc(100vh - 74px); display:flex; flex-direction:column; justify-content:center;')}>
+      <div className="page-pad contact-wrap" style={sx('max-width:1320px; margin:0 auto; padding:48px 56px; min-height:calc(100vh - 74px); display:flex; flex-direction:column; justify-content:center;')}>
         <div className="contact-grid" style={sx('display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;')}>
           <div data-reveal="">
             <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(38px,6vw,72px); line-height:1.0; font-weight:700; letter-spacing:-.03em;")}>{s.contactTitle}</h1>
@@ -49,7 +49,7 @@ export default function Contact({ s, lang, form, setForm, submit, sent }: Props)
               </div>
             ) : (
               <div>
-                <div style={sx('display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px;')}>
+                <div className="field-row" style={sx('display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px;')}>
                   <div>
                     <label style={sx(labelStyle)}>{s.fName}</label>
                     <input type="text" value={form.fName} onChange={(e) => setForm({ fName: e.target.value })} placeholder={s.phName} style={sx(inputStyle)} />
