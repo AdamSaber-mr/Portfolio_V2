@@ -1,0 +1,29 @@
+# Adam Saber — Portfolio
+
+> Adam Saber is an 18-year-old full-stack developer and Software Development student in Rotterdam, the Netherlands. He builds digital products end to end — from interface to database.
+
+## About
+- Name: Adam Saber
+- Role: Full-stack developer & Software Development student (2nd year, Grafisch Lyceum Rotterdam)
+- Location: Rotterdam, Netherlands
+- Focus: Front-end (React, TypeScript) and back-end (PHP, MySQL, Python)
+- Languages: Dutch, English, Arabic
+- Status: open to internships (stage)
+
+## Skills
+- Front-end: React, TypeScript, HTML, CSS, Vite
+- Back-end: PHP, MySQL, Python
+- Data & visualisation: D3, Chart.js, SQL
+
+## Projects
+- RapidCars — car-rental web app for a real client (React, TypeScript, Vite)
+- Nike Business Anatomy — interactive dashboard on Nike's supply chain and revenue (React, D3, Chart.js)
+- Luxora — luxury marketplace concept with a full front-end (Next.js, React, TypeScript)
+- Yume Ramen — food-delivery web app with ordering, checkout and a kitchen dashboard (PHP, MySQL, Python)
+- CookUp — recipe platform with accounts, saving and categories (PHP, MySQL)
+- Portfolio v1 — first portfolio, where the building began (HTML, CSS, JS)
+
+## Contact
+- Email: mt.adamsaber@gmail.com
+- GitHub: https://github.com/adamsaber-mr
+- Website: https://adamsaber-mr.github.io/Portfolio_V2/

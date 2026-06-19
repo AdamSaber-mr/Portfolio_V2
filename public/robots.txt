@@ -1,0 +1,6 @@
+# Adam Saber — Portfolio
+# All crawlers welcome, including AI / answer-engine bots.
+User-agent: *
+Allow: /
+
+Sitemap: https://adamsaber-mr.github.io/Portfolio_V2/sitemap.xml

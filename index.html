@@ -2,19 +2,92 @@
 <html lang="nl">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/assets/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Security: content security policy (GitHub Pages can't set headers, so it lives here too) -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data: https://cdn.simpleicons.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Primary meta -->
+    <title>Adam Saber — Full-stack Developer & Software Development Student</title>
     <meta
       name="description"
-      content="Adam Saber — Software Development student in Rotterdam. Full-stack developer building digital products from interface to database."
+      content="Portfolio van Adam Saber — 18-jarige full-stack developer uit Rotterdam. Ik bouw digitale producten van interface tot database met React, TypeScript, PHP & MySQL."
     />
-    <title>Adam Saber — Software Developer</title>
+    <meta name="author" content="Adam Saber" />
+    <meta name="keywords" content="Adam Saber, full-stack developer, software development, Rotterdam, React, TypeScript, PHP, MySQL, portfolio, stage" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="https://adamsaber-mr.github.io/Portfolio_V2/" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f3f8" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="%BASE_URL%assets/logo.png" />
+    <link rel="apple-touch-icon" href="%BASE_URL%assets/logo.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Adam Saber" />
+    <meta property="og:title" content="Adam Saber — Full-stack Developer" />
+    <meta property="og:description" content="18-jarige full-stack developer uit Rotterdam. Digitale producten van interface tot database met React, TypeScript, PHP & MySQL." />
+    <meta property="og:url" content="https://adamsaber-mr.github.io/Portfolio_V2/" />
+    <meta property="og:image" content="https://adamsaber-mr.github.io/Portfolio_V2/assets/me_header.png" />
+    <meta property="og:image:alt" content="Adam Saber" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adam Saber — Full-stack Developer" />
+    <meta name="twitter:description" content="18-jarige full-stack developer uit Rotterdam. Digitale producten van interface tot database." />
+    <meta name="twitter:image" content="https://adamsaber-mr.github.io/Portfolio_V2/assets/me_header.png" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Structured data (SEO + AI / answer engines) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://adamsaber-mr.github.io/Portfolio_V2/#adam",
+            "name": "Adam Saber",
+            "url": "https://adamsaber-mr.github.io/Portfolio_V2/",
+            "image": "https://adamsaber-mr.github.io/Portfolio_V2/assets/me_header.png",
+            "jobTitle": "Full-stack developer & Software Development student",
+            "description": "18-jarige full-stack developer uit Rotterdam die digitale producten bouwt van interface tot database.",
+            "email": "mt.adamsaber@gmail.com",
+            "address": { "@type": "PostalAddress", "addressLocality": "Rotterdam", "addressCountry": "NL" },
+            "alumniOf": { "@type": "EducationalOrganization", "name": "Grafisch Lyceum Rotterdam" },
+            "knowsAbout": ["React", "TypeScript", "JavaScript", "PHP", "MySQL", "Python", "Front-end development", "Back-end development", "Full-stack development"],
+            "knowsLanguage": ["nl", "en", "ar"],
+            "sameAs": ["https://github.com/adamsaber-mr"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://adamsaber-mr.github.io/Portfolio_V2/#website",
+            "url": "https://adamsaber-mr.github.io/Portfolio_V2/",
+            "name": "Adam Saber — Portfolio",
+            "inLanguage": "nl",
+            "about": { "@id": "https://adamsaber-mr.github.io/Portfolio_V2/#adam" },
+            "publisher": { "@id": "https://adamsaber-mr.github.io/Portfolio_V2/#adam" }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
