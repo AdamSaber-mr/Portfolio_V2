@@ -145,8 +145,11 @@ export default function Contact({ s, lang }: ContactProps) {
             <div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 }}>
                 <div>
-                  <label style={labelStyle}>{s.fName}</label>
+                  <label htmlFor="cf-name" style={labelStyle}>{s.fName}</label>
                   <input
+                    id="cf-name"
+                    name="name"
+                    autoComplete="name"
                     value={fName}
                     onChange={(e) => setName(e.target.value)}
                     placeholder={s.phName}
@@ -154,8 +157,13 @@ export default function Contact({ s, lang }: ContactProps) {
                   />
                 </div>
                 <div>
-                  <label style={labelStyle}>{s.fEmail}</label>
+                  <label htmlFor="cf-email" style={labelStyle}>{s.fEmail}</label>
                   <input
+                    id="cf-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    inputMode="email"
                     value={fEmail}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={s.phEmail}
@@ -163,15 +171,19 @@ export default function Contact({ s, lang }: ContactProps) {
                   />
                 </div>
               </div>
-              <label style={labelStyle}>{s.fSubject}</label>
+              <label htmlFor="cf-subject" style={labelStyle}>{s.fSubject}</label>
               <input
+                id="cf-subject"
+                name="subject"
                 value={fSubject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder={s.phSubject}
                 style={{ ...inputStyle, marginBottom: 18 }}
               />
-              <label style={labelStyle}>{s.fMsg}</label>
+              <label htmlFor="cf-msg" style={labelStyle}>{s.fMsg}</label>
               <textarea
+                id="cf-msg"
+                name="message"
                 value={fMsg}
                 onChange={(e) => setMsg(e.target.value)}
                 rows={5}
