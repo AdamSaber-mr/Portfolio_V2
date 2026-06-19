@@ -59,39 +59,41 @@ export interface Project {
   ratio: string;
   color: string;
   image: string;
+  /** CSS object-position for the cover crop, tuned per screenshot's focal point */
+  imgPos: string;
   stack: string;
   kind: Record<Lang, string>;
   blurb: Record<Lang, string>;
 }
 
 export const PROJECTS: Project[] = [
-  { name: 'RapidCars', cat: 'front', year: '2024', ratio: '4/3', color: '#1b1d22', image: '/assets/projects/rapidcars.jpg', stack: 'React · TypeScript · Vite',
+  { name: 'RapidCars', cat: 'front', year: '2024', ratio: '4/3', color: '#1b1d22', image: '/assets/projects/rapidcars.jpg', imgPos: 'left top', stack: 'React · TypeScript · Vite',
     kind: { nl: 'Klant · Front-end', en: 'Client · Front-end' },
     blurb: { nl: 'Autoverhuur-webapp voor een echte klant: snel boeken, sportieve auto’s.', en: 'Car-rental web app for a real client: fast booking, sporty cars.' } },
-  { name: 'Nike Business Anatomy', cat: 'data', year: '2025', ratio: '1/1', color: '#0e1b2b', image: '/assets/projects/nike.png', stack: 'React · D3 · Chart.js',
+  { name: 'Nike Business Anatomy', cat: 'data', year: '2025', ratio: '1/1', color: '#0e1b2b', image: '/assets/projects/nike.png', imgPos: 'left top', stack: 'React · D3 · Chart.js',
     kind: { nl: 'Persoonlijk · Data', en: 'Personal · Data' },
     blurb: { nl: 'Interactief dashboard over Nike’s supply chain en revenue.', en: 'Interactive dashboard on Nike’s supply chain and revenue.' } },
-  { name: 'Luxora', cat: 'front', year: '2025', ratio: '3/4', color: '#2f3a2c', image: '/assets/projects/luxora.jpg', stack: 'Next.js · React · TS',
+  { name: 'Luxora', cat: 'front', year: '2025', ratio: '3/4', color: '#2f3a2c', image: '/assets/projects/luxora.jpg', imgPos: 'left top', stack: 'Next.js · React · TS',
     kind: { nl: 'Concept · Front-end', en: 'Concept · Front-end' },
     blurb: { nl: 'Marketplace voor exclusieve luxeproducten met een volledige front-end.', en: 'Marketplace for exclusive luxury products with a full front-end.' } },
-  { name: 'Yume Ramen', cat: 'full', year: '2025', ratio: '4/3', color: '#3a1f22', image: '/assets/projects/yume-ramen.jpg', stack: 'PHP · MySQL · Python',
+  { name: 'Yume Ramen', cat: 'full', year: '2025', ratio: '4/3', color: '#3a1f22', image: '/assets/projects/yume-ramen.jpg', imgPos: 'left top', stack: 'PHP · MySQL · Python',
     kind: { nl: 'Full-stack · App', en: 'Full-stack · App' },
     blurb: { nl: 'Food-delivery webapp: bestellen, afrekenen en beheer voor de keuken.', en: 'Food-delivery web app: ordering, checkout and a kitchen dashboard.' } },
-  { name: 'CookUp', cat: 'full', year: '2025', ratio: '1/1', color: '#243027', image: '/assets/projects/cookup.jpg', stack: 'PHP · MySQL · CRUD',
+  { name: 'CookUp', cat: 'full', year: '2025', ratio: '1/1', color: '#243027', image: '/assets/projects/cookup.jpg', imgPos: 'center top', stack: 'PHP · MySQL · CRUD',
     kind: { nl: 'Full-stack · CRUD', en: 'Full-stack · CRUD' },
     blurb: { nl: 'Receptenplatform met accounts, opslaan en categorieën.', en: 'Recipe platform with accounts, saving and categories.' } },
-  { name: 'Portfolio v1', cat: 'front', year: '2024', ratio: '3/4', color: '#26222c', image: '/assets/projects/portfolio.jpg', stack: 'HTML · CSS · JS',
+  { name: 'Portfolio v1', cat: 'front', year: '2024', ratio: '3/4', color: '#26222c', image: '/assets/projects/portfolio.jpg', imgPos: 'center top', stack: 'HTML · CSS · JS',
     kind: { nl: 'Persoonlijk · Front-end', en: 'Personal · Front-end' },
     blurb: { nl: 'Mijn eerste portfolio, waar het bouwen begon.', en: 'My first portfolio, where the building began.' } },
 ];
 
 export interface LocProject {
-  name: string; year: string; ratio: string; color: string; image: string; stack: string;
+  name: string; year: string; ratio: string; color: string; image: string; imgPos: string; stack: string;
   kind: string; blurb: string; cat: Cat;
 }
 
 export function loc(p: Project, lang: Lang): LocProject {
-  return { name: p.name, year: p.year, ratio: p.ratio, color: p.color, image: p.image, stack: p.stack, kind: p.kind[lang], blurb: p.blurb[lang], cat: p.cat };
+  return { name: p.name, year: p.year, ratio: p.ratio, color: p.color, image: p.image, imgPos: p.imgPos, stack: p.stack, kind: p.kind[lang], blurb: p.blurb[lang], cat: p.cat };
 }
 
 /* ---------- journey ---------- */
