@@ -60,13 +60,25 @@ export default function Nav({
           gap: 16,
         }}
       >
-        <div
+        <button
+          className="logo-btn"
           onClick={() => go('home')}
-          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 11 }}
+          aria-label="Adam Saber — naar home"
+          style={{
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 11,
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            font: 'inherit',
+            color: 'inherit',
+          }}
         >
           <img
             src="/assets/logo.png"
-            alt="Adam Saber"
+            alt=""
             style={{
               width: 40,
               height: 40,
@@ -87,7 +99,7 @@ export default function Nav({
           >
             Adam Saber
           </span>
-        </div>
+        </button>
 
         <div
           className="nav-links"
@@ -132,6 +144,7 @@ export default function Nav({
             <button
               className="icon-btn"
               onClick={toggleLang}
+              aria-label={lang === 'nl' ? 'Switch to English' : 'Wissel naar Nederlands'}
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: 11,
@@ -147,6 +160,7 @@ export default function Nav({
             <button
               className="icon-btn"
               onClick={toggleTheme}
+              aria-label={dark ? 'Schakel naar licht thema' : 'Schakel naar donker thema'}
               title="Thema"
               style={{
                 display: 'inline-flex',

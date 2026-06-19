@@ -27,7 +27,7 @@ body {
   --surface: #121419;
   --ink: #eef0f3;
   --muted: #9aa0aa;
-  --faint: #5c626c;
+  --faint: #767d89;
   --line: #1e222b;
   --line2: #1a1d24;
   --accent: #8b7cff;
@@ -39,7 +39,7 @@ body {
   --surface: #ffffff;
   --ink: #16151c;
   --muted: #5d5b6b;
-  --faint: #9b99a8;
+  --faint: #6f6d7e;
   --line: #e3e1ec;
   --line2: #ecebf3;
   --accent: #6a5cf0;
@@ -126,6 +126,24 @@ input:focus,
 textarea:focus {
   outline: none;
   border-color: var(--accent);
+}
+input:focus-visible,
+textarea:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+/* Keyboard focus ring for all interactive elements (mouse clicks stay clean
+   via :focus-visible). Required accessibility floor. */
+.btn:focus-visible,
+.navlink:focus-visible,
+.icon-btn:focus-visible,
+.card3d:focus-visible,
+.logo-btn:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 .jwave-pulse {
   stroke-dasharray: 70 930;
@@ -262,6 +280,11 @@ textarea:focus {
 @media (max-width: 900px) {
   .nav-inner {
     padding: 16px 22px !important;
+  }
+  /* Meet the 44px touch-target minimum on mobile (overrides inline sizes). */
+  .icon-btn {
+    min-width: 44px;
+    min-height: 44px;
   }
   .page-pad {
     padding-left: 22px !important;
