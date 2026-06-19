@@ -68,16 +68,16 @@ export default function Gem3D({ dark }: Gem3DProps) {
     // ---- scene ----
     const geo = new THREE.IcosahedronGeometry(1.6, 1)
     const mat = new THREE.MeshStandardMaterial({
-      color: 0x2a2740,
+      color: 0x4a3f88,
       metalness: 0.45,
-      roughness: 0.22,
+      roughness: 0.18,
       flatShading: true,
     })
     const mesh = new THREE.Mesh(geo, mat)
     scene.add(mesh)
     meshRef.current = mesh
 
-    scene.add(new THREE.AmbientLight(0x404050, 0.7))
+    scene.add(new THREE.AmbientLight(0x4a4a64, 0.9))
     const l1 = new THREE.PointLight(0x8b7cff, 1.5, 30)
     l1.position.set(4, 3, 5)
     scene.add(l1)
@@ -89,12 +89,23 @@ export default function Gem3D({ dark }: Gem3DProps) {
     l3.position.set(0, 5, 2)
     scene.add(l3)
 
+    // Occasional "shine": a bright highlight that idles dark, then every few
+    // seconds sweeps across the front of the gem — catching facets in sequence
+    // so the surface glints — before fading back out. Pure decoration, so it's
+    // disabled under prefers-reduced-motion.
+    const glint = new THREE.PointLight(0xffffff, 0, 22)
+    glint.position.set(0, 0, 6)
+    scene.add(glint)
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const shine = { active: false, t: 0, next: 1.8, duration: 1.5 }
+    const clock = new THREE.Clock()
+
     const applyThemeColors = () => {
       const d = darkRef.current
-      mat.color.set(d ? 0x2a2740 : 0x6a5cf0)
+      mat.color.set(d ? 0x4a3f88 : 0x6a5cf0)
       mat.metalness = d ? 0.45 : 0.25
-      mat.roughness = d ? 0.22 : 0.35
-      l1.intensity = d ? 1.5 : 1.0
+      mat.roughness = d ? 0.18 : 0.35
+      l1.intensity = d ? 1.9 : 1.2
     }
     applyThemeColors()
 
@@ -113,11 +124,40 @@ export default function Gem3D({ dark }: Gem3DProps) {
     let raf = 0
     const animate = () => {
       raf = requestAnimationFrame(animate)
-      if (!rot.dragging) rot.ty += 0.0024
+      // Clamp dt so a backgrounded tab doesn't fast-forward the shine on return.
+      const dt = Math.min(clock.getDelta(), 0.05)
+      const reduce = mqReduce.matches
+
+      if (!rot.dragging && !reduce) rot.ty += 0.0024
       rot.y += (rot.ty - rot.y) * 0.08
       rot.x += (rot.tx - rot.x) * 0.08
       mesh.rotation.y = rot.y
       mesh.rotation.x = rot.x
+
+      // Shine sweep: a single highlight that arcs across the gem, with a
+      // rise-and-fall envelope so it reads as a brief flash of light.
+      if (reduce) {
+        glint.intensity = 0
+      } else if (shine.active) {
+        shine.t += dt / shine.duration
+        if (shine.t >= 1) {
+          shine.active = false
+          glint.intensity = 0
+          shine.next = 4 + Math.random() * 5 // 4–9s until the next glint
+        } else {
+          const p = shine.t
+          glint.position.set(-5 + p * 10, 3.2 - p * 5.4, 6)
+          const env = Math.pow(Math.sin(p * Math.PI), 1.6)
+          glint.intensity = env * (darkRef.current ? 5.2 : 3.6)
+        }
+      } else {
+        shine.next -= dt
+        if (shine.next <= 0) {
+          shine.active = true
+          shine.t = 0
+        }
+      }
+
       renderer.render(scene, camera)
     }
     animate()
@@ -144,10 +184,10 @@ export default function Gem3D({ dark }: Gem3DProps) {
     const l1 = l1Ref.current
     if (!mesh || !l1) return
     const mat = mesh.material as THREE.MeshStandardMaterial
-    mat.color.set(dark ? 0x2a2740 : 0x6a5cf0)
+    mat.color.set(dark ? 0x4a3f88 : 0x6a5cf0)
     mat.metalness = dark ? 0.45 : 0.25
-    mat.roughness = dark ? 0.22 : 0.35
-    l1.intensity = dark ? 1.5 : 1.0
+    mat.roughness = dark ? 0.18 : 0.35
+    l1.intensity = dark ? 1.9 : 1.2
   }, [dark])
 
   return (
