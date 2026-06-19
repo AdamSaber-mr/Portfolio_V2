@@ -48,24 +48,24 @@ export default function Contact({ s, lang, form, setForm, submit, sent }: Props)
                 <p style={sx('font-size:15px; color:var(--muted);')}>{s.sentBody}</p>
               </div>
             ) : (
-              <div>
+              <form onSubmit={(e) => { e.preventDefault(); submit(); }}>
                 <div className="field-row" style={sx('display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px;')}>
                   <div>
-                    <label style={sx(labelStyle)}>{s.fName}</label>
-                    <input type="text" value={form.fName} onChange={(e) => setForm({ fName: e.target.value })} placeholder={s.phName} style={sx(inputStyle)} />
+                    <label htmlFor="cf-name" style={sx(labelStyle)}>{s.fName}</label>
+                    <input id="cf-name" name="name" type="text" autoComplete="name" value={form.fName} onChange={(e) => setForm({ fName: e.target.value })} placeholder={s.phName} style={sx(inputStyle)} />
                   </div>
                   <div>
-                    <label style={sx(labelStyle)}>{s.fEmail}</label>
-                    <input type="email" value={form.fEmail} onChange={(e) => setForm({ fEmail: e.target.value })} placeholder={s.phEmail} style={sx(inputStyle)} />
+                    <label htmlFor="cf-email" style={sx(labelStyle)}>{s.fEmail}</label>
+                    <input id="cf-email" name="email" type="email" autoComplete="email" value={form.fEmail} onChange={(e) => setForm({ fEmail: e.target.value })} placeholder={s.phEmail} style={sx(inputStyle)} />
                   </div>
                 </div>
-                <label style={sx(labelStyle)}>{s.fSubject}</label>
-                <input type="text" value={form.fSubject} onChange={(e) => setForm({ fSubject: e.target.value })} placeholder={s.phSubject} style={sx(inputStyle + ' margin-bottom:18px;')} />
-                <label style={sx(labelStyle)}>{s.fMsg}</label>
-                <textarea value={form.fMsg} onChange={(e) => setForm({ fMsg: e.target.value })} rows={5} placeholder={s.phMsg} style={sx(inputStyle + ' resize:vertical; margin-bottom:20px;')}></textarea>
-                <span className="btn" onClick={submit} style={sx('display:block; text-align:center; background:var(--accent); color:var(--accentink); padding:15px; border-radius:30px; font-size:15px; font-weight:600;')}>{s.send} →</span>
+                <label htmlFor="cf-subject" style={sx(labelStyle)}>{s.fSubject}</label>
+                <input id="cf-subject" name="subject" type="text" value={form.fSubject} onChange={(e) => setForm({ fSubject: e.target.value })} placeholder={s.phSubject} style={sx(inputStyle + ' margin-bottom:18px;')} />
+                <label htmlFor="cf-msg" style={sx(labelStyle)}>{s.fMsg}</label>
+                <textarea id="cf-msg" name="message" value={form.fMsg} onChange={(e) => setForm({ fMsg: e.target.value })} rows={5} placeholder={s.phMsg} style={sx(inputStyle + ' resize:vertical; margin-bottom:20px;')}></textarea>
+                <button type="submit" className="btn" style={sx('display:block; width:100%; text-align:center; cursor:pointer; background:var(--accent); color:var(--accentink); padding:15px; border-radius:30px; font-size:15px; font-weight:600;')}>{s.send} →</button>
                 <p style={sx('font-size:12.5px; color:var(--faint); line-height:1.5; text-align:center; margin-top:14px;')}>{s.formNote}</p>
-              </div>
+              </form>
             )}
           </div>
         </div>

@@ -24,8 +24,20 @@ body { -webkit-font-smoothing: antialiased; background: #0a0b0d; }
 .btn:active { transform: translateY(0); }
 .icon-btn { cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
 .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
-input, textarea { font-family: inherit; }
+input, textarea, button { font-family: inherit; }
 input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+button { border: none; background: none; }
+
+/* visible keyboard focus ring for every interactive element */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
 .jwave-pulse { stroke-dasharray: 70 930; stroke-dashoffset: 0; animation: jwaveflow 3s linear infinite; }
 @keyframes jwaveflow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -1000; } }
@@ -88,4 +100,16 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); }
   .featured-cols { columns: 1 !important; }
   .skills-grid { grid-template-columns: 1fr !important; }
   .field-row { grid-template-columns: 1fr !important; }
+}
+
+/* respect users who prefer reduced motion: reveal everything up front and
+   turn off the decorative animations and transitions */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
 }

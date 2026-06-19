@@ -1,10 +1,9 @@
 import { sx } from '../lib/sx';
-import { PROJECTS, loc, type Cat, type Lang, type Strings } from '../data';
+import { clickable } from '../lib/a11y';
+import { PROJECTS, loc, type Filter, type Lang, type Strings } from '../data';
 import FooterCTA from './FooterCTA';
 import TechChips from './TechChips';
 import type { Page } from '../App';
-
-type Filter = 'all' | Cat;
 
 interface Props {
   s: Strings;
@@ -42,7 +41,7 @@ export default function Work({ s, lang, filter, setFilter, slide, setSlide, go }
 
         <div data-reveal="" style={sx("display:flex; gap:8px; flex-wrap:wrap; padding:26px 0 30px; font-family:'JetBrains Mono',monospace;")}>
           {filterDefs.map((f) => (
-            <span key={f.key} className="btn" onClick={() => setFilter(f.key)} style={sx(filterStyle(filter === f.key))}>{f.label}</span>
+            <span key={f.key} className="btn" {...clickable(() => setFilter(f.key))} aria-pressed={filter === f.key} style={sx(filterStyle(filter === f.key))}>{f.label}</span>
           ))}
         </div>
 
@@ -55,8 +54,9 @@ export default function Work({ s, lang, filter, setFilter, slide, setSlide, go }
                 const op = ab > 2.4 ? 0 : Number((1 - ab * 0.16).toFixed(2));
                 const z = 100 - Math.round(ab * 10);
                 const style = `position:absolute; left:50%; top:0; width:300px; height:418px; margin-left:-150px; transform:translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scv.toFixed(3)}); opacity:${op}; z-index:${z}; pointer-events:${ab > 2.4 ? 'none' : 'auto'}; cursor:${off === 0 ? 'default' : 'pointer'};`;
+                // mouse-only: keyboard users use the arrows/dots below (off-screen cards must not be focusable)
                 return (
-                  <div key={i} className="work3d-card" onClick={() => setSlide(i)} style={sx(style)}>
+                  <div key={i} className="work3d-card" onClick={() => setSlide(i)} aria-hidden={ab > 2.4} style={sx(style)}>
                     <div style={sx(`position:relative; width:100%; height:100%; border-radius:20px; overflow:hidden; background:${c.color}; border:1px solid rgba(255,255,255,.08); box-shadow:0 36px 70px -24px rgba(0,0,0,.65); display:flex; flex-direction:column; justify-content:space-between;`)}>
                       <img src={c.image} alt={c.name} loading="lazy" style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${c.imgPos}; display:block;`)} />
                       <div style={sx('position:relative; z-index:1; padding:20px 18px 22px; margin-top:auto; background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0));')}>
@@ -71,13 +71,13 @@ export default function Work({ s, lang, filter, setFilter, slide, setSlide, go }
           </div>
 
           <div style={sx('display:flex; align-items:center; justify-content:center; gap:20px; margin-top:18px;')}>
-            <span className="carnav" onClick={() => setSlide(Math.max(0, (slide == null ? defIdx : slide) - 1))}>‹</span>
+            <span className="carnav" {...clickable(() => setSlide(Math.max(0, (slide == null ? defIdx : slide) - 1)), 'Vorige')}>‹</span>
             <div style={sx('display:flex; gap:8px; align-items:center;')}>
-              {vis.map((_, i) => (
-                <span key={i} onClick={() => setSlide(i)} style={sx(`width:${i === active ? '24px' : '8px'}; height:8px; border-radius:30px; background:${i === active ? 'var(--accent)' : 'var(--line)'}; cursor:pointer; transition:width .3s ease, background .3s ease; display:block;`)}></span>
+              {vis.map((p, i) => (
+                <span key={i} {...clickable(() => setSlide(i), p.name)} style={sx(`width:${i === active ? '24px' : '8px'}; height:8px; border-radius:30px; background:${i === active ? 'var(--accent)' : 'var(--line)'}; cursor:pointer; transition:width .3s ease, background .3s ease; display:block;`)}></span>
               ))}
             </div>
-            <span className="carnav" onClick={() => setSlide(Math.min(vis.length - 1, (slide == null ? defIdx : slide) + 1))}>›</span>
+            <span className="carnav" {...clickable(() => setSlide(Math.min(vis.length - 1, (slide == null ? defIdx : slide) + 1)), 'Volgende')}>›</span>
           </div>
 
           <div style={sx('max-width:600px; margin:24px auto 4px; text-align:center; min-height:62px;')}>

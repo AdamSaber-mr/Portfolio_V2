@@ -1,4 +1,5 @@
 import { sx } from '../lib/sx';
+import { clickable } from '../lib/a11y';
 import { CONTACT_EMAIL, type Strings } from '../data';
 
 interface Props {
@@ -15,7 +16,7 @@ export default function FooterCTA({ s, maxw, goContact }: Props) {
           {s.contactTitle}
         </h2>
         <div style={sx('display:flex; gap:16px; margin-top:32px; align-items:center; flex-wrap:wrap;')}>
-          <span onClick={goContact} style={sx('cursor:pointer; background:var(--accent); color:var(--accentink); padding:15px 26px; border-radius:30px; font-size:15px; font-weight:600;')}>
+          <span {...clickable(goContact)} style={sx('cursor:pointer; background:var(--accent); color:var(--accentink); padding:15px 26px; border-radius:30px; font-size:15px; font-weight:600;')}>
             {s.contactKicker} →
           </span>
           <a href={`mailto:${CONTACT_EMAIL}`} style={sx("font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); text-decoration:none;")}>

@@ -1,4 +1,5 @@
 import { sx } from '../lib/sx';
+import { clickable } from '../lib/a11y';
 import { PROJECTS, loc, type Lang, type Strings } from '../data';
 import FooterCTA from './FooterCTA';
 import TechChips from './TechChips';
@@ -23,8 +24,8 @@ export default function Home({ s, lang, go }: Props) {
             </h1>
             <p style={sx('max-width:440px; font-size:18px; line-height:1.55; color:var(--muted); margin-top:26px; pointer-events:auto;')}>{s.heroBody}</p>
             <div style={sx('display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; pointer-events:auto;')}>
-              <span className="btn" onClick={() => go('work')} style={sx('background:var(--accent); color:var(--accentink); padding:14px 24px; border-radius:30px; font-size:15px; font-weight:600;')}>{s.heroCta1}</span>
-              <span className="btn" onClick={() => go('about')} style={sx('border:1px solid var(--line); color:var(--ink); padding:13px 23px; border-radius:30px; font-size:15px; font-weight:500;')}>{s.heroCta2}</span>
+              <span className="btn" {...clickable(() => go('work'))} style={sx('background:var(--accent); color:var(--accentink); padding:14px 24px; border-radius:30px; font-size:15px; font-weight:600;')}>{s.heroCta1}</span>
+              <span className="btn" {...clickable(() => go('about'))} style={sx('border:1px solid var(--line); color:var(--ink); padding:13px 23px; border-radius:30px; font-size:15px; font-weight:500;')}>{s.heroCta2}</span>
             </div>
           </div>
           <div data-reveal="" style={sx('position:relative; width:100%; max-width:440px; justify-self:end; aspect-ratio:1/1; border-radius:28px; overflow:hidden; border:1px solid var(--line); box-shadow:0 40px 90px -30px rgba(0,0,0,.6); z-index:1;')}>
@@ -37,11 +38,11 @@ export default function Home({ s, lang, go }: Props) {
       <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:64px 56px 40px;')}>
         <div data-reveal="" style={sx('display:flex; align-items:baseline; justify-content:space-between; margin-bottom:30px;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(26px,3.6vw,46px); font-weight:700; letter-spacing:-.02em;")}>{s.selectedWork}</h2>
-          <span className="navlink" onClick={() => go('work')} style={sx("font-family:'JetBrains Mono',monospace; font-size:12px;")}>{s.viewAll} →</span>
+          <span className="navlink" {...clickable(() => go('work'))} style={sx("font-family:'JetBrains Mono',monospace; font-size:12px;")}>{s.viewAll} →</span>
         </div>
         <div className="featured-cols" style={sx('columns:3; column-gap:20px;')}>
           {featured.map((p, i) => (
-            <div key={i} data-reveal="" className="card3d" onClick={() => go('work')} style={sx('break-inside:avoid; margin-bottom:20px; background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; cursor:pointer;')}>
+            <div key={i} data-reveal="" className="card3d" {...clickable(() => go('work'), p.name)} style={sx('break-inside:avoid; margin-bottom:20px; background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; cursor:pointer;')}>
               <div style={sx(`aspect-ratio:${p.ratio}; background:${p.color}; position:relative; overflow:hidden;`)}>
                 <img src={p.image} alt={p.name} loading="lazy" style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
               </div>
