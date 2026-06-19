@@ -8,6 +8,7 @@ body { -webkit-font-smoothing: antialiased; background: #0a0b0d; }
   --faint: #5c626c; --line: #1e222b; --line2: #1a1d24; --accent: #8b7cff;
   --accentink: #0a0b0d; --navbg: rgba(12, 13, 17, .45);
 }
+.root { overflow-x: clip; }
 .root[data-theme="light"] {
   --bg: #f4f3f8; --surface: #ffffff; --ink: #16151c; --ink2: #3c3a48; --muted: #5d5b6b;
   --faint: #9b99a8; --line: #e3e1ec; --line2: #ecebf3; --accent: #6a5cf0;
@@ -66,7 +67,17 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); }
   .nav-links { gap: 16px !important; }
   .page-pad { padding-left: 22px !important; padding-right: 22px !important; }
   .hero-grid, .about-bio, .contact-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+  /* grid/flex items default to min-width:auto, which lets long content overflow
+     instead of wrapping — force them to shrink to the column */
+  .hero-grid > *, .about-bio > *, .contact-grid > * { min-width: 0; }
   .featured-cols { columns: 1 !important; }
   .journey-steps { grid-template-columns: 1fr 1fr !important; row-gap: 24px !important; }
   .skills-grid { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 560px) {
+  /* stack brand over a full-width controls row so nothing overflows */
+  .nav-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .nav-links { width: 100%; justify-content: flex-start; gap: 16px; font-size: 13px; flex-wrap: wrap; }
+  .nav-cv { display: none !important; }
 }
