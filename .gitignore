@@ -1,14 +1,23 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependencies / build output
 node_modules
 dist
 dist-ssr
 *.local
-.DS_Store
 .vite
+*.tsbuildinfo
 
-# build info
-tsconfig.tsbuildinfo
-
-# materialized skill files (restore with: npx skills experimental_install)
-.agents/
-agent/
-.claude/skills/
+# Editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
