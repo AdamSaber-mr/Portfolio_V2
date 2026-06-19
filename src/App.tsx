@@ -1,18 +1,17 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { sx } from './lib/sx';
-import { STR, CONTACT_EMAIL, type Cat, type Lang } from './data';
+import { STR, CONTACT_EMAIL, type Filter, type Lang } from './data';
 import { useReveal } from './hooks/useReveal';
 import Nav from './components/Nav';
-
-// three.js is heavy; load the animated background in its own chunk after paint
-const AuroraBackground = lazy(() => import('./components/AuroraBackground'));
 import Home from './components/Home';
 import Work from './components/Work';
 import About from './components/About';
 import Contact, { type ContactForm } from './components/Contact';
 
+// three.js is heavy; load the animated background in its own chunk after paint
+const AuroraBackground = lazy(() => import('./components/AuroraBackground'));
+
 export type Page = 'home' | 'work' | 'about' | 'contact';
-type Filter = 'all' | Cat;
 
 const emptyForm: ContactForm = { fName: '', fEmail: '', fSubject: '', fMsg: '' };
 

@@ -8,16 +8,14 @@ export const STR: Record<Lang, Strings> = {
     navHome: 'Home', navWork: 'Projecten', navAbout: 'Over mij', navContact: 'Contact', cv: 'CV',
     heroL1: 'Ik bouw digitale', heroL2: 'producten van', heroL3: 'begin tot eind.',
     heroBody: 'Adam Saber, 18 jaar. Student Software Development in Rotterdam, full-stack met PHP, JavaScript & React. Van interface tot database.',
-    heroCta1: 'Bekijk mijn werk', heroCta2: 'Over mij', drag: 'sleep de vorm om te draaien',
-    statusOpen: 'Stage gezocht',
+    heroCta1: 'Bekijk mijn werk', heroCta2: 'Over mij',
     selectedWork: 'Geselecteerd werk', viewAll: 'Bekijk alles',
-    workKicker: 'Alle projecten', workTitle: 'Werk', workBody: 'Een selectie van wat ik heb gebouwd, van klantopdrachten tot eigen experimenten. Filter op type.',
+    workTitle: 'Werk', workBody: 'Een selectie van wat ik heb gebouwd, van klantopdrachten tot eigen experimenten. Filter op type.',
     fAll: 'Alles', fFront: 'Front-end', fFull: 'Full-stack', fData: 'Data',
-    aboutKicker: 'Over mij', aboutTitle: 'Student, bouwer, probleemoplosser.',
+    aboutTitle: 'Student, bouwer, probleemoplosser.',
     aboutP1: 'Mijn naam is Adam Saber, 18 jaar, en ik studeer Software Development in mijn tweede leerjaar aan het Grafisch Lyceum Rotterdam. In het begin heb ik veel gewerkt aan front-end (HTML/CSS/JavaScript/React), en daarna ben ik mij steeds meer gaan richten op de back-end kant van webapps, zoals PHP en databases (MariaDB/SQL).',
     aboutP2: 'Ik vind het leuk om ideeën om te zetten naar werkende applicaties en daarbij logisch na te denken over structuur, data en flow. Ik bouw het liefst dingen die een echt probleem oplossen, in plaats van techniek om de techniek.',
     aboutP3: 'Naast het bouwen vind ik samenwerken en helder communiceren belangrijk: goed begrijpen wat er nodig is en het daarna strak uitwerken. Op de langere termijn wil ik die technische basis combineren met een bredere rol richting business development, waarin ik techniek, mensen en strategie samenbreng.',
-    atAGlance: 'In het kort',
     journeyTitle: 'Mijn ontwikkelingsreis',
     skillsTitle: 'Vaardigheden', skillsBody: 'Geen percentages, gewoon wat ik gebruik en waar ik het voor heb ingezet.',
     contactKicker: 'Contact', contactTitle: 'Laten we iets bouwen.',
@@ -31,16 +29,14 @@ export const STR: Record<Lang, Strings> = {
     navHome: 'Home', navWork: 'Work', navAbout: 'About', navContact: 'Contact', cv: 'CV',
     heroL1: 'I build digital', heroL2: 'products from', heroL3: 'start to finish.',
     heroBody: 'Adam Saber, 18. Software Development student in Rotterdam, full-stack with PHP, JavaScript & React. From interface to database.',
-    heroCta1: 'View my work', heroCta2: 'About me', drag: 'drag the shape to rotate',
-    statusOpen: 'Open to internships',
+    heroCta1: 'View my work', heroCta2: 'About me',
     selectedWork: 'Selected work', viewAll: 'View all',
-    workKicker: 'All projects', workTitle: 'Work', workBody: 'A selection of what I have built, from client work to personal experiments. Filter by type.',
+    workTitle: 'Work', workBody: 'A selection of what I have built, from client work to personal experiments. Filter by type.',
     fAll: 'All', fFront: 'Front-end', fFull: 'Full-stack', fData: 'Data',
-    aboutKicker: 'About me', aboutTitle: 'Student, builder, problem solver.',
+    aboutTitle: 'Student, builder, problem solver.',
     aboutP1: 'My name is Adam Saber, 18, and I am in my second year of Software Development at Grafisch Lyceum Rotterdam. I started out focused on front-end (HTML/CSS/JavaScript/React) and gradually shifted towards the back-end side of web apps, like PHP and databases (MariaDB/SQL).',
     aboutP2: 'I enjoy turning ideas into working applications and thinking logically about structure, data and flow. I prefer building things that solve a real problem, rather than technology for its own sake.',
     aboutP3: 'Beyond building, I value teamwork and clear communication: properly understanding what is needed and then executing it cleanly. In the longer term I want to combine that technical foundation with a broader role towards business development, bringing together technology, people and strategy.',
-    atAGlance: 'At a glance',
     journeyTitle: 'My development journey',
     skillsTitle: 'Skills', skillsBody: 'No percentages, just what I use and where I have applied it.',
     contactKicker: 'Contact', contactTitle: 'Let us build something.',
@@ -55,45 +51,40 @@ export const STR: Record<Lang, Strings> = {
 export interface Project {
   name: string;
   cat: Cat;
-  year: string;
   ratio: string;
   color: string;
   image: string;
   /** CSS object-position for the cover crop, tuned per screenshot's focal point */
   imgPos: string;
   stack: string;
-  kind: Record<Lang, string>;
   blurb: Record<Lang, string>;
 }
 
 export const PROJECTS: Project[] = [
-  { name: 'RapidCars', cat: 'front', year: '2024', ratio: '4/3', color: '#1b1d22', image: '/assets/projects/rapidcars.jpg', imgPos: 'left top', stack: 'React · TypeScript · Vite',
-    kind: { nl: 'Klant · Front-end', en: 'Client · Front-end' },
+  { name: 'RapidCars', cat: 'front', ratio: '4/3', color: '#1b1d22', image: '/assets/projects/rapidcars.jpg', imgPos: 'left top', stack: 'React · TypeScript · Vite',
     blurb: { nl: 'Autoverhuur-webapp voor een echte klant: snel boeken, sportieve auto’s.', en: 'Car-rental web app for a real client: fast booking, sporty cars.' } },
-  { name: 'Nike Business Anatomy', cat: 'data', year: '2025', ratio: '1/1', color: '#0e1b2b', image: '/assets/projects/nike.png', imgPos: 'left top', stack: 'React · D3 · Chart.js',
-    kind: { nl: 'Persoonlijk · Data', en: 'Personal · Data' },
+  { name: 'Nike Business Anatomy', cat: 'data', ratio: '1/1', color: '#0e1b2b', image: '/assets/projects/nike.png', imgPos: 'left top', stack: 'React · D3 · Chart.js',
     blurb: { nl: 'Interactief dashboard over Nike’s supply chain en revenue.', en: 'Interactive dashboard on Nike’s supply chain and revenue.' } },
-  { name: 'Luxora', cat: 'front', year: '2025', ratio: '3/4', color: '#2f3a2c', image: '/assets/projects/luxora.jpg', imgPos: 'left top', stack: 'Next.js · React · TS',
-    kind: { nl: 'Concept · Front-end', en: 'Concept · Front-end' },
+  { name: 'Luxora', cat: 'front', ratio: '3/4', color: '#2f3a2c', image: '/assets/projects/luxora.jpg', imgPos: 'left top', stack: 'Next.js · React · TS',
     blurb: { nl: 'Marketplace voor exclusieve luxeproducten met een volledige front-end.', en: 'Marketplace for exclusive luxury products with a full front-end.' } },
-  { name: 'Yume Ramen', cat: 'full', year: '2025', ratio: '4/3', color: '#3a1f22', image: '/assets/projects/yume-ramen.jpg', imgPos: 'left top', stack: 'PHP · MySQL · Python',
-    kind: { nl: 'Full-stack · App', en: 'Full-stack · App' },
+  { name: 'Yume Ramen', cat: 'full', ratio: '4/3', color: '#3a1f22', image: '/assets/projects/yume-ramen.jpg', imgPos: 'left top', stack: 'PHP · MySQL · Python',
     blurb: { nl: 'Food-delivery webapp: bestellen, afrekenen en beheer voor de keuken.', en: 'Food-delivery web app: ordering, checkout and a kitchen dashboard.' } },
-  { name: 'CookUp', cat: 'full', year: '2025', ratio: '1/1', color: '#243027', image: '/assets/projects/cookup.jpg', imgPos: 'center top', stack: 'PHP · MySQL · CRUD',
-    kind: { nl: 'Full-stack · CRUD', en: 'Full-stack · CRUD' },
+  { name: 'CookUp', cat: 'full', ratio: '1/1', color: '#243027', image: '/assets/projects/cookup.jpg', imgPos: 'center top', stack: 'PHP · MySQL · CRUD',
     blurb: { nl: 'Receptenplatform met accounts, opslaan en categorieën.', en: 'Recipe platform with accounts, saving and categories.' } },
-  { name: 'Portfolio v1', cat: 'front', year: '2024', ratio: '3/4', color: '#26222c', image: '/assets/projects/portfolio.jpg', imgPos: 'center top', stack: 'HTML · CSS · JS',
-    kind: { nl: 'Persoonlijk · Front-end', en: 'Personal · Front-end' },
+  { name: 'Portfolio v1', cat: 'front', ratio: '3/4', color: '#26222c', image: '/assets/projects/portfolio.jpg', imgPos: 'center top', stack: 'HTML · CSS · JS',
     blurb: { nl: 'Mijn eerste portfolio, waar het bouwen begon.', en: 'My first portfolio, where the building began.' } },
 ];
 
+/** A filter is "all" plus any project category. */
+export type Filter = 'all' | Cat;
+
 export interface LocProject {
-  name: string; year: string; ratio: string; color: string; image: string; imgPos: string; stack: string;
-  kind: string; blurb: string; cat: Cat;
+  name: string; ratio: string; color: string; image: string; imgPos: string; stack: string;
+  blurb: string; cat: Cat;
 }
 
 export function loc(p: Project, lang: Lang): LocProject {
-  return { name: p.name, year: p.year, ratio: p.ratio, color: p.color, image: p.image, imgPos: p.imgPos, stack: p.stack, kind: p.kind[lang], blurb: p.blurb[lang], cat: p.cat };
+  return { name: p.name, ratio: p.ratio, color: p.color, image: p.image, imgPos: p.imgPos, stack: p.stack, blurb: p.blurb[lang], cat: p.cat };
 }
 
 /* ---------- journey ---------- */
