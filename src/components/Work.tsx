@@ -56,12 +56,12 @@ export default function Work({ s, lang, filter, setFilter, slide, setSlide, go }
                 const style = `position:absolute; left:50%; top:0; width:300px; height:418px; margin-left:-150px; transform:translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scv.toFixed(3)}); opacity:${op}; z-index:${z}; pointer-events:${ab > 2.4 ? 'none' : 'auto'}; cursor:${off === 0 ? 'default' : 'pointer'};`;
                 return (
                   <div key={i} className="work3d-card" onClick={() => setSlide(i)} style={sx(style)}>
-                    <div style={sx(`position:relative; width:100%; height:100%; border-radius:20px; overflow:hidden; background:${c.color}; border:1px solid rgba(255,255,255,.08); box-shadow:0 36px 70px -24px rgba(0,0,0,.65); display:flex; flex-direction:column; justify-content:space-between;`)}>
-                      <img src={c.image} alt={c.name} loading="lazy" style={sx('position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;')} />
-                      <div style={sx('position:relative; z-index:1; padding:16px;')}>
-                        <span style={sx("display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#fff; background:rgba(0,0,0,.4); padding:5px 11px; border-radius:30px; backdrop-filter:blur(4px);")}>{c.kind}</span>
+                    <div style={sx(`position:relative; width:100%; height:100%; border-radius:20px; overflow:hidden; background:${c.color}; border:1px solid rgba(255,255,255,.08); box-shadow:0 36px 70px -24px rgba(0,0,0,.65); display:flex; flex-direction:column;`)}>
+                      <div style={sx('position:relative; width:100%; height:232px; flex-shrink:0; overflow:hidden;')}>
+                        <img src={c.image} alt={c.name} loading="lazy" style={sx('position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; display:block;')} />
+                        <span style={sx("position:absolute; left:14px; top:14px; display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#fff; background:rgba(0,0,0,.5); padding:5px 11px; border-radius:30px; backdrop-filter:blur(4px);")}>{c.kind}</span>
                       </div>
-                      <div style={sx('position:relative; z-index:1; padding:20px 18px 22px; background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0));')}>
+                      <div style={sx('flex:1; display:flex; flex-direction:column; justify-content:flex-end; padding:18px;')}>
                         <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:#fff; letter-spacing:-.01em;")}>{c.name}</h3>
                         <div style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(255,255,255,.72); margin-top:6px;")}>{c.stack}</div>
                       </div>
