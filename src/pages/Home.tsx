@@ -137,8 +137,8 @@ export default function Home({ s, lang, dark, projects, go }: HomeProps) {
           </button>
         </div>
         <div className="cards-cols" style={{ columns: 3, columnGap: 20 }}>
-          {featured.map((p) => (
-            <ProjectCard key={p.name} p={p} lang={lang} onClick={() => go('work')} />
+          {featured.map((p, i) => (
+            <ProjectCard key={p.name} p={p} lang={lang} index={i} onClick={() => go('work')} />
           ))}
         </div>
       </div>

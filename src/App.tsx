@@ -44,21 +44,24 @@ export default function App() {
         toggleLang={() => setLang((l) => (l === 'nl' ? 'en' : 'nl'))}
       />
 
-      {page === 'home' && (
-        <Home s={s} lang={lang} dark={dark} projects={PROJECTS} go={go} />
-      )}
-      {page === 'work' && (
-        <Work
-          s={s}
-          lang={lang}
-          projects={PROJECTS}
-          filter={filter}
-          setFilter={setFilter}
-          go={go}
-        />
-      )}
-      {page === 'about' && <About s={s} lang={lang} go={go} />}
-      {page === 'contact' && <Contact s={s} lang={lang} />}
+      {/* key by page so each navigation replays the enter animation */}
+      <div key={page} className="page-fade">
+        {page === 'home' && (
+          <Home s={s} lang={lang} dark={dark} projects={PROJECTS} go={go} />
+        )}
+        {page === 'work' && (
+          <Work
+            s={s}
+            lang={lang}
+            projects={PROJECTS}
+            filter={filter}
+            setFilter={setFilter}
+            go={go}
+          />
+        )}
+        {page === 'about' && <About s={s} lang={lang} go={go} />}
+        {page === 'contact' && <Contact s={s} lang={lang} />}
+      </div>
     </div>
   )
 }

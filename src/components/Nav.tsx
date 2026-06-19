@@ -23,6 +23,10 @@ function navStyle(active: boolean): CSSProperties {
   }
 }
 
+function navClass(active: boolean): string {
+  return `navlink nav-link-text${active ? ' is-active' : ''}`
+}
+
 export default function Nav({
   s,
   page,
@@ -96,28 +100,28 @@ export default function Nav({
           }}
         >
           <button
-            className="navlink nav-link-text"
+            className={navClass(page === 'home')}
             style={navStyle(page === 'home')}
             onClick={() => go('home')}
           >
             {s.navHome}
           </button>
           <button
-            className="navlink nav-link-text"
+            className={navClass(page === 'work')}
             style={navStyle(page === 'work')}
             onClick={() => go('work')}
           >
             {s.navWork}
           </button>
           <button
-            className="navlink nav-link-text"
+            className={navClass(page === 'about')}
             style={navStyle(page === 'about')}
             onClick={() => go('about')}
           >
             {s.navAbout}
           </button>
           <button
-            className="navlink nav-link-text"
+            className={navClass(page === 'contact')}
             style={navStyle(page === 'contact')}
             onClick={() => go('contact')}
           >

@@ -127,7 +127,7 @@ export default function Contact({ s, lang }: ContactProps) {
           }}
         >
           {sent ? (
-            <div style={{ padding: '40px 0', textAlign: 'center' }}>
+            <div className="sent-in" style={{ padding: '40px 0', textAlign: 'center' }}>
               <div style={{ fontSize: 34, marginBottom: 14, color: 'var(--accent)' }}>✓</div>
               <h3
                 style={{

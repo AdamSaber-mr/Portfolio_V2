@@ -96,9 +96,10 @@ export default function Work({
           ))}
         </div>
 
-        <div className="cards-cols" style={{ columns: 3, columnGap: 20 }}>
-          {visible.map((p) => (
-            <ProjectCard key={p.name} p={p} lang={lang} />
+        {/* key by filter so the stagger replays each time the set changes */}
+        <div key={filter} className="cards-cols" style={{ columns: 3, columnGap: 20 }}>
+          {visible.map((p, i) => (
+            <ProjectCard key={p.name} p={p} lang={lang} index={i} />
           ))}
         </div>
       </div>

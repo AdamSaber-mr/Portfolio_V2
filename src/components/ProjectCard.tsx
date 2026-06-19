@@ -4,12 +4,13 @@ interface ProjectCardProps {
   p: Project
   lang: Lang
   onClick?: () => void
+  index?: number
 }
 
-export default function ProjectCard({ p, lang, onClick }: ProjectCardProps) {
+export default function ProjectCard({ p, lang, onClick, index }: ProjectCardProps) {
   return (
     <div
-      className="card3d"
+      className="card3d card-in"
       onClick={onClick}
       style={{
         breakInside: 'avoid',
@@ -19,6 +20,8 @@ export default function ProjectCard({ p, lang, onClick }: ProjectCardProps) {
         borderRadius: 14,
         overflow: 'hidden',
         cursor: 'pointer',
+        // Short per-card delay creates the cascade (capped so it never drags).
+        animationDelay: index != null ? `${Math.min(index, 8) * 45}ms` : undefined,
       }}
     >
       <div
