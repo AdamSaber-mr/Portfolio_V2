@@ -57,7 +57,7 @@ export default function Work({ s, lang, filter, setFilter, slide, setSlide, go }
                 return (
                   <div key={i} className="work3d-card" onClick={() => setSlide(i)} style={sx(style)}>
                     <div style={sx(`position:relative; width:100%; height:100%; border-radius:20px; overflow:hidden; background:${c.color}; border:1px solid rgba(255,255,255,.08); box-shadow:0 36px 70px -24px rgba(0,0,0,.65); display:flex; flex-direction:column; justify-content:space-between;`)}>
-                      <img src={c.image} alt={c.name} loading="lazy" style={sx('position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center top; padding:10px; display:block;')} />
+                      <img src={c.image} alt={c.name} loading="lazy" style={sx('position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; display:block;')} />
                       <div style={sx('position:relative; z-index:1; padding:16px;')}>
                         <span style={sx("display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#fff; background:rgba(0,0,0,.4); padding:5px 11px; border-radius:30px; backdrop-filter:blur(4px);")}>{c.kind}</span>
                       </div>
