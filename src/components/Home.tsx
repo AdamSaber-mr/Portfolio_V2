@@ -43,7 +43,6 @@ export default function Home({ s, lang, go }: Props) {
             <div key={i} data-reveal="" className="card3d" onClick={() => go('work')} style={sx('break-inside:avoid; margin-bottom:20px; background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; cursor:pointer;')}>
               <div style={sx(`aspect-ratio:${p.ratio}; background:${p.color}; position:relative; overflow:hidden;`)}>
                 <img src={p.image} alt={p.name} loading="lazy" style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
-                <span style={sx("position:absolute; left:14px; top:13px; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:rgba(255,255,255,.9); background:rgba(0,0,0,.4); backdrop-filter:blur(4px); padding:4px 10px; border-radius:30px;")}>{p.kind}</span>
               </div>
               <div style={sx('padding:16px 17px 18px;')}>
                 <div style={sx('display:flex; justify-content:space-between; align-items:baseline; gap:10px;')}>
