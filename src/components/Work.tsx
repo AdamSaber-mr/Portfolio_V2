@@ -1,6 +1,7 @@
 import { sx } from '../lib/sx';
 import { PROJECTS, loc, type Cat, type Lang, type Strings } from '../data';
 import FooterCTA from './FooterCTA';
+import TechChips from './TechChips';
 import type { Page } from '../App';
 
 type Filter = 'all' | Cat;
@@ -59,8 +60,8 @@ export default function Work({ s, lang, filter, setFilter, slide, setSlide, go }
                     <div style={sx(`position:relative; width:100%; height:100%; border-radius:20px; overflow:hidden; background:${c.color}; border:1px solid rgba(255,255,255,.08); box-shadow:0 36px 70px -24px rgba(0,0,0,.65); display:flex; flex-direction:column; justify-content:space-between;`)}>
                       <img src={c.image} alt={c.name} loading="lazy" style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${c.imgPos}; display:block;`)} />
                       <div style={sx('position:relative; z-index:1; padding:20px 18px 22px; margin-top:auto; background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0));')}>
-                        <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:#fff; letter-spacing:-.01em;")}>{c.name}</h3>
-                        <div style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(255,255,255,.72); margin-top:6px;")}>{c.stack}</div>
+                        <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; color:#fff; letter-spacing:-.01em; margin-bottom:10px;")}>{c.name}</h3>
+                        <TechChips stack={c.stack} />
                       </div>
                     </div>
                   </div>
@@ -81,7 +82,7 @@ export default function Work({ s, lang, filter, setFilter, slide, setSlide, go }
 
           <div style={sx('max-width:600px; margin:24px auto 4px; text-align:center; min-height:62px;')}>
             <p style={sx('font-size:16.5px; line-height:1.6; color:var(--ink2);')}>{act?.blurb}</p>
-            <div style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); margin-top:10px;")}>{act?.stack}</div>
+            <div style={sx('margin-top:12px;')}>{act && <TechChips stack={act.stack} justify="center" />}</div>
           </div>
         </div>
       </div>

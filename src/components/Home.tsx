@@ -1,6 +1,7 @@
 import { sx } from '../lib/sx';
 import { PROJECTS, loc, type Lang, type Strings } from '../data';
 import FooterCTA from './FooterCTA';
+import TechChips from './TechChips';
 import type { Page } from '../App';
 
 interface Props {
@@ -49,7 +50,7 @@ export default function Home({ s, lang, go }: Props) {
                   <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:17.5px; font-weight:600;")}>{p.name}</h3>
                 </div>
                 <p style={sx('font-size:13.5px; color:var(--muted); line-height:1.5; margin-top:8px;')}>{p.blurb}</p>
-                <div style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); margin-top:12px;")}>{p.stack}</div>
+                <div style={sx('margin-top:13px;')}><TechChips stack={p.stack} /></div>
               </div>
             </div>
           ))}

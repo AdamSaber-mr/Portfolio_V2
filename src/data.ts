@@ -131,18 +131,46 @@ export function buildJourney(lang: Lang): { nodes: JourneyNode[]; wavePath: stri
   return { nodes, wavePath };
 }
 
-/* ---------- skills ---------- */
+/* ---------- skills / tech chips ---------- */
 const TC: Record<string, string> = {
-  React: '#61dafb', TypeScript: '#3178c6', HTML: '#e34f26', CSS: '#1572b6', Vite: '#646cff',
-  PHP: '#777bb4', MySQL: '#4479a1', Python: '#3776ab', D3: '#f68e56', 'Chart.js': '#ff6384', SQL: '#336791',
+  React: '#61dafb', TypeScript: '#3178c6', TS: '#3178c6', HTML: '#e34f26', CSS: '#1572b6',
+  JS: '#f7df1e', Vite: '#646cff', 'Next.js': '#e6e6ea', PHP: '#777bb4', MySQL: '#4479a1',
+  Python: '#3776ab', D3: '#f68e56', 'Chart.js': '#ff6384', SQL: '#336791',
 };
 const SLUG: Record<string, string> = {
-  React: 'react', TypeScript: 'typescript', HTML: 'html5', CSS: 'css', Vite: 'vite',
-  PHP: 'php', MySQL: 'mysql', Python: 'python', D3: 'd3', MariaDB: 'mariadb', 'Chart.js': 'chartdotjs',
+  React: 'react', TypeScript: 'typescript', TS: 'typescript', HTML: 'html5', CSS: 'css',
+  JS: 'javascript', Vite: 'vite', 'Next.js': 'nextdotjs', PHP: 'php', MySQL: 'mysql',
+  Python: 'python', D3: 'd3', MariaDB: 'mariadb', 'Chart.js': 'chartdotjs',
 };
 
 export interface SkillChip { label: string; icon: string | null; iconOpacity: number; style: string; }
 export interface SkillGroup { area: string; tag: string; note: string; color: string; chips: SkillChip[]; }
+
+/** Build one chip for a tech token, using its muted brand colour (like the skills). */
+export function techChip(it: string, compact = false): SkillChip {
+  const c = TC[it] || '#8b7cff';
+  const slug = SLUG[it];
+  const hx = c.replace('#', '');
+  const r = parseInt(hx.substr(0, 2), 16), gg = parseInt(hx.substr(2, 2), 16), b = parseInt(hx.substr(4, 2), 16);
+  const mr = Math.round(r * 0.66 + 34 * 0.34), mg = Math.round(gg * 0.66 + 36 * 0.34), mb = Math.round(b * 0.66 + 42 * 0.34);
+  const lum = (0.299 * mr + 0.587 * mg + 0.114 * mb) / 255;
+  const txt = lum > 0.62 ? '#15151c' : '#ffffff';
+  const bg = `rgb(${mr},${mg},${mb})`;
+  const pad = compact ? '4px 9px' : '7px 12px';
+  const fs = compact ? '11px' : '12.5px';
+  const rad = compact ? '8px' : '9px';
+  return {
+    label: it,
+    icon: slug ? `https://cdn.simpleicons.org/${slug}/ffffff` : null,
+    iconOpacity: txt === '#15151c' ? 0.55 : 0.92,
+    style: `display:inline-flex;align-items:center;gap:6px;padding:${pad};border-radius:${rad};font-family:'JetBrains Mono',monospace;font-size:${fs};font-weight:600;border:1px solid rgba(255,255,255,.08);background:${bg};color:${txt};`,
+  };
+}
+
+/** Split a "React · TypeScript · Vite" stack string into coloured chips. */
+export function buildStackChips(stack: string, compact = true): SkillChip[] {
+  return stack.split('·').map((s) => s.trim()).filter(Boolean).map((it) => techChip(it, compact));
+}
 
 export function buildSkills(lang: Lang): SkillGroup[] {
   const groups = [
@@ -156,22 +184,7 @@ export function buildSkills(lang: Lang): SkillGroup[] {
     tag: g.tag,
     note: g.note,
     color: TC[g.items[0]] || '#8b7cff',
-    chips: g.items.map((it) => {
-      const c = TC[it] || '#8b7cff';
-      const slug = SLUG[it];
-      const hx = c.replace('#', '');
-      const r = parseInt(hx.substr(0, 2), 16), gg = parseInt(hx.substr(2, 2), 16), b = parseInt(hx.substr(4, 2), 16);
-      const mr = Math.round(r * 0.66 + 34 * 0.34), mg = Math.round(gg * 0.66 + 36 * 0.34), mb = Math.round(b * 0.66 + 42 * 0.34);
-      const lum = (0.299 * mr + 0.587 * mg + 0.114 * mb) / 255;
-      const txt = lum > 0.62 ? '#15151c' : '#ffffff';
-      const bg = `rgb(${mr},${mg},${mb})`;
-      return {
-        label: it,
-        icon: slug ? `https://cdn.simpleicons.org/${slug}/ffffff` : null,
-        iconOpacity: txt === '#15151c' ? 0.55 : 0.92,
-        style: `display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;border:1px solid rgba(255,255,255,.08);background:${bg};color:${txt};`,
-      };
-    }),
+    chips: g.items.map((it) => techChip(it)),
   }));
 }
 
