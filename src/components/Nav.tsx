@@ -30,6 +30,7 @@ function SunMoon({ isDark }: { isDark: boolean }) {
 export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggleLang }: Props) {
   const [open, setOpen] = useState(false);
   const navTo = (p: Page) => { setOpen(false); go(p); };
+  const nl = langLabel === 'EN'; // current language is Dutch when the toggle offers EN
 
   const links: { p: Page; label: string }[] = [
     { p: 'home', label: s.navHome },
@@ -96,14 +97,16 @@ export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggl
           ))}
         </div>
         <div className="nav-menu-foot">
-          <span className="icon-btn" {...clickable(toggleLang, 'Taal wisselen / switch language')} style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; color:var(--accent); border:1px solid var(--line); border-radius:30px; padding:9px 15px;")}>
-            {langLabel}
+          <span className="nav-menu-btn" {...clickable(toggleLang, 'Taal wisselen / switch language')}>
+            {nl ? 'Taal' : 'Language'}
+            <span className="nm-right">{langLabel}</span>
           </span>
-          <span className="icon-btn" {...clickable(toggleTheme, 'Thema wisselen')} style={sx('display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; background:var(--surface); border:1px solid var(--line); border-radius:12px; color:var(--ink);')}>
+          <span className="nav-menu-btn" {...clickable(toggleTheme, 'Thema wisselen')}>
             <SunMoon isDark={isDark} />
+            {nl ? 'Thema' : 'Theme'}
           </span>
-          <span className="btn" {...clickable(() => navTo('contact'))} style={sx('display:inline-flex; align-items:center; gap:8px; background:var(--surface); color:var(--ink); border:1px solid var(--line); padding:11px 18px; border-radius:12px; font-size:14px; font-weight:600;')}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span className="nav-menu-btn" {...clickable(() => navTo('contact'))}>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             {s.cv}
           </span>
         </div>
