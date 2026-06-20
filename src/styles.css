@@ -46,7 +46,6 @@ textarea:focus-visible,
 .jstep:nth-child(4) { animation-delay: .29s; }
 .jstep:nth-child(5) { animation-delay: .37s; }
 @keyframes jrise { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
-@keyframes jring { 0% { transform: scale(.85); opacity: .55; } 100% { transform: scale(1.6); opacity: 0; } }
 .jchip { transition: transform .15s ease; }
 .jchip:hover { transform: translateY(-2px); }
 
@@ -62,9 +61,6 @@ textarea:focus-visible,
 .tl-node {
   position: relative; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
   background: var(--surface); border: 2px solid var(--c); z-index: 1;
-}
-.tl-item.current .tl-node::after {
-  content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--c); animation: jring 2.6s ease-out infinite;
 }
 .tl-year { display: flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; letter-spacing: .04em; color: var(--c); margin-bottom: 7px; }
 .tl-now { font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--accentink); background: var(--accent); padding: 2px 7px; border-radius: 20px; }
