@@ -54,6 +54,20 @@ textarea:focus-visible,
 .jchip { transition: transform .15s ease; }
 .jchip:hover { transform: translateY(-2px); }
 
+/* On desktop, vertically centre a page's first section in the viewport so it
+   reads cleanly on open. When the content is taller than the viewport the block
+   simply grows and starts under the nav — it never clips the top. */
+@media (min-width: 861px) {
+  .fold-center {
+    min-height: calc(100vh - 77px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+}
+
 /* ===== home: now playing ===== */
 .np-row { transition: transform .25s cubic-bezier(.2, .7, .2, 1), filter .25s; }
 .np-row:hover { transform: translateX(3px); filter: brightness(1.08); }
