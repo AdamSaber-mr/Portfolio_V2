@@ -61,7 +61,7 @@ textarea:focus-visible,
 .tl-item { position: relative; display: grid; grid-template-columns: 52px 1fr; gap: 22px; align-items: start; padding: 14px 0; }
 .tl-node {
   position: relative; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  background: var(--surface); border: 2px solid var(--c); box-shadow: 0 0 18px -3px var(--c); z-index: 1;
+  background: var(--surface); border: 2px solid var(--c); z-index: 1;
 }
 .tl-item.current .tl-node::after {
   content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--c); animation: jring 2.6s ease-out infinite;
