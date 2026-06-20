@@ -38,12 +38,7 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
         {/* header */}
         <div data-reveal="" style={sx('display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin-top:26px;')}>
           <div>
-            <div style={sx("display:flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent); text-transform:uppercase; letter-spacing:.06em;")}>
-              <span>{catLabel(p.cat, s)}</span>
-              <span style={sx('width:4px; height:4px; border-radius:50%; background:var(--faint); display:block;')}></span>
-              <span style={sx('color:var(--muted);')}>{p.year}</span>
-            </div>
-            <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(38px,6vw,72px); line-height:1; font-weight:700; letter-spacing:-.03em; margin-top:14px;")}>{p.name}</h1>
+            <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(38px,6vw,72px); line-height:1; font-weight:700; letter-spacing:-.03em;")}>{p.name}</h1>
           </div>
           <div style={sx('display:flex; gap:12px; flex-wrap:wrap;')}>
             <a className="btn" href={p.live || undefined} target="_blank" rel="noopener noreferrer" style={sx('display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:var(--accentink); padding:13px 22px; border-radius:30px; font-size:14px; font-weight:600; text-decoration:none;')}>
@@ -65,7 +60,7 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
         </div>
 
         {/* body */}
-        <div className="pd-grid" data-reveal="" style={sx('display:grid; grid-template-columns:1.7fr 1fr; gap:48px; margin-top:48px; align-items:start;')}>
+        <div className="pd-grid" data-reveal="" style={sx('display:grid; grid-template-columns:1.7fr 1fr; gap:48px; margin-top:48px; align-items:center;')}>
           {/* main column */}
           <div>
             <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; letter-spacing:-.01em;")}>{s.pdOverview}</h2>
