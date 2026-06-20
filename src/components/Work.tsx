@@ -56,9 +56,13 @@ export default function Work({ s, lang, filter, setFilter, slide, setSlide, open
                 const op = ab > 2.4 ? 0 : Number((1 - ab * 0.16).toFixed(2));
                 const z = 100 - Math.round(ab * 10);
                 const style = `position:absolute; left:50%; top:0; width:300px; height:418px; margin-left:-150px; transform:translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scv.toFixed(3)}); opacity:${op}; z-index:${z}; pointer-events:${ab > 2.4 ? 'none' : 'auto'}; cursor:pointer;`;
-                // mouse-only: keyboard users use the arrows/dots below + the button (off-screen cards must not be focusable)
+                // the centred card opens the project (also operable via keyboard); the side
+                // cards only slide into focus and stay non-focusable
+                const interaction = off === 0
+                  ? clickable(() => openDetail(c.name), `${s.pdView}: ${c.name}`)
+                  : { onClick: () => setSlide(i), 'aria-hidden': ab > 2.4 };
                 return (
-                  <div key={i} className="work3d-card" onClick={() => (off === 0 ? openDetail(c.name) : setSlide(i))} aria-hidden={ab > 2.4} style={sx(style)}>
+                  <div key={i} className="work3d-card" {...interaction} style={sx(style)}>
                     <div style={sx(`position:relative; width:100%; height:100%; border-radius:20px; overflow:hidden; background:${c.color}; border:1px solid rgba(255,255,255,.08); box-shadow:0 36px 70px -24px rgba(0,0,0,.65); display:flex; flex-direction:column; justify-content:space-between;`)}>
                       <img src={asset(c.image)} alt={`${c.name} — screenshot`} loading="lazy" style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${c.imgPos}; display:block;`)} />
                       <div style={sx('position:relative; z-index:1; padding:20px 18px 22px; margin-top:auto; background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0));')}>
@@ -85,13 +89,6 @@ export default function Work({ s, lang, filter, setFilter, slide, setSlide, open
           <div style={sx('max-width:600px; margin:24px auto 4px; text-align:center; min-height:62px;')}>
             <p style={sx('font-size:16.5px; line-height:1.6; color:var(--ink2);')}>{act?.blurb}</p>
             <div style={sx('margin-top:12px;')}>{act && <TechChips stack={act.stack} justify="center" />}</div>
-            {act && (
-              <div style={sx('margin-top:20px;')}>
-                <span className="btn" {...clickable(() => openDetail(act.name), `${s.pdView}: ${act.name}`)} style={sx('display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:var(--accentink); padding:12px 22px; border-radius:30px; font-size:14px; font-weight:600; cursor:pointer;')}>
-                  {s.pdView} <span aria-hidden="true">→</span>
-                </span>
-              </div>
-            )}
           </div>
         </div>
       </div>
