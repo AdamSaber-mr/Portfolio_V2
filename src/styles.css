@@ -147,8 +147,9 @@ textarea:focus-visible,
   .nav-burger { display: flex; }
   .nav-menu { display: flex; }
 
-  /* smaller hero portrait so it doesn't dominate the fold */
-  .hero-photo { max-width: 230px !important; justify-self: start !important; }
+  /* hero portrait: full content width but kept short (wide crop), face stays in view */
+  .hero-photo { max-width: none !important; justify-self: stretch !important; aspect-ratio: 16 / 10 !important; }
+  .hero-photo img { object-position: center 28% !important; }
 
   /* shrink the 3D project carousel so the cards aren't oversized */
   .work3d-stage { height: 330px !important; }
