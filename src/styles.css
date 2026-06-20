@@ -130,7 +130,7 @@ textarea:focus-visible,
 .nav-menu.open .nav-mlink:nth-child(4) { transition-delay: .28s; }
 .nav-menu-foot { display: flex; flex-direction: column; align-items: stretch; gap: 12px; margin-top: 40px; opacity: 0; transform: translateY(16px); transition: opacity .45s ease .32s, transform .45s cubic-bezier(.2, .7, .2, 1) .32s; }
 .nav-menu.open .nav-menu-foot { opacity: 1; transform: none; }
-.nav-menu-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 17px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; font-size: 16px; font-weight: 600; color: var(--ink); cursor: pointer; transition: border-color .2s ease; }
+.nav-menu-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 17px 20px; background: var(--card); border: 1px solid var(--card-line); border-radius: 14px; font-size: 16px; font-weight: 600; color: var(--card-ink); cursor: pointer; transition: border-color .2s ease; }
 .nav-menu-btn:active { border-color: var(--accent); }
 .nav-menu-btn .nm-right { margin-left: auto; color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 14px; }
 
