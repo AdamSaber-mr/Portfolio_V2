@@ -151,7 +151,7 @@ export const PROJECTS: Project[] = [
     } },
   { name: 'Portfolio v1', cat: 'front', ratio: '3/4', color: '#26222c', image: '/assets/projects/portfolio.jpg', imgPos: 'center top', stack: 'HTML · CSS · JS',
     blurb: { nl: 'Mijn eerste portfolio, waar het bouwen begon.', en: 'My first portfolio, where the building began.' },
-    year: '2022', repo: 'https://github.com/adamsaber-mr/portfolio', live: '',
+    year: '2022', repo: 'https://github.com/AdamSaber-mr/portfolio_mr', live: 'https://adamsaber-mr.github.io/portfolio_mr/',
     role: { nl: 'Ontwerp & ontwikkeling', en: 'Design & development' },
     overview: {
       nl: 'Mijn allereerste portfolio — waar het bouwen begon. Volledig met de hand gemaakt in HTML, CSS en JavaScript, en de basis voor alles wat daarna kwam.',
