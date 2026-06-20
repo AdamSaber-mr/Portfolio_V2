@@ -91,7 +91,7 @@ export interface Project {
 export const PROJECTS: Project[] = [
   { name: 'RapidCars', cat: 'front', ratio: '4/3', color: '#1b1d22', image: '/assets/projects/rapidcars.jpg', imgPos: 'left top', stack: 'React · TypeScript · Vite',
     blurb: { nl: 'Autoverhuur-webapp voor een echte klant: snel boeken, sportieve auto’s.', en: 'Car-rental web app for a real client: fast booking, sporty cars.' },
-    year: '2024', repo: 'https://github.com/adamsaber-mr/rapidcars', live: '',
+    year: '2024', repo: 'https://github.com/AdamSaber-mr/rapid_cars', live: 'https://adamsaber-mr.github.io/rapid_cars/',
     role: { nl: 'Front-end ontwikkelaar', en: 'Front-end developer' },
     overview: {
       nl: 'RapidCars is een autoverhuur-platform dat ik voor een echte klant bouwde. Bezoekers bladeren door een vloot sportieve auto’s en boeken in een paar stappen. De focus lag op snelheid, een strakke flow en een interface die vertrouwen wekt.',
@@ -103,7 +103,7 @@ export const PROJECTS: Project[] = [
     } },
   { name: 'Nike Business Anatomy', cat: 'data', ratio: '1/1', color: '#0e1b2b', image: '/assets/projects/nike.png', imgPos: 'left top', stack: 'React · D3 · Chart.js',
     blurb: { nl: 'Interactief dashboard over Nike’s supply chain en revenue.', en: 'Interactive dashboard on Nike’s supply chain and revenue.' },
-    year: '2024', repo: 'https://github.com/adamsaber-mr/nike-business-anatomy', live: '',
+    year: '2024', repo: 'https://github.com/AdamSaber-mr/Business-Anatomy', live: 'https://adamsaber-mr.github.io/Business_Anatomy/',
     role: { nl: 'Front-end & data-visualisatie', en: 'Front-end & data viz' },
     overview: {
       nl: 'Een interactief dashboard dat Nike’s business ontleedt: van supply chain tot omzet. Ruwe data wordt vertaald naar grafieken waarmee je trends en verbanden in één oogopslag ziet.',
@@ -115,7 +115,7 @@ export const PROJECTS: Project[] = [
     } },
   { name: 'Luxora', cat: 'front', ratio: '3/4', color: '#2f3a2c', image: '/assets/projects/luxora.jpg', imgPos: 'left top', stack: 'Next.js · React · TS',
     blurb: { nl: 'Marketplace voor exclusieve luxeproducten met een volledige front-end.', en: 'Marketplace for exclusive luxury products with a full front-end.' },
-    year: '2024', repo: 'https://github.com/adamsaber-mr/luxora', live: '',
+    year: '2024', repo: 'https://github.com/itsamestachu/luxora', live: 'https://luxora.pages.dev/',
     role: { nl: 'Front-end ontwikkelaar', en: 'Front-end developer' },
     overview: {
       nl: 'Luxora is een marktplaats voor exclusieve luxeproducten. Ik bouwde de volledige front-end met een verzorgde, premium uitstraling en een vloeiende browse-ervaring.',
@@ -127,7 +127,7 @@ export const PROJECTS: Project[] = [
     } },
   { name: 'Yume Ramen', cat: 'full', ratio: '4/3', color: '#3a1f22', image: '/assets/projects/yume-ramen.jpg', imgPos: 'left top', stack: 'PHP · MySQL · Python',
     blurb: { nl: 'Food-delivery webapp: bestellen, afrekenen en beheer voor de keuken.', en: 'Food-delivery web app: ordering, checkout and a kitchen dashboard.' },
-    year: '2023', repo: 'https://github.com/adamsaber-mr/yume-ramen', live: '',
+    year: '2023', repo: 'https://github.com/AdamSaber-mr/Ramen_DeliveryApp', live: 'https://102896.stu.sd-lab.nl/schooljaar2/1_beroeps/Ramen_DeliveryApp/public/1_index.php',
     role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
     overview: {
       nl: 'Yume Ramen is een food-delivery webapp: klanten bestellen en rekenen af, terwijl de keuken via een dashboard de bestellingen beheert. Een full-stack project van interface tot database.',
@@ -139,7 +139,7 @@ export const PROJECTS: Project[] = [
     } },
   { name: 'CookUp', cat: 'full', ratio: '1/1', color: '#243027', image: '/assets/projects/cookup.jpg', imgPos: 'center top', stack: 'PHP · MySQL · CRUD',
     blurb: { nl: 'Receptenplatform met accounts, opslaan en categorieën.', en: 'Recipe platform with accounts, saving and categories.' },
-    year: '2023', repo: 'https://github.com/adamsaber-mr/cookup', live: '',
+    year: '2023', repo: 'https://github.com/AdamSaber-mr/Recipe_Website', live: 'https://102896.stu.sd-lab.nl/schooljaar2/1_beroeps/stop_de_ontkoking/mamp_bp/index.php',
     role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
     overview: {
       nl: 'CookUp is een receptenplatform waar gebruikers een account maken, recepten opslaan en alles netjes per categorie ordenen. Draait op een PHP-back-end met volledige CRUD.',
