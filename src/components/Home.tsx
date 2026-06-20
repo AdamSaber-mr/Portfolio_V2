@@ -135,7 +135,7 @@ export default function Home({ s, lang, go, openDetail }: Props) {
 
       {/* "Right now" banner between the projects and the music */}
       <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:8px 56px 8px;')}>
-        <div className="now-banner" data-reveal="" style={sx('display:flex; align-items:center; justify-content:space-between; gap:30px 44px; flex-wrap:wrap; background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:38px 44px;')}>
+        <div className="now-banner" data-reveal="" style={sx('display:flex; align-items:center; justify-content:space-between; gap:32px 44px; flex-wrap:wrap; background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:52px 44px;')}>
           <LiveStatus s={s} />
           {currently.map((c, i) => (
             <NowCell key={i} icon={c.icon} label={c.label} value={c.value} />
