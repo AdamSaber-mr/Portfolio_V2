@@ -193,7 +193,7 @@ export function catLabel(cat: Cat, s: Strings): string {
  * song, change its title/artist/dur and paste a new `art` URL (or leave it — the
  * play button just opens a Spotify search for "title artist").
  */
-export interface Track { title: string; artist: string; dur: string; art: string; color: string; }
+export interface Track { title: string; artist: string; dur: string; art: string; color: string; id?: string; preview?: string; }
 
 export const FEATURED_TRACK: Track = {
   title: 'LIMBO', artist: 'keshi', dur: '3:32', color: '#1f5562',
@@ -225,6 +225,61 @@ export const TRACKS_TOP: Track[] = [
 /** Open a Spotify search for a track (no API/login needed). */
 export function spotifySearchUrl(t: Track): string {
   return `https://open.spotify.com/search/${encodeURIComponent(`${t.title} ${t.artist}`)}`;
+}
+
+/* ---------- home: live chart tracks (Apple "Top Songs" RSS, no API key) ---------- */
+const TRACK_TINTS = ['#1f5562', '#2a3d5c', '#5c4632', '#3a4a32', '#5c3340', '#3a3f4c', '#4a3a2e', '#463a5c', '#2e4a4a'];
+
+/** Upscale an Apple artwork URL (e.g. .../170x170bb.png) to a sharper size. */
+function biggerArt(url: string): string {
+  return url.replace(/\/\d+x\d+bb\.(png|jpg)/, '/512x512bb.$1');
+}
+
+function shuffle<T>(a: T[]): T[] {
+  const r = a.slice();
+  for (let i = r.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [r[i], r[j]] = [r[j], r[i]];
+  }
+  return r;
+}
+
+export interface ChartTracks { featured: Track; recent: Track[]; top: Track[]; }
+
+/**
+ * Fetch popular songs from Apple's public Top Songs RSS feed (CORS-enabled, no key).
+ * Each track carries a 30-second preview URL that plays straight on the page.
+ * Returns null on any failure so the caller can fall back to the static list.
+ */
+export async function fetchChartTracks(): Promise<ChartTracks | null> {
+  try {
+    const r = await fetch('https://itunes.apple.com/us/rss/topsongs/limit=50/json');
+    if (!r.ok) return null;
+    const j: any = await r.json();
+    const entries: any[] = j?.feed?.entry || [];
+    const tracks: Track[] = entries
+      .map((e: any, i: number): Track => {
+        const imgs: any[] = e['im:image'] || [];
+        const art = imgs.length ? biggerArt(imgs[imgs.length - 1].label) : '';
+        const prev = (e.link || []).find((l: any) => l?.attributes?.type === 'audio/x-m4a');
+        return {
+          id: e.id?.attributes?.['im:id'] || String(i),
+          title: e['im:name']?.label || '',
+          artist: e['im:artist']?.label || '',
+          dur: '0:30',
+          art,
+          color: TRACK_TINTS[i % TRACK_TINTS.length],
+          preview: prev?.attributes?.href || '',
+        };
+      })
+      .filter((t) => t.preview && t.art);
+    if (tracks.length < 6) return null;
+    const top = tracks.slice(0, 4); // genuine chart order (most popular)
+    const rest = shuffle(tracks.slice(4)); // randomised each load
+    return { featured: rest[0], recent: rest.slice(1, 5), top };
+  } catch {
+    return null;
+  }
 }
 
 /* ---------- home: currently ---------- */
