@@ -37,7 +37,7 @@ export default function About({ s, lang, go }: Props) {
 
       <div className="page-pad" style={sx('max-width:1320px; margin:0 auto; padding:0 56px 10px;')}>
         {/* journey — vertical timeline */}
-        <div data-reveal="" style={sx('padding:54px 0; border-bottom:1px solid var(--line);')}>
+        <div data-reveal="" style={sx('padding:54px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:40px;")}>{s.journeyTitle}</h2>
           <div className="tl">
             {journey.map((j, i) => (
@@ -46,10 +46,7 @@ export default function About({ s, lang, go }: Props) {
                   {j.slug && <img src={`https://cdn.simpleicons.org/${j.slug}/${j.color.replace('#', '')}`} alt="" width={24} height={24} />}
                 </div>
                 <div style={sx('padding-top:4px;')}>
-                  <div className="tl-year">
-                    {j.year}
-                    {j.current && <span className="tl-now">{s.workTitle === 'Werk' ? 'NU' : 'NOW'}</span>}
-                  </div>
+                  <div className="tl-year">{j.year}</div>
                   <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:clamp(17px,2vw,21px); letter-spacing:-.01em; margin-bottom:7px;")}>{j.title}</h3>
                   <p style={sx('font-size:14.5px; color:var(--muted); line-height:1.6; max-width:560px;')}>{j.body}</p>
                 </div>
