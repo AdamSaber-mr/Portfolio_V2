@@ -48,8 +48,8 @@ export default function Work({ s, lang, filter, setFilter, slide, setSlide, open
         </div>
 
         <div style={sx('position:relative; padding:10px 0 6px;')}>
-          <div style={sx('position:relative; height:430px; perspective:2000px;')}>
-            <div style={sx('position:absolute; inset:0; transform-style:preserve-3d;')}>
+          <div className="work3d-stage" style={sx('position:relative; height:430px; perspective:2000px;')}>
+            <div className="work3d-deck" style={sx('position:absolute; inset:0; transform-style:preserve-3d;')}>
               {vis.map((c, i) => {
                 const off = i - active, ab = Math.abs(off);
                 const tx = off * 300, tz = -ab * 230, ry = 0, scv = Math.max(0.62, 1 - ab * 0.08);

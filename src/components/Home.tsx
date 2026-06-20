@@ -105,7 +105,7 @@ export default function Home({ s, lang, go, openDetail }: Props) {
               <span className="btn" {...clickable(() => go('about'))} style={sx('border:1px solid var(--line); color:var(--ink); padding:13px 23px; border-radius:30px; font-size:15px; font-weight:500;')}>{s.heroCta2}</span>
             </div>
           </div>
-          <div data-reveal="" style={sx('position:relative; width:100%; max-width:440px; justify-self:end; aspect-ratio:1/1; border-radius:28px; overflow:hidden; border:1px solid var(--line); box-shadow:0 40px 90px -30px rgba(0,0,0,.6); z-index:1;')}>
+          <div data-reveal="" className="hero-photo" style={sx('position:relative; width:100%; max-width:440px; justify-self:end; aspect-ratio:1/1; border-radius:28px; overflow:hidden; border:1px solid var(--line); box-shadow:0 40px 90px -30px rgba(0,0,0,.6); z-index:1;')}>
             <img src={asset('assets/me_header.png')} alt="Adam Saber — portret" style={sx('width:100%; height:100%; object-fit:cover; display:block;')} />
             <div style={sx('position:absolute; inset:0; background:linear-gradient(135deg, rgba(139,124,255,.12), transparent 55%); pointer-events:none;')}></div>
           </div>

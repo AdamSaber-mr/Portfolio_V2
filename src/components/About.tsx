@@ -22,10 +22,10 @@ export default function About({ s, lang, go }: Props) {
         </div>
 
         <div className="about-bio" style={sx('display:grid; grid-template-columns:1.1fr .82fr; gap:56px; align-items:center; padding:26px 0 22px;')}>
-          <div data-reveal="" style={sx('display:flex; flex-direction:column; gap:22px;')}>
+          <div data-reveal="" className="about-text" style={sx('display:flex; flex-direction:column; gap:22px;')}>
             <p style={sx('font-size:18px; line-height:1.7; color:var(--ink);')}>{s.aboutP1}</p>
             <p style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP2}</p>
-            <p style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP3}</p>
+            <p className="about-hide-mobile" style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP3}</p>
           </div>
           <div data-reveal="" style={sx('display:flex; justify-content:center; align-items:center;')}>
             <div style={sx('width:100%; max-width:360px; border-radius:22px; overflow:hidden; border:1px solid var(--line); box-shadow:0 34px 64px -26px rgba(0,0,0,.55);')}>
