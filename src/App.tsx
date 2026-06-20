@@ -50,6 +50,7 @@ export default function App() {
 
   const openDetail = (name: string) => {
     setOpenProject(name);
+    setPage('work'); // so the detail view shows even when opened from the home teaser
     window.scrollTo(0, 0);
   };
 
@@ -95,7 +96,7 @@ export default function App() {
         toggleLang={() => setLang((l) => (l === 'nl' ? 'en' : 'nl'))}
       />
 
-      {page === 'home' && <Home s={s} lang={lang} go={go} />}
+      {page === 'home' && <Home s={s} lang={lang} go={go} openDetail={openDetail} />}
       {page === 'work' &&
         (detail ? (
           <ProjectDetail s={s} project={loc(detail, lang)} back={closeDetail} go={go} />
