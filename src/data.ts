@@ -306,39 +306,36 @@ export function buildCurrently(s: Strings): CurrentlyItem[] {
   ];
 }
 
-/* ---------- journey ---------- */
-export interface JourneyStep { phase: string; title: string; body: string; }
+/* ---------- journey (vertical timeline) ---------- */
+export interface JourneyStep { title: string; body: string; }
 export interface JourneyNode extends JourneyStep {
-  color: string; num: string; xPct: number; top: number; cx: number; cy: number;
+  color: string; slug: string; year: string; current: boolean;
 }
 
 const JCOL = ['#e34f26', '#777bb4', '#61dafb', '#ff2d20'];
+const JSLUG = ['html5', 'php', 'react', 'laravel'];
+const JYEAR = ['2022', '2023', '2024', ''];
 
-export function buildJourney(lang: Lang): { nodes: JourneyNode[]; wavePath: string } {
+export function buildJourney(lang: Lang): JourneyNode[] {
   const journey: JourneyStep[] = lang === 'nl' ? [
-    { phase: 'Start', title: 'HTML, CSS & JavaScript', body: 'Eerste sites, interactie en de basis van het web.' },
-    { phase: '01', title: 'PHP & MySQL', body: 'Back-end, databases en CRUD-applicaties.' },
-    { phase: '02', title: 'React & TypeScript', body: 'Moderne component-gedreven front-ends.' },
-    { phase: 'Nu', title: 'Laravel', body: 'Full-stack apps bouwen met een modern PHP-framework.' },
+    { title: 'HTML, CSS & JavaScript', body: 'Eerste sites, interactie en de basis van het web.' },
+    { title: 'PHP & MySQL', body: 'Back-end, databases en CRUD-applicaties.' },
+    { title: 'React & TypeScript', body: 'Moderne component-gedreven front-ends.' },
+    { title: 'Laravel', body: 'Full-stack apps bouwen met een modern PHP-framework.' },
   ] : [
-    { phase: 'Start', title: 'HTML, CSS & JavaScript', body: 'First sites, interaction and the basics of the web.' },
-    { phase: '01', title: 'PHP & MySQL', body: 'Back-end, databases and CRUD applications.' },
-    { phase: '02', title: 'React & TypeScript', body: 'Modern component-driven front-ends.' },
-    { phase: 'Now', title: 'Laravel', body: 'Building full-stack apps with a modern PHP framework.' },
+    { title: 'HTML, CSS & JavaScript', body: 'First sites, interaction and the basics of the web.' },
+    { title: 'PHP & MySQL', body: 'Back-end, databases and CRUD applications.' },
+    { title: 'React & TypeScript', body: 'Modern component-driven front-ends.' },
+    { title: 'Laravel', body: 'Building full-stack apps with a modern PHP framework.' },
   ];
-  const n = journey.length;
-  const nodes: JourneyNode[] = journey.map((j, i) => {
-    const xPct = 12 + i * (76 / (n - 1));
-    const cy = 26 + i * (80 / (n - 1));
-    return { ...j, color: JCOL[i] || '#8b7cff', num: String(i + 1), xPct, top: cy - 23, cx: xPct * 10, cy };
-  });
-  let wavePath = 'M 0 ' + (nodes[0].cy - 12).toFixed(1) + ' L ' + nodes[0].cx.toFixed(1) + ' ' + nodes[0].cy.toFixed(1);
-  for (let i = 1; i < nodes.length; i++) {
-    const mx = ((nodes[i - 1].cx + nodes[i].cx) / 2).toFixed(1);
-    wavePath += ' C ' + mx + ' ' + nodes[i - 1].cy.toFixed(1) + ' ' + mx + ' ' + nodes[i].cy.toFixed(1) + ' ' + nodes[i].cx.toFixed(1) + ' ' + nodes[i].cy.toFixed(1);
-  }
-  wavePath += ' L 1000 ' + (nodes[nodes.length - 1].cy + 12).toFixed(1);
-  return { nodes, wavePath };
+  const last = journey.length - 1;
+  return journey.map((j, i) => ({
+    ...j,
+    color: JCOL[i] || '#8b7cff',
+    slug: JSLUG[i] || '',
+    year: JYEAR[i] || (lang === 'nl' ? 'Nu' : 'Now'),
+    current: i === last,
+  }));
 }
 
 /* ---------- skills / tech chips ---------- */

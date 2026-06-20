@@ -39,8 +39,6 @@ textarea:focus-visible,
   border-radius: 4px;
 }
 
-.jwave-pulse { stroke-dasharray: 70 930; stroke-dashoffset: 0; animation: jwaveflow 3s linear infinite; }
-@keyframes jwaveflow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -1000; } }
 .jstep { animation: jrise .55s cubic-bezier(.2, .7, .2, 1) both; }
 .jstep:nth-child(1) { animation-delay: .05s; }
 .jstep:nth-child(2) { animation-delay: .13s; }
@@ -48,11 +46,28 @@ textarea:focus-visible,
 .jstep:nth-child(4) { animation-delay: .29s; }
 .jstep:nth-child(5) { animation-delay: .37s; }
 @keyframes jrise { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
-.jnode { position: relative; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; color: var(--c); background: var(--surface); border: 2px solid var(--c); z-index: 2; box-shadow: 0 0 18px -2px var(--c); }
-.jnode::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--c); opacity: .5; animation: jring 2.6s ease-out infinite; }
 @keyframes jring { 0% { transform: scale(.85); opacity: .55; } 100% { transform: scale(1.6); opacity: 0; } }
 .jchip { transition: transform .15s ease; }
 .jchip:hover { transform: translateY(-2px); }
+
+/* ===== about: development journey (vertical timeline) ===== */
+.tl { position: relative; }
+/* the gradient spine, running through the node centres */
+.tl::before {
+  content: ''; position: absolute; left: 25px; top: 14px; bottom: 28px; width: 2.5px; border-radius: 2px;
+  background: linear-gradient(180deg, #e34f26, #777bb4 36%, #61dafb 68%, #ff2d20);
+  opacity: .6;
+}
+.tl-item { position: relative; display: grid; grid-template-columns: 52px 1fr; gap: 22px; align-items: start; padding: 14px 0; }
+.tl-node {
+  position: relative; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: var(--surface); border: 2px solid var(--c); box-shadow: 0 0 18px -3px var(--c); z-index: 1;
+}
+.tl-item.current .tl-node::after {
+  content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--c); animation: jring 2.6s ease-out infinite;
+}
+.tl-year { display: flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; letter-spacing: .04em; color: var(--c); margin-bottom: 7px; }
+.tl-now { font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--accentink); background: var(--accent); padding: 2px 7px; border-radius: 20px; }
 
 /* On desktop, vertically centre a page's first section in the viewport so it
    reads cleanly on open. When the content is taller than the viewport the block
@@ -103,7 +118,6 @@ textarea:focus-visible,
      instead of wrapping — force them to shrink to the column */
   .hero-grid > *, .about-bio > *, .contact-grid > *, .pd-grid > *, .home-cards > *, .np-grid > * { min-width: 0; }
   .home-cards { gap: 20px !important; }
-  .journey-steps { grid-template-columns: 1fr 1fr !important; row-gap: 24px !important; }
   /* the contact view centres vertically on desktop; when it no longer fits,
      align to top so there is no huge empty gap above the heading */
   .contact-wrap { min-height: 0 !important; justify-content: flex-start !important; padding-top: 40px !important; padding-bottom: 64px !important; }
