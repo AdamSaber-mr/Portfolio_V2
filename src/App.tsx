@@ -5,8 +5,10 @@ import { useReveal } from './hooks/useReveal';
 import Nav from './components/Nav';
 import Home from './components/Home';
 import Work from './components/Work';
+import ProjectDetail from './components/ProjectDetail';
 import About from './components/About';
 import Contact, { type ContactForm } from './components/Contact';
+import { PROJECTS, loc } from './data';
 
 // three.js is heavy; load the animated background in its own chunk after paint
 const AuroraBackground = lazy(() => import('./components/AuroraBackground'));
@@ -21,12 +23,13 @@ export default function App() {
   const [lang, setLang] = useState<Lang>('nl');
   const [filter, setFilterState] = useState<Filter>('all');
   const [slide, setSlide] = useState<number | null>(null);
+  const [openProject, setOpenProject] = useState<string | null>(null);
   const [form, setFormState] = useState<ContactForm>(emptyForm);
   const [sent, setSent] = useState(false);
 
   const s = STR[lang];
 
-  useReveal(`${page}-${lang}`);
+  useReveal(`${page}-${lang}-${openProject ?? ''}`);
 
   // keep the document background in sync with the theme (avoids white flash)
   useEffect(() => {
@@ -38,11 +41,24 @@ export default function App() {
   }, [lang]);
 
   const go = (p: Page) => {
+    setOpenProject(null);
     if (page === p) return;
     if (p === 'work') setSlide(null);
     setPage(p);
     window.scrollTo(0, 0);
   };
+
+  const openDetail = (name: string) => {
+    setOpenProject(name);
+    window.scrollTo(0, 0);
+  };
+
+  const closeDetail = () => {
+    setOpenProject(null);
+    window.scrollTo(0, 0);
+  };
+
+  const detail = openProject ? PROJECTS.find((p) => p.name === openProject) ?? null : null;
 
   const setFilter = (f: Filter) => {
     setFilterState(f);
@@ -80,9 +96,12 @@ export default function App() {
       />
 
       {page === 'home' && <Home s={s} lang={lang} go={go} />}
-      {page === 'work' && (
-        <Work s={s} lang={lang} filter={filter} setFilter={setFilter} slide={slide} setSlide={setSlide} go={go} />
-      )}
+      {page === 'work' &&
+        (detail ? (
+          <ProjectDetail s={s} project={loc(detail, lang)} back={closeDetail} go={go} />
+        ) : (
+          <Work s={s} lang={lang} filter={filter} setFilter={setFilter} slide={slide} setSlide={setSlide} openDetail={openDetail} go={go} />
+        ))}
       {page === 'about' && <About s={s} lang={lang} go={go} />}
       {page === 'contact' && <Contact s={s} lang={lang} form={form} setForm={setForm} submit={submit} sent={sent} />}
     </div>
