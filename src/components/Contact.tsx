@@ -17,8 +17,8 @@ interface Props {
   sent: boolean;
 }
 
-const inputStyle = 'width:100%; padding:13px 14px; background:var(--bg); border:1px solid var(--line); border-radius:8px; font-size:15px; color:var(--ink);';
-const labelStyle = "display:block; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin-bottom:9px;";
+const inputStyle = 'width:100%; padding:13px 14px; background:var(--card-field); border:1px solid var(--card-line); border-radius:8px; font-size:15px; color:var(--card-ink);';
+const labelStyle = "display:block; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--card-faint); margin-bottom:9px;";
 
 export default function Contact({ s, lang, form, setForm, submit, sent }: Props) {
   const links = buildContactLinks(lang);
@@ -48,12 +48,12 @@ export default function Contact({ s, lang, form, setForm, submit, sent }: Props)
             </div>
           </div>
 
-          <div data-reveal="" style={sx('background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:30px;')}>
+          <div data-reveal="" style={sx('background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:14px; padding:30px;')}>
             {sent ? (
               <div style={sx('padding:40px 0; text-align:center;')}>
                 <div style={sx('font-size:34px; margin-bottom:14px; color:var(--accent);')}>✓</div>
                 <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:600; margin-bottom:8px;")}>{s.sentTitle}</h3>
-                <p style={sx('font-size:15px; color:var(--muted);')}>{s.sentBody}</p>
+                <p style={sx('font-size:15px; color:var(--card-muted);')}>{s.sentBody}</p>
               </div>
             ) : (
               <form onSubmit={(e) => { e.preventDefault(); submit(); }}>
@@ -72,7 +72,7 @@ export default function Contact({ s, lang, form, setForm, submit, sent }: Props)
                 <label htmlFor="cf-msg" style={sx(labelStyle)}>{s.fMsg}</label>
                 <textarea id="cf-msg" name="message" value={form.fMsg} onChange={(e) => setForm({ fMsg: e.target.value })} rows={5} placeholder={s.phMsg} style={sx(inputStyle + ' resize:vertical; margin-bottom:20px;')}></textarea>
                 <button type="submit" className="btn" style={sx('display:block; width:100%; text-align:center; cursor:pointer; background:var(--accent); color:var(--accentink); padding:15px; border-radius:30px; font-size:15px; font-weight:600;')}>{s.send} →</button>
-                <p style={sx('font-size:12.5px; color:var(--faint); line-height:1.5; text-align:center; margin-top:14px;')}>{s.formNote}</p>
+                <p style={sx('font-size:12.5px; color:var(--card-faint); line-height:1.5; text-align:center; margin-top:14px;')}>{s.formNote}</p>
               </form>
             )}
           </div>

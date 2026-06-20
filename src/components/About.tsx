@@ -28,7 +28,7 @@ export default function About({ s, lang, go }: Props) {
             <p className="about-hide-mobile" style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP3}</p>
           </div>
           <div data-reveal="" style={sx('display:flex; justify-content:center; align-items:center;')}>
-            <div style={sx('width:100%; max-width:360px; border-radius:22px; overflow:hidden; border:1px solid var(--line); box-shadow:0 34px 64px -26px rgba(0,0,0,.55);')}>
+            <div style={sx('width:100%; max-width:360px; border-radius:22px; overflow:hidden; border:1px solid var(--line); box-shadow:0 34px 64px -26px var(--shadow);')}>
               <img src={asset('assets/me_3.png')} alt="Adam Saber aan het werk" style={sx('width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 38%; display:block;')} />
             </div>
           </div>
@@ -61,10 +61,10 @@ export default function About({ s, lang, go }: Props) {
           <p style={sx('font-size:16px; color:var(--muted); margin-bottom:14px; max-width:520px;')}>{s.skillsBody}</p>
           <div className="skills-grid" style={sx('display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:30px;')}>
             {skills.map((g, i) => (
-              <div key={i} data-reveal="" className="skillcard" style={sx('position:relative; background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:26px 26px 24px;')}>
+              <div key={i} data-reveal="" className="skillcard" style={sx('position:relative; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:18px; padding:26px 26px 24px;')}>
                 <div style={sx('display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:16px;')}>
                   <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; letter-spacing:-.01em;")}>{g.area}</h3>
-                  <span style={sx("font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint);")}>{g.tag}</span>
+                  <span style={sx("font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--card-faint);")}>{g.tag}</span>
                 </div>
                 <div style={sx('display:flex; flex-wrap:wrap; gap:9px; margin-bottom:16px;')}>
                   {g.chips.map((c, ci) => (
@@ -74,7 +74,7 @@ export default function About({ s, lang, go }: Props) {
                     </span>
                   ))}
                 </div>
-                <p style={sx('font-size:14.5px; color:var(--ink2); line-height:1.6;')}>{g.note}</p>
+                <p style={sx('font-size:14.5px; color:var(--card-ink2); line-height:1.6;')}>{g.note}</p>
               </div>
             ))}
           </div>

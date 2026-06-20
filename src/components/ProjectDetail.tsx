@@ -15,9 +15,9 @@ interface Props {
 
 function metaRow(label: string, value: string) {
   return (
-    <div style={sx('display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:13px 0; border-bottom:1px solid var(--line);')}>
-      <span style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em;")}>{label}</span>
-      <span style={sx('font-size:14px; font-weight:600; color:var(--ink); text-align:right;')}>{value}</span>
+    <div style={sx('display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:13px 0; border-bottom:1px solid var(--card-line);')}>
+      <span style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--card-muted); text-transform:uppercase; letter-spacing:.04em;")}>{label}</span>
+      <span style={sx('font-size:14px; font-weight:600; color:var(--card-ink); text-align:right;')}>{value}</span>
     </div>
   );
 }
@@ -57,7 +57,7 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
         </div>
 
         {/* cover */}
-        <div data-reveal="" style={sx(`position:relative; margin-top:32px; border-radius:24px; overflow:hidden; background:${p.color}; border:1px solid var(--line); aspect-ratio:16/9; box-shadow:0 40px 80px -36px rgba(0,0,0,.55);`)}>
+        <div data-reveal="" style={sx(`position:relative; margin-top:32px; border-radius:24px; overflow:hidden; background:${p.color}; border:1px solid var(--line); aspect-ratio:16/9; box-shadow:0 40px 80px -36px var(--shadow);`)}>
           <img src={asset(p.image)} alt={`${p.name} — screenshot`} style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
         </div>
 
@@ -80,13 +80,13 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
           </div>
 
           {/* details sidebar */}
-          <aside style={sx('background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:8px 22px 18px;')}>
-            <h3 style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--faint); text-transform:uppercase; letter-spacing:.08em; padding:18px 0 6px;")}>{s.pdDetails}</h3>
+          <aside style={sx('background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:18px; padding:8px 22px 18px;')}>
+            <h3 style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--card-faint); text-transform:uppercase; letter-spacing:.08em; padding:18px 0 6px;")}>{s.pdDetails}</h3>
             {metaRow(s.pdType, catLabel(p.cat, s))}
             {metaRow(s.pdRole, p.role)}
             {metaRow(s.pdYear, p.year)}
             <div style={sx('padding:16px 0 4px;')}>
-              <span style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; display:block; margin-bottom:12px;")}>{s.pdStack}</span>
+              <span style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--card-muted); text-transform:uppercase; letter-spacing:.04em; display:block; margin-bottom:12px;")}>{s.pdStack}</span>
               <TechChips stack={p.stack} />
             </div>
           </aside>

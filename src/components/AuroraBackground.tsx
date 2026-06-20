@@ -20,12 +20,12 @@ void main(){
   float n=fbm(p*1.05 + rr*1.9);
   n=smoothstep(0.08,0.96,n);
   vec3 d1=vec3(0.05,0.05,0.11), d2=vec3(0.27,0.21,0.58), d3=vec3(0.55,0.49,1.0);
-  vec3 l1=vec3(0.78,0.75,0.95), l2=vec3(0.52,0.44,0.91), l3=vec3(0.34,0.26,0.82);
+  vec3 l1=vec3(0.88,0.86,0.98), l2=vec3(0.70,0.65,0.94), l3=vec3(0.55,0.49,0.90);
   vec3 c1=mix(l1,d1,u_dark), c2=mix(l2,d2,u_dark), c3=mix(l3,d3,u_dark);
   vec3 col=mix(c1,c2,smoothstep(0.18,0.68,n));
   col=mix(col,c3,smoothstep(0.55,1.0,n)*0.8);
   float glow=pow(n,1.55);
-  float a=mix(glow*0.42, glow*0.27, u_dark);
+  float a=mix(glow*0.20, glow*0.27, u_dark);
   gl_FragColor=vec4(col,a);
 }
 `;

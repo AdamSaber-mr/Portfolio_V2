@@ -32,12 +32,12 @@ function NowIcon({ name }: { name: string }) {
 function NowCell({ icon, label, value, accent = false }: { icon: string; label: string; value: string; accent?: boolean }) {
   return (
     <div style={sx('display:flex; align-items:center; gap:12px; min-width:0;')}>
-      <span style={sx(`display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:11px; flex:none; ${accent ? 'background:color-mix(in srgb, var(--accent) 16%, transparent); color:var(--accent);' : 'background:var(--line2); color:var(--muted);'}`)}>
+      <span style={sx(`display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:11px; flex:none; ${accent ? 'background:color-mix(in srgb, var(--accent) 16%, transparent); color:var(--accent);' : 'background:var(--card-line); color:var(--card-muted);'}`)}>
         <NowIcon name={icon} />
       </span>
       <div style={sx('display:flex; flex-direction:column; gap:2px; min-width:0;')}>
-        <span style={sx("font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint);")}>{label}</span>
-        <span style={sx(`font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; letter-spacing:-.01em; white-space:nowrap; color:${accent ? 'var(--accent)' : 'var(--ink)'};`)}>{value}</span>
+        <span style={sx("font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--card-faint);")}>{label}</span>
+        <span style={sx(`font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; letter-spacing:-.01em; white-space:nowrap; color:${accent ? 'var(--accent)' : 'var(--card-ink)'};`)}>{value}</span>
       </div>
     </div>
   );
@@ -105,7 +105,7 @@ export default function Home({ s, lang, go, openDetail }: Props) {
               <span className="btn" {...clickable(() => go('about'))} style={sx('border:1px solid var(--line); color:var(--ink); padding:13px 23px; border-radius:30px; font-size:15px; font-weight:500;')}>{s.heroCta2}</span>
             </div>
           </div>
-          <div data-reveal="" className="hero-photo" style={sx('position:relative; width:100%; max-width:440px; justify-self:end; aspect-ratio:1/1; border-radius:28px; overflow:hidden; border:1px solid var(--line); box-shadow:0 40px 90px -30px rgba(0,0,0,.6); z-index:1;')}>
+          <div data-reveal="" className="hero-photo" style={sx('position:relative; width:100%; max-width:440px; justify-self:end; aspect-ratio:1/1; border-radius:28px; overflow:hidden; border:1px solid var(--line); box-shadow:0 40px 90px -30px var(--shadow); z-index:1;')}>
             <img src={asset('assets/me_header.png')} alt="Adam Saber — portret" style={sx('width:100%; height:100%; object-fit:cover; display:block;')} />
             <div style={sx('position:absolute; inset:0; background:linear-gradient(135deg, rgba(139,124,255,.12), transparent 55%); pointer-events:none;')}></div>
           </div>
@@ -119,13 +119,13 @@ export default function Home({ s, lang, go, openDetail }: Props) {
         </div>
         <div className="home-cards" style={sx('display:grid; grid-template-columns:repeat(3,1fr); gap:20px;')}>
           {featured.map((p, i) => (
-            <div key={i} data-reveal="" className="card3d" {...clickable(() => openDetail(p.name), p.name)} style={sx('display:flex; flex-direction:column; height:100%; background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; cursor:pointer;')}>
+            <div key={i} data-reveal="" className="card3d" {...clickable(() => openDetail(p.name), p.name)} style={sx('display:flex; flex-direction:column; height:100%; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:14px; overflow:hidden; cursor:pointer;')}>
               <div style={sx(`aspect-ratio:16/10; background:${p.color}; position:relative; overflow:hidden;`)}>
                 <img src={asset(p.image)} alt={`${p.name} — screenshot`} loading="lazy" style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
               </div>
               <div style={sx('padding:16px 17px 18px; display:flex; flex-direction:column; flex:1;')}>
                 <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:17.5px; font-weight:600;")}>{p.name}</h3>
-                <p style={sx('font-size:13.5px; color:var(--muted); line-height:1.5; margin-top:8px;')}>{p.blurb}</p>
+                <p style={sx('font-size:13.5px; color:var(--card-muted); line-height:1.5; margin-top:8px;')}>{p.blurb}</p>
                 <div style={sx('margin-top:auto; padding-top:13px;')}><TechChips stack={p.stack} /></div>
               </div>
             </div>
@@ -135,7 +135,7 @@ export default function Home({ s, lang, go, openDetail }: Props) {
 
       {/* "Right now" banner between the projects and the music */}
       <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:36px 56px 36px;')}>
-        <div className="now-banner" data-reveal="" style={sx('display:flex; align-items:center; justify-content:space-between; gap:32px 44px; flex-wrap:wrap; background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:52px 44px;')}>
+        <div className="now-banner" data-reveal="" style={sx('display:flex; align-items:center; justify-content:space-between; gap:32px 44px; flex-wrap:wrap; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:20px; padding:52px 44px;')}>
           <LiveStatus s={s} />
           {currently.map((c, i) => (
             <NowCell key={i} icon={c.icon} label={c.label} value={c.value} />
