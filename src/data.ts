@@ -24,6 +24,9 @@ export const STR: Record<Lang, Strings> = {
     phName: 'Je naam', phEmail: 'jij@voorbeeld.nl', phSubject: 'Bijv. Stageplek front-end', phMsg: 'Vertel kort waar het over gaat…',
     formNote: 'Je mailprogramma opent met dit bericht klaar om te versturen.',
     sentTitle: 'Bericht klaar!', sentBody: 'Je mailprogramma opent met het bericht. Bedankt!',
+    pdView: 'Bekijk project', pdBack: 'Terug naar projecten', pdLive: 'Bezoek website', pdCode: 'Code op GitHub',
+    pdOverview: 'Overzicht', pdHighlights: 'Highlights', pdDetails: 'Details',
+    pdRole: 'Rol', pdYear: 'Jaar', pdType: 'Type', pdStack: 'Stack',
   },
   en: {
     navHome: 'Home', navWork: 'Work', navAbout: 'About', navContact: 'Contact', cv: 'CV',
@@ -45,6 +48,9 @@ export const STR: Record<Lang, Strings> = {
     phName: 'Your name', phEmail: 'you@example.com', phSubject: 'e.g. Front-end internship', phMsg: 'Tell me briefly what it is about…',
     formNote: 'Your mail app opens with this message ready to send.',
     sentTitle: 'Message ready!', sentBody: 'Your mail app opens with the message. Thanks!',
+    pdView: 'View project', pdBack: 'Back to projects', pdLive: 'Visit website', pdCode: 'Code on GitHub',
+    pdOverview: 'Overview', pdHighlights: 'Highlights', pdDetails: 'Details',
+    pdRole: 'Role', pdYear: 'Year', pdType: 'Type', pdStack: 'Stack',
   },
 };
 
@@ -58,21 +64,93 @@ export interface Project {
   imgPos: string;
   stack: string;
   blurb: Record<Lang, string>;
+  /** Year the project was built, shown in the detail view. */
+  year: string;
+  /** Public GitHub repository URL (empty string hides the button). */
+  repo: string;
+  /** Live/demo URL (empty string hides the button). */
+  live: string;
+  /** My role on the project, per language. */
+  role: Record<Lang, string>;
+  /** A longer description shown on the detail page. */
+  overview: Record<Lang, string>;
+  /** Highlights / what the project can do, per language. */
+  features: Record<Lang, string[]>;
 }
 
 export const PROJECTS: Project[] = [
   { name: 'RapidCars', cat: 'front', ratio: '4/3', color: '#1b1d22', image: '/assets/projects/rapidcars.jpg', imgPos: 'left top', stack: 'React · TypeScript · Vite',
-    blurb: { nl: 'Autoverhuur-webapp voor een echte klant: snel boeken, sportieve auto’s.', en: 'Car-rental web app for a real client: fast booking, sporty cars.' } },
+    blurb: { nl: 'Autoverhuur-webapp voor een echte klant: snel boeken, sportieve auto’s.', en: 'Car-rental web app for a real client: fast booking, sporty cars.' },
+    year: '2024', repo: 'https://github.com/adamsaber-mr/rapidcars', live: '',
+    role: { nl: 'Front-end ontwikkelaar', en: 'Front-end developer' },
+    overview: {
+      nl: 'RapidCars is een autoverhuur-platform dat ik voor een echte klant bouwde. Bezoekers bladeren door een vloot sportieve auto’s en boeken in een paar stappen. De focus lag op snelheid, een strakke flow en een interface die vertrouwen wekt.',
+      en: 'RapidCars is a car-rental platform I built for a real client. Visitors browse a fleet of sporty cars and book in just a few steps. The focus was on speed, a tight flow and an interface that builds trust.',
+    },
+    features: {
+      nl: ['Boekingsflow van auto kiezen tot bevestiging', 'Filteren en bladeren door de wagenvloot', 'Responsive interface, mobiel-first', 'Gebouwd in nauw overleg met een echte klant'],
+      en: ['Booking flow from picking a car to confirmation', 'Filter and browse the fleet', 'Responsive, mobile-first interface', 'Built in close collaboration with a real client'],
+    } },
   { name: 'Nike Business Anatomy', cat: 'data', ratio: '1/1', color: '#0e1b2b', image: '/assets/projects/nike.png', imgPos: 'left top', stack: 'React · D3 · Chart.js',
-    blurb: { nl: 'Interactief dashboard over Nike’s supply chain en revenue.', en: 'Interactive dashboard on Nike’s supply chain and revenue.' } },
+    blurb: { nl: 'Interactief dashboard over Nike’s supply chain en revenue.', en: 'Interactive dashboard on Nike’s supply chain and revenue.' },
+    year: '2024', repo: 'https://github.com/adamsaber-mr/nike-business-anatomy', live: '',
+    role: { nl: 'Front-end & data-visualisatie', en: 'Front-end & data viz' },
+    overview: {
+      nl: 'Een interactief dashboard dat Nike’s business ontleedt: van supply chain tot omzet. Ruwe data wordt vertaald naar grafieken waarmee je trends en verbanden in één oogopslag ziet.',
+      en: 'An interactive dashboard that dissects Nike’s business: from supply chain to revenue. Raw data is turned into charts that surface trends and relationships at a glance.',
+    },
+    features: {
+      nl: ['Interactieve grafieken met D3 en Chart.js', 'Inzicht in supply chain en omzet', 'Ruwe data omgezet naar heldere visualisaties', 'Filteren en inzoomen op de cijfers'],
+      en: ['Interactive charts with D3 and Chart.js', 'Insight into supply chain and revenue', 'Raw data turned into clear visualisations', 'Filter and zoom into the numbers'],
+    } },
   { name: 'Luxora', cat: 'front', ratio: '3/4', color: '#2f3a2c', image: '/assets/projects/luxora.jpg', imgPos: 'left top', stack: 'Next.js · React · TS',
-    blurb: { nl: 'Marketplace voor exclusieve luxeproducten met een volledige front-end.', en: 'Marketplace for exclusive luxury products with a full front-end.' } },
+    blurb: { nl: 'Marketplace voor exclusieve luxeproducten met een volledige front-end.', en: 'Marketplace for exclusive luxury products with a full front-end.' },
+    year: '2024', repo: 'https://github.com/adamsaber-mr/luxora', live: '',
+    role: { nl: 'Front-end ontwikkelaar', en: 'Front-end developer' },
+    overview: {
+      nl: 'Luxora is een marktplaats voor exclusieve luxeproducten. Ik bouwde de volledige front-end met een verzorgde, premium uitstraling en een vloeiende browse-ervaring.',
+      en: 'Luxora is a marketplace for exclusive luxury products. I built the full front-end with a polished, premium look and a smooth browsing experience.',
+    },
+    features: {
+      nl: ['Volledige front-end in Next.js', 'Premium, verzorgd productontwerp', 'Productoverzichten en detailpagina’s', 'Snelle, vloeiende navigatie'],
+      en: ['Full front-end in Next.js', 'Premium, polished product design', 'Product listings and detail pages', 'Fast, fluid navigation'],
+    } },
   { name: 'Yume Ramen', cat: 'full', ratio: '4/3', color: '#3a1f22', image: '/assets/projects/yume-ramen.jpg', imgPos: 'left top', stack: 'PHP · MySQL · Python',
-    blurb: { nl: 'Food-delivery webapp: bestellen, afrekenen en beheer voor de keuken.', en: 'Food-delivery web app: ordering, checkout and a kitchen dashboard.' } },
+    blurb: { nl: 'Food-delivery webapp: bestellen, afrekenen en beheer voor de keuken.', en: 'Food-delivery web app: ordering, checkout and a kitchen dashboard.' },
+    year: '2023', repo: 'https://github.com/adamsaber-mr/yume-ramen', live: '',
+    role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
+    overview: {
+      nl: 'Yume Ramen is een food-delivery webapp: klanten bestellen en rekenen af, terwijl de keuken via een dashboard de bestellingen beheert. Een full-stack project van interface tot database.',
+      en: 'Yume Ramen is a food-delivery web app: customers order and check out, while the kitchen manages orders through a dashboard. A full-stack project from interface to database.',
+    },
+    features: {
+      nl: ['Bestellen en afrekenen voor klanten', 'Keuken-dashboard om orders te beheren', 'PHP back-end met MySQL-database', 'Volledige full-stack architectuur'],
+      en: ['Ordering and checkout for customers', 'Kitchen dashboard to manage orders', 'PHP back-end with a MySQL database', 'Complete full-stack architecture'],
+    } },
   { name: 'CookUp', cat: 'full', ratio: '1/1', color: '#243027', image: '/assets/projects/cookup.jpg', imgPos: 'center top', stack: 'PHP · MySQL · CRUD',
-    blurb: { nl: 'Receptenplatform met accounts, opslaan en categorieën.', en: 'Recipe platform with accounts, saving and categories.' } },
+    blurb: { nl: 'Receptenplatform met accounts, opslaan en categorieën.', en: 'Recipe platform with accounts, saving and categories.' },
+    year: '2023', repo: 'https://github.com/adamsaber-mr/cookup', live: '',
+    role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
+    overview: {
+      nl: 'CookUp is een receptenplatform waar gebruikers een account maken, recepten opslaan en alles netjes per categorie ordenen. Draait op een PHP-back-end met volledige CRUD.',
+      en: 'CookUp is a recipe platform where users create an account, save recipes and organise everything by category. Runs on a PHP back-end with full CRUD.',
+    },
+    features: {
+      nl: ['Accounts met registratie en login', 'Recepten opslaan en beheren', 'Ordenen per categorie', 'Volledige CRUD op een PHP/MySQL-back-end'],
+      en: ['Accounts with sign-up and login', 'Save and manage recipes', 'Organise by category', 'Full CRUD on a PHP/MySQL back-end'],
+    } },
   { name: 'Portfolio v1', cat: 'front', ratio: '3/4', color: '#26222c', image: '/assets/projects/portfolio.jpg', imgPos: 'center top', stack: 'HTML · CSS · JS',
-    blurb: { nl: 'Mijn eerste portfolio, waar het bouwen begon.', en: 'My first portfolio, where the building began.' } },
+    blurb: { nl: 'Mijn eerste portfolio, waar het bouwen begon.', en: 'My first portfolio, where the building began.' },
+    year: '2022', repo: 'https://github.com/adamsaber-mr/portfolio', live: '',
+    role: { nl: 'Ontwerp & ontwikkeling', en: 'Design & development' },
+    overview: {
+      nl: 'Mijn allereerste portfolio — waar het bouwen begon. Volledig met de hand gemaakt in HTML, CSS en JavaScript, en de basis voor alles wat daarna kwam.',
+      en: 'My very first portfolio — where the building began. Hand-crafted entirely in HTML, CSS and JavaScript, and the foundation for everything that followed.',
+    },
+    features: {
+      nl: ['Volledig handgeschreven HTML/CSS/JS', 'Eerste stappen in webdesign', 'Basis voor mijn latere projecten'],
+      en: ['Fully hand-written HTML/CSS/JS', 'First steps in web design', 'Foundation for my later projects'],
+    } },
 ];
 
 /** A filter is "all" plus any project category. */
@@ -81,10 +159,20 @@ export type Filter = 'all' | Cat;
 export interface LocProject {
   name: string; ratio: string; color: string; image: string; imgPos: string; stack: string;
   blurb: string; cat: Cat;
+  year: string; repo: string; live: string; role: string; overview: string; features: string[];
 }
 
 export function loc(p: Project, lang: Lang): LocProject {
-  return { name: p.name, ratio: p.ratio, color: p.color, image: p.image, imgPos: p.imgPos, stack: p.stack, blurb: p.blurb[lang], cat: p.cat };
+  return {
+    name: p.name, ratio: p.ratio, color: p.color, image: p.image, imgPos: p.imgPos, stack: p.stack,
+    blurb: p.blurb[lang], cat: p.cat, year: p.year, repo: p.repo, live: p.live,
+    role: p.role[lang], overview: p.overview[lang], features: p.features[lang],
+  };
+}
+
+/** Human label for a project category, per language. */
+export function catLabel(cat: Cat, s: Strings): string {
+  return cat === 'front' ? s.fFront : cat === 'full' ? s.fFull : s.fData;
 }
 
 /* ---------- journey ---------- */
