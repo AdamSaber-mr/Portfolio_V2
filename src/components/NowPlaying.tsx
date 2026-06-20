@@ -107,7 +107,7 @@ export default function NowPlaying({ s }: { s: Strings }) {
   );
 
   return (
-    <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:36px 56px 56px;')}>
+    <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:28px 56px 56px;')}>
       <audio ref={audioRef} preload="none" />
 
       <div data-reveal="" style={sx('display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:24px;')}>
