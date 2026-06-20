@@ -10,6 +10,11 @@ export const STR: Record<Lang, Strings> = {
     heroBody: 'Adam Saber, 18 jaar. Student Software Development in Rotterdam, full-stack met PHP, JavaScript & React. Van interface tot database.',
     heroCta1: 'Bekijk mijn werk', heroCta2: 'Over mij',
     selectedWork: 'Geselecteerd werk', viewAll: 'Bekijk alles',
+    spotifyTitle: 'Waar ik nu naar luister', nowKicker: 'Nu',
+    tabRecent: 'Recent geluisterd', tabTop: 'Topnummers', saveSpotify: 'Open in Spotify',
+    curStatus: 'Status', curAvailable: 'Aan het werk', curTime: 'Lokale tijd',
+    stCoding: 'Aan het coderen', stListening: 'Luistert naar', stOnline: 'Online',
+    curBuilding: 'Aan het bouwen', curLearning: 'Aan het leren', curLocation: 'Locatie',
     workTitle: 'Werk', workBody: 'Een selectie van wat ik heb gebouwd, van klantopdrachten tot eigen experimenten. Filter op type.',
     fAll: 'Alles', fFront: 'Front-end', fFull: 'Full-stack', fData: 'Data',
     aboutTitle: 'Student, bouwer, probleemoplosser.',
@@ -34,6 +39,11 @@ export const STR: Record<Lang, Strings> = {
     heroBody: 'Adam Saber, 18. Software Development student in Rotterdam, full-stack with PHP, JavaScript & React. From interface to database.',
     heroCta1: 'View my work', heroCta2: 'About me',
     selectedWork: 'Selected work', viewAll: 'View all',
+    spotifyTitle: 'What I am listening to', nowKicker: 'Right now',
+    tabRecent: 'Recently Played', tabTop: 'Top Tracks', saveSpotify: 'Open in Spotify',
+    curStatus: 'Status', curAvailable: 'At work', curTime: 'Local time',
+    stCoding: 'Coding', stListening: 'Listening to', stOnline: 'Online',
+    curBuilding: 'Building', curLearning: 'Learning', curLocation: 'Location',
     workTitle: 'Work', workBody: 'A selection of what I have built, from client work to personal experiments. Filter by type.',
     fAll: 'All', fFront: 'Front-end', fFull: 'Full-stack', fData: 'Data',
     aboutTitle: 'Student, builder, problem solver.',
@@ -173,6 +183,72 @@ export function loc(p: Project, lang: Lang): LocProject {
 /** Human label for a project category, per language. */
 export function catLabel(cat: Cat, s: Strings): string {
   return cat === 'front' ? s.fFront : cat === 'full' ? s.fFull : s.fData;
+}
+
+/* ---------- home: now playing ---------- */
+/**
+ * Tracks shown in the home "what I'm listening to" section. These are hand-picked
+ * (no Spotify login or playlist link needed). Album art comes from Apple's public
+ * artwork CDN; if an image fails to load the coloured tile shows through. To swap a
+ * song, change its title/artist/dur and paste a new `art` URL (or leave it — the
+ * play button just opens a Spotify search for "title artist").
+ */
+export interface Track { title: string; artist: string; dur: string; art: string; color: string; }
+
+export const FEATURED_TRACK: Track = {
+  title: 'LIMBO', artist: 'keshi', dur: '3:32', color: '#1f5562',
+  art: 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/e2/de/98/e2de9860-b40b-e33f-f68e-ab8e0956a538/22UMGIM07345.rgb.jpg/300x300bb.jpg',
+};
+
+export const TRACKS_RECENT: Track[] = [
+  { title: 'blue', artist: 'keshi', dur: '2:58', color: '#2a3d5c',
+    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/83/d7/8a/83d78a91-effe-ea4e-ec91-b40a550e6b87/20UMGIM13994.rgb.jpg/300x300bb.jpg' },
+  { title: 'Glimpse of Us', artist: 'Joji', dur: '3:53', color: '#5c4632',
+    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d0/2a/43/d02a433a-3ab8-9a94-b07d-1dc599b64966/93624864387.jpg/300x300bb.jpg' },
+  { title: 'Bad Habit', artist: 'Steve Lacy', dur: '3:52', color: '#3a4a32',
+    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/f4/b4/c4/f4b4c458-e52c-859b-fdef-2600dd4fe768/196589380630.jpg/300x300bb.jpg' },
+  { title: 'Sofia', artist: 'Clairo', dur: '3:08', color: '#5c3340',
+    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f2/47/06/f24706bc-a90c-f730-bd8a-586ddde8af3e/829299184631.jpg/300x300bb.jpg' },
+];
+
+export const TRACKS_TOP: Track[] = [
+  { title: 'drunk', artist: 'keshi', dur: '3:47', color: '#3a3f4c',
+    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/c9/99/96/c999962f-a98e-45f3-c9a7-0a1b49198216/20UMGIM87054.rgb.jpg/300x300bb.jpg' },
+  { title: 'Get You', artist: 'Daniel Caesar', dur: '4:38', color: '#4a3a2e',
+    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b6/cd/1a/b6cd1a5b-83af-a1e2-0ad7-ea530fcf2522/859722261219.jpg/300x300bb.jpg' },
+  { title: 'Lo Que Siento', artist: 'Cuco', dur: '5:12', color: '#463a5c',
+    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/98/3f/3a/983f3a97-a9ba-e291-9e7b-242e7c00c6ca/191061742319_1.jpg/300x300bb.jpg' },
+  { title: 'Pluto Projector', artist: 'Rex Orange County', dur: '4:27', color: '#2e4a4a',
+    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/e3/af/48/e3af4809-2a90-38c3-c485-44ae6471f75b/886447950241.jpg/300x300bb.jpg' },
+];
+
+/** Open a Spotify search for a track (no API/login needed). */
+export function spotifySearchUrl(t: Track): string {
+  return `https://open.spotify.com/search/${encodeURIComponent(`${t.title} ${t.artist}`)}`;
+}
+
+/* ---------- home: currently ---------- */
+export interface CurrentlyItem { label: string; value: string; icon: string; }
+
+/**
+ * Discord user ID for the LIVE status, served by the free Lanyard API
+ * (https://api.lanyard.rest). Leave empty to keep the static "Aan het werk" status.
+ * To turn the status live:
+ *   1. Join the Lanyard Discord once: https://discord.gg/lanyard
+ *   2. Install a VSCode Discord-presence extension (e.g. "vscord") so coding shows up
+ *   3. Enable Discord → Settings → Advanced → Developer Mode, then right-click your
+ *      name → "Copy User ID" and paste it below.
+ */
+export const DISCORD_USER_ID = '893186318178324490'; // Adam Saber (a.martina)
+
+/** The "right now" banner on the home page (static cells; the live clock is added in the view). */
+export function buildCurrently(s: Strings): CurrentlyItem[] {
+  const nl = s.workTitle === 'Werk';
+  return [
+    { label: s.curBuilding, value: nl ? 'Dit portfolio (V2)' : 'This portfolio (V2)', icon: 'code' },
+    { label: s.curLearning, value: 'Laravel', icon: 'book' },
+    { label: s.curLocation, value: 'Rotterdam, NL', icon: 'pin' },
+  ];
 }
 
 /* ---------- journey ---------- */
