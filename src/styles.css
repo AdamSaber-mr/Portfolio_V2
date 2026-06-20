@@ -78,10 +78,10 @@ textarea:focus-visible,
   .nav-inner { padding: 16px 22px !important; }
   .nav-links { gap: 16px !important; }
   .page-pad { padding-left: 22px !important; padding-right: 22px !important; }
-  .hero-grid, .about-bio, .contact-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .hero-grid, .about-bio, .contact-grid, .pd-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
   /* grid/flex items default to min-width:auto, which lets long content overflow
      instead of wrapping — force them to shrink to the column */
-  .hero-grid > *, .about-bio > *, .contact-grid > * { min-width: 0; }
+  .hero-grid > *, .about-bio > *, .contact-grid > *, .pd-grid > * { min-width: 0; }
   .featured-cols { columns: 2 !important; }
   .journey-steps { grid-template-columns: 1fr 1fr !important; row-gap: 24px !important; }
   /* the contact view centres vertically on desktop; when it no longer fits,
