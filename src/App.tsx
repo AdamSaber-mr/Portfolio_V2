@@ -96,7 +96,7 @@ export default function App() {
         toggleLang={() => setLang((l) => (l === 'nl' ? 'en' : 'nl'))}
       />
 
-      {page === 'home' && <Home s={s} lang={lang} go={go} openDetail={openDetail} />}
+      {page === 'home' && <Home s={s} lang={lang} go={go} openDetail={openDetail} dark={dark} />}
       {page === 'work' &&
         (detail ? (
           <ProjectDetail s={s} project={loc(detail, lang)} back={closeDetail} go={go} />

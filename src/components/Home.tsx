@@ -13,6 +13,7 @@ interface Props {
   lang: Lang;
   go: (p: Page) => void;
   openDetail: (name: string) => void;
+  dark: boolean;
 }
 
 /** Small line icons for the "right now" banner cells. */
@@ -87,9 +88,11 @@ function LiveStatus({ s }: { s: Strings }) {
   return <NowCell icon={status.icon} label={s.curStatus} value={status.value} accent />;
 }
 
-export default function Home({ s, lang, go, openDetail }: Props) {
+export default function Home({ s, lang, go, openDetail, dark }: Props) {
   const featured = PROJECTS.slice(0, 3).map((p) => loc(p, lang));
   const currently = buildCurrently(s);
+  // me_header has a dark backdrop that clashes with light mode; swap to the white version there
+  const heroImg = dark ? 'assets/me_header.png' : 'assets/me_white.png';
 
   return (
     <div data-screen-label="Home" className="pageintro">
@@ -106,7 +109,7 @@ export default function Home({ s, lang, go, openDetail }: Props) {
             </div>
           </div>
           <div data-reveal="" className="hero-photo" style={sx('position:relative; width:100%; max-width:440px; justify-self:end; aspect-ratio:1/1; border-radius:28px; overflow:hidden; border:1px solid var(--line); box-shadow:0 40px 90px -30px var(--shadow); z-index:1;')}>
-            <img src={asset('assets/me_header.png')} alt="Adam Saber — portret" style={sx('width:100%; height:100%; object-fit:cover; display:block;')} />
+            <img src={asset(heroImg)} alt="Adam Saber — portret" style={sx('width:100%; height:100%; object-fit:cover; display:block;')} />
             <div style={sx('position:absolute; inset:0; background:linear-gradient(135deg, rgba(139,124,255,.12), transparent 55%); pointer-events:none;')}></div>
           </div>
         </div>
