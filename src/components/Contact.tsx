@@ -6,6 +6,8 @@ export interface ContactForm {
   fEmail: string;
   fSubject: string;
   fMsg: string;
+  /** Honeypot — stays empty for humans; bots that fill it get blocked. */
+  hp: string;
 }
 
 interface Props {
@@ -59,6 +61,17 @@ export default function Contact({ s, lang, form, setForm, submit, sent, sending,
               </div>
             ) : (
               <form onSubmit={(e) => { e.preventDefault(); submit(); }}>
+                {/* honeypot: hidden from humans, bots fill it → Web3Forms blocks the submission */}
+                <input
+                  type="text"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={form.hp}
+                  onChange={(e) => setForm({ hp: e.target.value })}
+                  style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0, pointerEvents: 'none' }}
+                />
                 <div className="field-row" style={sx('display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px;')}>
                   <div>
                     <label htmlFor="cf-name" style={sx(labelStyle)}>{s.fName}</label>

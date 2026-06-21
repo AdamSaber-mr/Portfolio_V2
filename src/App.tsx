@@ -15,7 +15,7 @@ const AuroraBackground = lazy(() => import('./components/AuroraBackground'));
 
 export type Page = 'home' | 'work' | 'about' | 'contact';
 
-const emptyForm: ContactForm = { fName: '', fEmail: '', fSubject: '', fMsg: '' };
+const emptyForm: ContactForm = { fName: '', fEmail: '', fSubject: '', fMsg: '', hp: '' };
 
 export default function App() {
   const [page, setPage] = useState<Page>('home');
@@ -71,7 +71,9 @@ export default function App() {
   const setForm = (patch: Partial<ContactForm>) => setFormState((prev) => ({ ...prev, ...patch }));
 
   const submit = async () => {
-    const { fName, fEmail, fSubject, fMsg } = form;
+    const { fName, fEmail, fSubject, fMsg, hp } = form;
+    // Honeypot tripped → a bot filled the hidden field. Pretend success, send nothing.
+    if (hp) { setSent(true); return; }
     const subject = fSubject || ((lang === 'nl' ? 'Bericht van ' : 'Message from ') + (fName || 'portfolio'));
 
     // No key configured yet → fall back to the user's mail app so nothing breaks.
@@ -95,6 +97,7 @@ export default function App() {
           subject,
           message: fMsg,
           from_name: 'Portfolio contactformulier',
+          botcheck: hp,
         }),
       });
       const data = await res.json();
