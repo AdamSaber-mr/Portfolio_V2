@@ -28,8 +28,8 @@ export const STR: Record<Lang, Strings> = {
     contactBody: 'Heb je een stageplek of wil je samenwerken? Ik hoor graag van je.',
     fName: 'Naam', fEmail: 'E-mail', fSubject: 'Onderwerp', fMsg: 'Bericht', send: 'Verstuur bericht',
     phName: 'Je naam', phEmail: 'jij@voorbeeld.nl', phSubject: 'Bijv. Stageplek front-end', phMsg: 'Vertel kort waar het over gaat…',
-    formNote: 'Je mailprogramma opent met dit bericht klaar om te versturen.',
-    sentTitle: 'Bericht klaar!', sentBody: 'Je mailprogramma opent met het bericht. Bedankt!',
+    formNote: 'Je bericht komt direct in mijn inbox terecht.',
+    sentTitle: 'Verzonden!', sentBody: 'Bedankt voor je bericht — ik reageer zo snel mogelijk!',
     pdView: 'Bekijk project', pdBack: 'Terug naar projecten', pdLive: 'Bezoek website', pdCode: 'Code op GitHub',
     pdOverview: 'Overzicht', pdHighlights: 'Highlights', pdDetails: 'Details',
     pdRole: 'Rol', pdYear: 'Jaar', pdType: 'Type', pdStack: 'Stack',
@@ -58,8 +58,8 @@ export const STR: Record<Lang, Strings> = {
     contactBody: 'Got an internship opening or want to collaborate? I would love to hear from you.',
     fName: 'Name', fEmail: 'Email', fSubject: 'Subject', fMsg: 'Message', send: 'Send message',
     phName: 'Your name', phEmail: 'you@example.com', phSubject: 'e.g. Front-end internship', phMsg: 'Tell me briefly what it is about…',
-    formNote: 'Your mail app opens with this message ready to send.',
-    sentTitle: 'Message ready!', sentBody: 'Your mail app opens with the message. Thanks!',
+    formNote: 'Your message lands straight in my inbox.',
+    sentTitle: 'Sent!', sentBody: 'Thanks for your message — I will reply as soon as I can!',
     pdView: 'View project', pdBack: 'Back to projects', pdLive: 'Visit website', pdCode: 'Code on GitHub',
     pdOverview: 'Overview', pdHighlights: 'Highlights', pdDetails: 'Details',
     pdRole: 'Role', pdYear: 'Year', pdType: 'Type', pdStack: 'Stack',
@@ -500,3 +500,11 @@ export function buildContactLinks(lang: Lang): ContactLink[] {
 }
 
 export const CONTACT_EMAIL = 'mt.adamsaber@gmail.com';
+
+/**
+ * Web3Forms access key — lets this static site send the contact form straight to
+ * your inbox, no server and no mail app. Get a free key in 30s at
+ * https://web3forms.com: enter the inbox email (e.g. the one above), copy the
+ * key it gives you and paste it here. While empty, the form falls back to mailto.
+ */
+export const WEB3FORMS_ACCESS_KEY = '4808cd45-bbe9-452e-ba2d-daec857da52f';

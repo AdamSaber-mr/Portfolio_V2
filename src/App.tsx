@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { sx } from './lib/sx';
-import { STR, CONTACT_EMAIL, type Filter, type Lang } from './data';
+import { STR, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY, type Filter, type Lang } from './data';
 import { useReveal } from './hooks/useReveal';
 import Nav from './components/Nav';
 import Home from './components/Home';
@@ -26,6 +26,8 @@ export default function App() {
   const [openProject, setOpenProject] = useState<string | null>(null);
   const [form, setFormState] = useState<ContactForm>(emptyForm);
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState('');
 
   const s = STR[lang];
 
@@ -68,12 +70,44 @@ export default function App() {
 
   const setForm = (patch: Partial<ContactForm>) => setFormState((prev) => ({ ...prev, ...patch }));
 
-  const submit = () => {
+  const submit = async () => {
     const { fName, fEmail, fSubject, fMsg } = form;
-    const subj = encodeURIComponent(fSubject || ((lang === 'nl' ? 'Bericht van ' : 'Message from ') + (fName || 'portfolio')));
-    const body = encodeURIComponent((fMsg || '') + '\n\n' + (fName || '') + (fEmail ? ' (' + fEmail + ')' : ''));
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subj}&body=${body}`;
-    setSent(true);
+    const subject = fSubject || ((lang === 'nl' ? 'Bericht van ' : 'Message from ') + (fName || 'portfolio'));
+
+    // No key configured yet → fall back to the user's mail app so nothing breaks.
+    if (!WEB3FORMS_ACCESS_KEY) {
+      const body = encodeURIComponent((fMsg || '') + '\n\n' + (fName || '') + (fEmail ? ' (' + fEmail + ')' : ''));
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${body}`;
+      setSent(true);
+      return;
+    }
+
+    setSending(true);
+    setSendError('');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          name: fName,
+          email: fEmail,
+          subject,
+          message: fMsg,
+          from_name: 'Portfolio contactformulier',
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSent(true);
+      } else {
+        setSendError(lang === 'nl' ? 'Versturen mislukt. Probeer het later opnieuw.' : 'Sending failed. Please try again later.');
+      }
+    } catch {
+      setSendError(lang === 'nl' ? 'Versturen mislukt. Controleer je internetverbinding.' : 'Sending failed. Please check your connection.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -104,7 +138,7 @@ export default function App() {
           <Work s={s} lang={lang} filter={filter} setFilter={setFilter} slide={slide} setSlide={setSlide} openDetail={openDetail} go={go} />
         ))}
       {page === 'about' && <About s={s} lang={lang} go={go} />}
-      {page === 'contact' && <Contact s={s} lang={lang} form={form} setForm={setForm} submit={submit} sent={sent} />}
+      {page === 'contact' && <Contact s={s} lang={lang} form={form} setForm={setForm} submit={submit} sent={sent} sending={sending} error={sendError} />}
     </div>
   );
 }
