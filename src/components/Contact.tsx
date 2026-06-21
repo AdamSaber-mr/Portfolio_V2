@@ -44,7 +44,7 @@ export default function Contact({ s, lang, form, setForm, submit, sent, sending,
                     {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     style={sx('display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 0; border-top:1px solid var(--line); text-decoration:none; color:var(--ink);')}
                   >
-                    <span style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint);")}>{c.label}</span>
+                    <span style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink2);")}>{c.label}</span>
                     <span style={sx('font-size:15px; font-weight:600;')}>{c.value} ↗</span>
                   </a>
                 );
