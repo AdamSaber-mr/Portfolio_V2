@@ -87,24 +87,22 @@ export default function App() {
     setSending(true);
     setSendError('');
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          name: fName,
-          email: fEmail,
-          subject,
-          message: fMsg,
-          from_name: 'Portfolio contactformulier',
-          botcheck: hp,
-        }),
-      });
+      // FormData (multipart) is CORS-safelisted, so it skips the preflight that
+      // blocked the JSON request on localhost — and it's Web3Forms' default method.
+      const fd = new FormData();
+      fd.append('access_key', WEB3FORMS_ACCESS_KEY);
+      fd.append('name', fName);
+      fd.append('email', fEmail);
+      fd.append('subject', subject);
+      fd.append('message', fMsg);
+      fd.append('from_name', 'Portfolio contactformulier');
+      fd.append('botcheck', hp);
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
       const data = await res.json();
       if (data.success) {
         setSent(true);
       } else {
-        setSendError(lang === 'nl' ? 'Versturen mislukt. Probeer het later opnieuw.' : 'Sending failed. Please try again later.');
+        setSendError((lang === 'nl' ? 'Versturen mislukt: ' : 'Sending failed: ') + (data.message || (lang === 'nl' ? 'probeer het later opnieuw.' : 'please try again later.')));
       }
     } catch {
       setSendError(lang === 'nl' ? 'Versturen mislukt. Controleer je internetverbinding.' : 'Sending failed. Please check your connection.');
