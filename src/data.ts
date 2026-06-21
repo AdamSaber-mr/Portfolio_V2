@@ -12,7 +12,7 @@ export const STR: Record<Lang, Strings> = {
     selectedWork: 'Geselecteerd werk', viewAll: 'Bekijk alles',
     spotifyTitle: 'Waar ik nu naar luister', nowKicker: 'Nu',
     tabRecent: 'Recent geluisterd', tabTop: 'Topnummers', saveSpotify: 'Open in Spotify',
-    curStatus: 'Status', curAvailable: 'Aan het werk', curTime: 'Lokale tijd',
+    curStatus: 'Live status', curAvailable: 'Aan het werk', curTime: 'Lokale tijd',
     stCoding: 'Aan het coderen', stListening: 'Luistert naar', stOnline: 'Online',
     curBuilding: 'Aan het bouwen', curLearning: 'Aan het leren', curLocation: 'Locatie',
     workTitle: 'Werk', workBody: 'Een selectie van wat ik heb gebouwd, van klantopdrachten tot eigen experimenten. Filter op type.',
@@ -22,6 +22,7 @@ export const STR: Record<Lang, Strings> = {
     aboutP2: 'Ik vind het leuk om ideeën om te zetten naar werkende applicaties en daarbij logisch na te denken over structuur, data en flow. Ik bouw het liefst dingen die een echt probleem oplossen, in plaats van techniek om de techniek.',
     aboutP3: 'Naast het bouwen vind ik samenwerken en helder communiceren belangrijk: goed begrijpen wat er nodig is en het daarna strak uitwerken. Op de langere termijn wil ik die technische basis combineren met een bredere rol richting business development, waarin ik techniek, mensen en strategie samenbreng.',
     journeyTitle: 'Mijn ontwikkelingsreis',
+    experienceTitle: 'Ervaring & opleiding', experienceBody: 'Waar ik heb geleerd en gewerkt — van school tot de praktijk.',
     skillsTitle: 'Vaardigheden', skillsBody: 'Geen percentages, gewoon wat ik gebruik en waar ik het voor heb ingezet.',
     contactKicker: 'Contact', contactTitle: 'Laten we iets bouwen.',
     contactBody: 'Heb je een stageplek of wil je samenwerken? Ik hoor graag van je.',
@@ -41,7 +42,7 @@ export const STR: Record<Lang, Strings> = {
     selectedWork: 'Selected work', viewAll: 'View all',
     spotifyTitle: 'What I am listening to', nowKicker: 'Right now',
     tabRecent: 'Recently Played', tabTop: 'Top Tracks', saveSpotify: 'Open in Spotify',
-    curStatus: 'Status', curAvailable: 'At work', curTime: 'Local time',
+    curStatus: 'Live status', curAvailable: 'At work', curTime: 'Local time',
     stCoding: 'Coding', stListening: 'Listening to', stOnline: 'Online',
     curBuilding: 'Building', curLearning: 'Learning', curLocation: 'Location',
     workTitle: 'Work', workBody: 'A selection of what I have built, from client work to personal experiments. Filter by type.',
@@ -51,6 +52,7 @@ export const STR: Record<Lang, Strings> = {
     aboutP2: 'I enjoy turning ideas into working applications and thinking logically about structure, data and flow. I prefer building things that solve a real problem, rather than technology for its own sake.',
     aboutP3: 'Beyond building, I value teamwork and clear communication: properly understanding what is needed and then executing it cleanly. In the longer term I want to combine that technical foundation with a broader role towards business development, bringing together technology, people and strategy.',
     journeyTitle: 'My development journey',
+    experienceTitle: 'Experience & education', experienceBody: 'Where I have learned and worked — from school to practice.',
     skillsTitle: 'Skills', skillsBody: 'No percentages, just what I use and where I have applied it.',
     contactKicker: 'Contact', contactTitle: 'Let us build something.',
     contactBody: 'Got an internship opening or want to collaborate? I would love to hear from you.',
@@ -309,12 +311,17 @@ export function buildCurrently(s: Strings): CurrentlyItem[] {
 /* ---------- journey (vertical timeline) ---------- */
 export interface JourneyStep { title: string; body: string; }
 export interface JourneyNode extends JourneyStep {
-  color: string; slug: string; year: string; current: boolean;
+  color: string; slug: string; year: string; current: boolean; chips: SkillChip[]; phase: string;
 }
 
 const JCOL = ['#e34f26', '#777bb4', '#61dafb', '#ff2d20'];
 const JSLUG = ['html5', 'php', 'react', 'laravel'];
 const JYEAR = ['2022', '2023', '2024', ''];
+const JSTACK = ['HTML · CSS · JS', 'PHP · MySQL', 'React · TypeScript', 'Laravel'];
+const JPHASE: Record<Lang, string[]> = {
+  nl: ['Fundament', 'Back-end', 'Front-end', 'Full-stack'],
+  en: ['Foundation', 'Back-end', 'Front-end', 'Full-stack'],
+};
 
 export function buildJourney(lang: Lang): JourneyNode[] {
   const journey: JourneyStep[] = lang === 'nl' ? [
@@ -335,19 +342,104 @@ export function buildJourney(lang: Lang): JourneyNode[] {
     slug: JSLUG[i] || '',
     year: JYEAR[i] || (lang === 'nl' ? 'Nu' : 'Now'),
     current: i === last,
+    chips: buildStackChips(JSTACK[i] || '', true),
+    phase: JPHASE[lang][i] || '',
   }));
+}
+
+/* ---------- experience & education (about cards) ---------- */
+export interface ExpBullet { title: string; note?: string; }
+export interface ExpItem {
+  kind: 'edu' | 'work';
+  /** Line-icon name shown in the tinted tile. */
+  icon: string;
+  /** Soft accent colour for the tile tint, dots and hover bar. */
+  color: string;
+  kicker: string;
+  title: string;
+  org: string;
+  period: string;
+  body: string;
+  bullets: ExpBullet[];
+}
+
+export function buildExperience(lang: Lang): ExpItem[] {
+  const nl = lang === 'nl';
+  return [
+    {
+      kind: 'edu', icon: 'cap', color: '#8b7cff',
+      kicker: nl ? 'Opleiding' : 'Education',
+      title: 'Software Development',
+      org: nl ? 'Grafisch Lyceum Rotterdam · MBO Niveau 4' : 'Grafisch Lyceum Rotterdam · MBO Level 4',
+      period: nl ? '2023 – Heden' : '2023 – Present',
+      body: nl
+        ? 'Volledige opleiding in Software Development met focus op zowel front-end als back-end ontwikkeling. Bezig met het opbouwen van een breed fundament in programmeren.'
+        : 'Full Software Development programme focused on both front-end and back-end development. Building a broad foundation in programming.',
+      bullets: nl ? [
+        { title: 'Jaar 1: Front-End (HTML, CSS, JS, PHP)' },
+        { title: 'Jaar 2: Backend & Databases' },
+        { title: 'Focus: Full-Stack (PHP/JS/SQL)' },
+      ] : [
+        { title: 'Year 1: Front-End (HTML, CSS, JS, PHP)' },
+        { title: 'Year 2: Back-end & Databases' },
+        { title: 'Focus: Full-Stack (PHP/JS/SQL)' },
+      ],
+    },
+    {
+      kind: 'work', icon: 'bag', color: '#c79155',
+      kicker: nl ? 'Werkervaring' : 'Experience',
+      title: 'Verkoopmedewerker',
+      org: nl ? 'Van Haren · Schoenenwinkel' : 'Van Haren · Shoe store',
+      period: '2024 – 2025',
+      body: nl
+        ? 'Ervaring opgedaan in klantcontact, teamwork en commerciële vaardigheden. Sterke basis in communicatie en samenwerken in een professionele omgeving.'
+        : 'Gained experience in customer contact, teamwork and commercial skills. A strong base in communication and collaboration in a professional setting.',
+      bullets: nl ? [
+        { title: 'Communicatie', note: "Effectief met klanten en collega's" },
+        { title: 'Verkoop', note: 'Klantbehoeften identificeren en adviseren' },
+        { title: 'Samenwerken', note: 'Teamwork in drukke omgeving' },
+        { title: 'Klantcontact', note: 'Professionele en vriendelijke service' },
+      ] : [
+        { title: 'Communication', note: 'Effective with customers and colleagues' },
+        { title: 'Sales', note: 'Identifying customer needs and advising' },
+        { title: 'Teamwork', note: 'Collaboration in a busy environment' },
+        { title: 'Customer contact', note: 'Professional and friendly service' },
+      ],
+    },
+    {
+      kind: 'work', icon: 'mega', color: '#5fa394',
+      kicker: nl ? 'Werkervaring' : 'Experience',
+      title: 'Medewerker',
+      org: 'Sagitta Marketing · Marketing & Communicatie',
+      period: nl ? '2025 – Heden' : '2025 – Present',
+      body: nl
+        ? 'Ondersteuning bij marketingwerkzaamheden en communicatietaken binnen een dynamische marketingomgeving. Opgedaan inzicht in hoe marketing en digitale communicatie in de praktijk werken.'
+        : 'Supporting marketing activities and communication tasks within a dynamic marketing environment. Gained insight into how marketing and digital communication work in practice.',
+      bullets: nl ? [
+        { title: 'Marketingcampagnes', note: 'Meegewerkt aan de uitvoering' },
+        { title: 'Communicatie', note: 'Content- en communicatietaken' },
+        { title: 'Cold callen', note: 'Telefonisch nieuwe klanten benaderen' },
+        { title: 'Leads creëren', note: 'Nieuwe verkoopkansen genereren' },
+      ] : [
+        { title: 'Marketing campaigns', note: 'Helped with the execution' },
+        { title: 'Communication', note: 'Content and communication tasks' },
+        { title: 'Cold calling', note: 'Approaching new customers by phone' },
+        { title: 'Lead generation', note: 'Generating new sales opportunities' },
+      ],
+    },
+  ];
 }
 
 /* ---------- skills / tech chips ---------- */
 const TC: Record<string, string> = {
   React: '#61dafb', TypeScript: '#3178c6', TS: '#3178c6', HTML: '#e34f26', CSS: '#1572b6',
   JS: '#f7df1e', Vite: '#646cff', 'Next.js': '#e6e6ea', PHP: '#777bb4', MySQL: '#4479a1',
-  Python: '#3776ab', D3: '#f68e56', 'Chart.js': '#ff6384', SQL: '#336791',
+  Python: '#3776ab', D3: '#f68e56', 'Chart.js': '#ff6384', SQL: '#336791', Laravel: '#ff2d20',
 };
 const SLUG: Record<string, string> = {
   React: 'react', TypeScript: 'typescript', TS: 'typescript', HTML: 'html5', CSS: 'css',
   JS: 'javascript', Vite: 'vite', 'Next.js': 'nextdotjs', PHP: 'php', MySQL: 'mysql',
-  Python: 'python', D3: 'd3', MariaDB: 'mariadb', 'Chart.js': 'chartdotjs',
+  Python: 'python', D3: 'd3', MariaDB: 'mariadb', 'Chart.js': 'chartdotjs', Laravel: 'laravel',
 };
 
 export interface SkillChip { label: string; icon: string | null; iconOpacity: number; style: string; }
