@@ -1,6 +1,6 @@
 import { sx } from '../lib/sx';
 import { asset } from '../lib/asset';
-import { buildJourney, buildSkills, type Lang, type Strings } from '../data';
+import { buildJourney, buildSkills, buildExperience, type Lang, type Strings } from '../data';
 import FooterCTA from './FooterCTA';
 import type { Page } from '../App';
 
@@ -10,9 +10,21 @@ interface Props {
   go: (p: Page) => void;
 }
 
+/** Neutral line icon for an experience row's tile (and large faded watermark). */
+function ExpIcon({ name, size = 22 }: { name: string; size?: number }) {
+  const c = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+  switch (name) {
+    case 'cap': return <svg {...c}><path d="M22 10 12 5 2 10l10 5 10-5Z" /><path d="M6 12v5c0 1.3 2.7 2.5 6 2.5s6-1.2 6-2.5v-5" /><path d="M22 10v5" /></svg>;
+    case 'bag': return <svg {...c}><path d="M6 2 3 6.5V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.5L18 2Z" /><path d="M3 6.5h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>;
+    case 'mega': return <svg {...c}><path d="m3 11 16-5v12L3 13v-2Z" /><path d="M11.5 17.5a2.5 2.5 0 0 1-5-.8" /><path d="M19 8.5a3 3 0 0 1 0 5" /></svg>;
+    default: return null;
+  }
+}
+
 export default function About({ s, lang, go }: Props) {
   const journey = buildJourney(lang);
   const skills = buildSkills(lang);
+  const experience = buildExperience(lang);
 
   return (
     <div data-screen-label="Over mij" className="pageintro">
@@ -41,15 +53,67 @@ export default function About({ s, lang, go }: Props) {
           <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:40px;")}>{s.journeyTitle}</h2>
           <div className="tl">
             {journey.map((j, i) => (
-              <div key={i} className={`tl-item jstep${j.current ? ' current' : ''}`} style={{ ['--c' as string]: j.color }}>
+              <div key={i} data-reveal="" className={`tl-item jstep${j.current ? ' current' : ''}`} style={{ ['--c' as string]: j.color }}>
                 <div className="tl-node">
                   {j.slug && <img src={`https://cdn.simpleicons.org/${j.slug}/${j.color.replace('#', '')}`} alt="" width={24} height={24} />}
                 </div>
-                <div style={sx('padding-top:4px;')}>
-                  <div className="tl-year">{j.year}</div>
-                  <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:clamp(17px,2vw,21px); letter-spacing:-.01em; margin-bottom:7px;")}>{j.title}</h3>
-                  <p style={sx('font-size:14.5px; color:var(--muted); line-height:1.6; max-width:560px;')}>{j.body}</p>
+                <div className="tl-card">
+                  <div className="tl-card-main">
+                    <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:clamp(17px,1.7vw,20px); letter-spacing:-.01em;")}>{j.title}</h3>
+                    <p style={sx('font-size:14px; color:var(--card-muted); line-height:1.55; margin-top:7px; max-width:560px;')}>{j.body}</p>
+                    {j.chips.length > 0 && (
+                      <div style={sx('display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;')}>
+                        {j.chips.map((c, ci) => (
+                          <span key={ci} className="jchip" style={sx(c.style)}>
+                            {c.icon && <img src={c.icon} alt="" style={{ width: '14px', height: '14px', display: 'block', opacity: c.iconOpacity }} />}
+                            {c.label}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="tl-aside" aria-hidden="true">
+                    <span className="tl-badge">{j.year}</span>
+                    <span className="tl-index">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="tl-phase">{j.phase}</span>
+                  </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* experience & education — editorial ledger */}
+        <div data-reveal="" style={sx('padding:54px 0; border-bottom:1px solid var(--line);')}>
+          <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:8px;")}>{s.experienceTitle}</h2>
+          <p style={sx('font-size:16px; color:var(--muted); margin-bottom:14px; max-width:520px;')}>{s.experienceBody}</p>
+          <div className="exp-list" style={sx('margin-top:30px;')}>
+            {experience.map((e, i) => (
+              <div key={i} data-reveal="">
+                <article className="exp-row" style={{ ['--c' as string]: e.color }}>
+                  <span className="exp-wm" aria-hidden="true"><ExpIcon name={e.icon} size={150} /></span>
+                  <span className="exp-ic"><ExpIcon name={e.icon} /></span>
+                  <div className="exp-body">
+                  <div className="exp-top">
+                    <div className="exp-kicker">{e.kicker}</div>
+                    <span className="exp-period">{e.period}</span>
+                  </div>
+                  <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(18px,2vw,21px); font-weight:700; letter-spacing:-.01em;")}>{e.title}</h3>
+                  <div className="exp-org">{e.org}</div>
+                  <p style={sx('font-size:14px; color:rgba(255,255,255,.92); line-height:1.6; margin-top:10px; max-width:680px;')}>{e.body}</p>
+                  <ul className="exp-points">
+                    {e.bullets.map((b, bi) => (
+                      <li key={bi}>
+                        <span className="exp-dot" />
+                        <span>
+                          <span style={sx(`font-weight:${b.note ? 600 : 500}; color:#fff;`)}>{b.title}</span>
+                          {b.note && <span style={sx('color:rgba(255,255,255,.8);')}> — {b.note}</span>}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  </div>
+                </article>
               </div>
             ))}
           </div>
