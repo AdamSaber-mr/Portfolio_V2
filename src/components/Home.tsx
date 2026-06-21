@@ -134,7 +134,7 @@ export default function Home({ s, lang, go, openDetail }: Props) {
       </div>
 
       {/* "Right now" banner between the projects and the music */}
-      <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:36px 56px 36px;')}>
+      <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:8px 56px 36px;')}>
         <div className="now-banner" data-reveal="" style={sx('display:flex; align-items:center; justify-content:space-between; gap:32px 44px; flex-wrap:wrap; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:20px; padding:52px 44px;')}>
           <LiveStatus s={s} />
           {currently.map((c, i) => (
@@ -142,6 +142,11 @@ export default function Home({ s, lang, go, openDetail }: Props) {
           ))}
           <LocalTime lang={lang} label={s.curTime} />
         </div>
+      </div>
+
+      {/* hairline divider between the status banner and the music section */}
+      <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:0 56px;')}>
+        <div data-reveal="" style={sx('border-top:1px solid var(--line);')}></div>
       </div>
 
       <NowPlaying s={s} />
