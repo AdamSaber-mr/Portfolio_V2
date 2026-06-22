@@ -70,10 +70,10 @@ export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggl
             <span className="icon-btn" {...clickable(toggleTheme, 'Thema wisselen')} title="Thema" style={sx('display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; background:var(--surface); border:1px solid var(--line); border-radius:11px; color:var(--ink);')}>
               <SunMoon isDark={isDark} />
             </span>
-            <span className="btn nav-cv" {...clickable(() => navTo('contact'))} style={sx('display:inline-flex; align-items:center; gap:7px; background:var(--surface); color:var(--ink); border:1px solid var(--line); padding:8px 15px; border-radius:11px; font-size:13px; font-weight:600; white-space:nowrap;')}>
+            <a className="btn nav-cv" href={asset('assets/cv_adam.pdf')} download="CV_Adam_Saber.pdf" style={sx('display:inline-flex; align-items:center; gap:7px; background:var(--surface); color:var(--ink); border:1px solid var(--line); padding:8px 15px; border-radius:11px; font-size:13px; font-weight:600; white-space:nowrap; text-decoration:none;')}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               {s.cv}
-            </span>
+            </a>
           </div>
         </div>
 
@@ -105,10 +105,10 @@ export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggl
             <SunMoon isDark={isDark} />
             {nl ? 'Thema' : 'Theme'}
           </span>
-          <span className="nav-menu-btn" {...clickable(() => navTo('contact'))}>
+          <a className="nav-menu-btn" href={asset('assets/cv_adam.pdf')} download="CV_Adam_Saber.pdf" onClick={() => setOpen(false)}>
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             {s.cv}
-          </span>
+          </a>
         </div>
       </div>
     </>
