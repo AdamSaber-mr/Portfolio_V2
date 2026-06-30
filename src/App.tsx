@@ -22,7 +22,6 @@ export default function App() {
   const [dark, setDark] = useState(true);
   const [lang, setLang] = useState<Lang>('nl');
   const [filter, setFilterState] = useState<Filter>('all');
-  const [slide, setSlide] = useState<number | null>(null);
   const [openProject, setOpenProject] = useState<string | null>(null);
   const [form, setFormState] = useState<ContactForm>(emptyForm);
   const [sent, setSent] = useState(false);
@@ -45,7 +44,6 @@ export default function App() {
   const go = (p: Page) => {
     setOpenProject(null);
     if (page === p) return;
-    if (p === 'work') setSlide(null);
     setPage(p);
     window.scrollTo(0, 0);
   };
@@ -65,7 +63,6 @@ export default function App() {
 
   const setFilter = (f: Filter) => {
     setFilterState(f);
-    setSlide(null);
   };
 
   const setForm = (patch: Partial<ContactForm>) => setFormState((prev) => ({ ...prev, ...patch }));
@@ -136,9 +133,9 @@ export default function App() {
         (detail ? (
           <ProjectDetail s={s} project={loc(detail, lang)} back={closeDetail} go={go} />
         ) : (
-          <Work s={s} lang={lang} filter={filter} setFilter={setFilter} slide={slide} setSlide={setSlide} openDetail={openDetail} go={go} />
+          <Work s={s} lang={lang} filter={filter} setFilter={setFilter} openDetail={openDetail} />
         ))}
-      {page === 'about' && <About s={s} lang={lang} go={go} />}
+      {page === 'about' && <About s={s} lang={lang} />}
       {page === 'contact' && <Contact s={s} lang={lang} form={form} setForm={setForm} submit={submit} sent={sent} sending={sending} error={sendError} />}
     </div>
   );
