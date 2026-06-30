@@ -91,6 +91,18 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
+  { name: 'Sentinel AI', cat: 'data', ratio: '16/10', color: '#241a2e', image: '/assets/projects/ai_fraude.png', imgPos: 'center top', stack: 'Python · scikit-learn · Flask · React',
+    blurb: { nl: 'Full-stack ML-demo die met anomaliedetectie verdachte transacties opspoort.', en: 'Full-stack ML demo that flags suspicious transactions with anomaly detection.' },
+    year: '2026', repo: 'https://github.com/AdamSaber-mr/Ai-Fraud-Detection', live: 'https://adamsaber-mr.github.io/Ai-Fraud-Detection/',
+    role: { nl: 'Full-stack & ML-ontwikkelaar', en: 'Full-stack & ML developer' },
+    overview: {
+      nl: 'Sentinel is mijn full-stack eindproject dat met machine learning verdachte transacties opspoort. De kern is een Isolation Forest die ongesuperviseerd leert wat normaal gedrag is en de uitschieters isoleert — zonder ooit gelabelde fraude te zien. Een Flask-API traint en scoort de data, terwijl een React-dashboard met ECharts de resultaten tot leven brengt: KPI’s, een 3D-transactiewolk en per transactie uitleg waarom iets verdacht is.',
+      en: 'Sentinel is my full-stack final project that uses machine learning to spot suspicious transactions. At its core is an Isolation Forest that learns, unsupervised, what normal behaviour looks like and isolates the outliers — without ever seeing labelled fraud. A Flask API trains and scores the data, while a React dashboard built with ECharts brings the results to life: KPIs, a 3D transaction cloud and a per-transaction explanation of why something looks suspect.',
+    },
+    features: {
+      nl: ['Isolation Forest (scikit-learn) voor ongesuperviseerde anomaliedetectie', 'Eigen explainability-laag: per transactie uitleg waarom iets verdacht is', 'Anomaly-score omgezet naar een risico van 0–100 met HIGH/MEDIUM/LOW-banden', 'Flask REST-API met gelaagde architectuur en veilige CSV-upload', 'React 19 + ECharts-dashboard met o.a. een 3D-transactiewolk'],
+      en: ['Isolation Forest (scikit-learn) for unsupervised anomaly detection', 'Custom explainability layer: per-transaction reasons why it’s suspect', 'Anomaly score mapped to a 0–100 risk with HIGH/MEDIUM/LOW bands', 'Flask REST API with a layered architecture and safe CSV upload', 'React 19 + ECharts dashboard featuring a 3D transaction cloud'],
+    } },
   { name: 'RapidCars', cat: 'front', ratio: '4/3', color: '#1b1d22', image: '/assets/projects/rapidcars.jpg', imgPos: 'left top', stack: 'React · TypeScript · Vite',
     blurb: { nl: 'Autoverhuur-webapp voor een echte klant: snel boeken, sportieve auto’s.', en: 'Car-rental web app for a real client: fast booking, sporty cars.' },
     year: '2024', repo: 'https://github.com/AdamSaber-mr/rapid_cars', live: 'https://adamsaber-mr.github.io/rapid_cars/',
@@ -435,11 +447,13 @@ const TC: Record<string, string> = {
   React: '#61dafb', TypeScript: '#3178c6', TS: '#3178c6', HTML: '#e34f26', CSS: '#1572b6',
   JS: '#f7df1e', Vite: '#646cff', 'Next.js': '#e6e6ea', PHP: '#777bb4', MySQL: '#4479a1',
   Python: '#3776ab', D3: '#f68e56', 'Chart.js': '#ff6384', SQL: '#336791', Laravel: '#ff2d20',
+  'scikit-learn': '#f7931e', ECharts: '#aa344d', NumPy: '#4dabcf', pandas: '#150458', 'Framer Motion': '#0055ff', Flask: '#5f6caf',
 };
 const SLUG: Record<string, string> = {
   React: 'react', TypeScript: 'typescript', TS: 'typescript', HTML: 'html5', CSS: 'css',
   JS: 'javascript', Vite: 'vite', 'Next.js': 'nextdotjs', PHP: 'php', MySQL: 'mysql',
   Python: 'python', D3: 'd3', MariaDB: 'mariadb', 'Chart.js': 'chartdotjs', Laravel: 'laravel',
+  'scikit-learn': 'scikitlearn', Flask: 'flask', ECharts: 'apacheecharts', NumPy: 'numpy', pandas: 'pandas', 'Framer Motion': 'framer',
 };
 
 export interface SkillChip { label: string; icon: string | null; iconOpacity: number; style: string; }
