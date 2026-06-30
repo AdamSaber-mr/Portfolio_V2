@@ -33,7 +33,7 @@ void main(){
   vec3 col=mix(c1,c2,smoothstep(0.18,0.68,n));
   col=mix(col,c3,smoothstep(0.55,1.0,n)*0.8);
   float glow=pow(n,1.55);
-  float a=mix(glow*0.20, glow*0.27, u_dark);
+  float a=mix(glow*0.40, glow*0.27, u_dark);
   gl_FragColor=vec4(col,a);
 }
 `;

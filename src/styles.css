@@ -15,7 +15,7 @@ body { -webkit-font-smoothing: antialiased; background: #0a0b0d; }
 }
 .root { overflow-x: clip; }
 .root[data-theme="light"] {
-  --bg: #f4f3f8; --surface: #ffffff; --ink: #16151c; --ink2: #3c3a48; --muted: #5d5b6b;
+  --bg: #e7e5f0; --surface: #ffffff; --ink: #16151c; --ink2: #3c3a48; --muted: #5d5b6b;
   --faint: #9b99a8; --line: #e3e1ec; --line2: #ecebf3; --accent: #6a5cf0;
   --accentink: #ffffff; --navbg: rgba(248, 247, 252, .5);
   --card: #16171f; --card-ink: #f1f1f6; --card-ink2: #cbccd6; --card-muted: #9a9ba8; --card-faint: #71717f; --card-line: rgba(255, 255, 255, .10); --card-field: #0e0f16;

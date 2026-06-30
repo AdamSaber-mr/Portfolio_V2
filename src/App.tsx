@@ -34,7 +34,7 @@ export default function App() {
 
   // keep the document background in sync with the theme (avoids white flash)
   useEffect(() => {
-    document.body.style.background = dark ? '#0a0b0d' : '#f4f3f8';
+    document.body.style.background = dark ? '#0a0b0d' : '#e7e5f0';
   }, [dark]);
 
   useEffect(() => {
