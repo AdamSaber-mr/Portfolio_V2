@@ -2,11 +2,19 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import type { Page } from '../App';
 
-const PAGE_INDEX: Record<Page, number> = { home: 0, work: 1, about: 2, contact: 3 };
+// Each page sits at its own point in the noise field, scattered in a distinct
+// direction (not on a line) so switching pages drifts straight to that spot
+// instead of sweeping through the other pages' positions.
+const PAGE_SEED: Record<Page, [number, number]> = {
+  home: [0, 0],
+  work: [15, 7],
+  about: [-9, 14],
+  contact: [-14, -8],
+};
 
 const FRAG = `
 precision highp float;
-uniform float u_time; uniform vec2 u_res; uniform float u_dark; uniform float u_seed;
+uniform float u_time; uniform vec2 u_res; uniform float u_dark; uniform vec2 u_seed;
 float hash(vec2 p){ p=fract(p*vec2(123.34,345.45)); p+=dot(p,p+34.345); return fract(p.x*p.y); }
 float noise(vec2 p){ vec2 i=floor(p), f=fract(p); vec2 u=f*f*(3.0-2.0*f); return mix(mix(hash(i),hash(i+vec2(1.0,0.0)),u.x), mix(hash(i+vec2(0.0,1.0)),hash(i+vec2(1.0,1.0)),u.x), u.y); }
 float fbm(vec2 p){ float v=0.0,a=0.5; for(int i=0;i<6;i++){ v+=a*noise(p); p*=1.92; a*=0.52; } return v; }
@@ -68,20 +76,20 @@ export default function AuroraBackground({ dark, page }: Props) {
       u_time: { value: 0 },
       u_res: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
       u_dark: { value: dark ? 1 : 0 },
-      u_seed: { value: 0 },
+      u_seed: { value: new THREE.Vector2(0, 0) },
     };
     const geo = new THREE.PlaneGeometry(2, 2);
     const mat = new THREE.ShaderMaterial({ uniforms, transparent: true, vertexShader: VERT, fragmentShader: FRAG });
     scene.add(new THREE.Mesh(geo, mat));
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let seed = 0;
     let raf = 0;
     const render = () => {
       uniforms.u_dark.value = darkRef.current ? 1 : 0;
-      const target = PAGE_INDEX[pageRef.current] * 16.0;
-      seed += (target - seed) * 0.022;
-      uniforms.u_seed.value = seed;
+      const [tx, ty] = PAGE_SEED[pageRef.current];
+      const seed = uniforms.u_seed.value;
+      seed.x += (tx - seed.x) * 0.011;
+      seed.y += (ty - seed.y) * 0.011;
       renderer.render(scene, cam);
     };
     const tick = () => {

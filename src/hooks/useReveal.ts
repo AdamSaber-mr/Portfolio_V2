@@ -14,7 +14,7 @@ export function useReveal(dep: unknown) {
         (c) => c instanceof HTMLElement && c.hasAttribute('data-reveal'),
       );
       const idx = Math.max(0, sibs.indexOf(el));
-      el.style.transitionDelay = Math.min(idx, 7) * 0.07 + 's';
+      el.style.transitionDelay = Math.min(idx, 7) * 0.1 + 's';
       el.classList.remove('is-in');
     });
 
