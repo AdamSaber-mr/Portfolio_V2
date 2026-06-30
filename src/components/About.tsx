@@ -1,13 +1,10 @@
 import { sx } from '../lib/sx';
 import { asset } from '../lib/asset';
 import { buildJourney, buildSkills, buildExperience, type Lang, type Strings } from '../data';
-import FooterCTA from './FooterCTA';
-import type { Page } from '../App';
 
 interface Props {
   s: Strings;
   lang: Lang;
-  go: (p: Page) => void;
 }
 
 /** Neutral line icon for an experience row's tile (and large faded watermark). */
@@ -21,7 +18,7 @@ function ExpIcon({ name, size = 22 }: { name: string; size?: number }) {
   }
 }
 
-export default function About({ s, lang, go }: Props) {
+export default function About({ s, lang }: Props) {
   const journey = buildJourney(lang);
   const skills = buildSkills(lang);
   const experience = buildExperience(lang);
@@ -47,7 +44,7 @@ export default function About({ s, lang, go }: Props) {
         </div>
       </div>
 
-      <div className="page-pad" style={sx('max-width:1320px; margin:0 auto; padding:0 56px 10px;')}>
+      <div className="page-pad" style={sx('max-width:1320px; margin:0 auto; padding:0 56px 72px;')}>
         {/* journey — vertical timeline */}
         <div data-reveal="" style={sx('padding:54px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:40px;")}>{s.journeyTitle}</h2>
@@ -144,7 +141,6 @@ export default function About({ s, lang, go }: Props) {
           </div>
         </div>
       </div>
-      <FooterCTA s={s} maxw={1320} goContact={() => go('contact')} />
     </div>
   );
 }
