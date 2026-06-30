@@ -118,7 +118,7 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
       <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:56px 56px 44px;')}>
         <div data-reveal="" style={sx('display:flex; align-items:baseline; justify-content:space-between; margin-bottom:30px;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(26px,3.6vw,46px); font-weight:700; letter-spacing:-.02em;")}>{s.selectedWork}</h2>
-          <span className="navlink" {...clickable(() => go('work'))} style={sx("font-family:'JetBrains Mono',monospace; font-size:12px;")}>{s.viewAll} →</span>
+          <span className="navlink" {...clickable(() => go('work'))} style={sx("font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:600;")}>{s.viewAll} →</span>
         </div>
         <div className="home-cards" style={sx('display:grid; grid-template-columns:repeat(3,1fr); gap:20px;')}>
           {featured.map((p, i) => (
