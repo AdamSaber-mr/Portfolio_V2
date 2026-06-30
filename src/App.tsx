@@ -73,11 +73,18 @@ export default function App() {
     if (hp) { setSent(true); return; }
     const subject = fSubject || ((lang === 'nl' ? 'Bericht van ' : 'Message from ') + (fName || 'portfolio'));
 
-    // No key configured yet → fall back to the user's mail app so nothing breaks.
-    if (!WEB3FORMS_ACCESS_KEY) {
+    // Open the visitor's mail app with the message pre-filled. Used when no key is
+    // configured, and as a fallback when the Web3Forms request can't go through
+    // (offline, or blocked by an ad/privacy blocker) so the message is never lost.
+    const openMailFallback = () => {
       const body = encodeURIComponent((fMsg || '') + '\n\n' + (fName || '') + (fEmail ? ' (' + fEmail + ')' : ''));
       window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${body}`;
       setSent(true);
+    };
+
+    // No key configured yet → fall back to the user's mail app so nothing breaks.
+    if (!WEB3FORMS_ACCESS_KEY) {
+      openMailFallback();
       return;
     }
 
@@ -102,7 +109,9 @@ export default function App() {
         setSendError((lang === 'nl' ? 'Versturen mislukt: ' : 'Sending failed: ') + (data.message || (lang === 'nl' ? 'probeer het later opnieuw.' : 'please try again later.')));
       }
     } catch {
-      setSendError(lang === 'nl' ? 'Versturen mislukt. Controleer je internetverbinding.' : 'Sending failed. Please check your connection.');
+      // network error, or the request was blocked by a client-side ad/privacy
+      // blocker → open the visitor's mail app with the message pre-filled
+      openMailFallback();
     } finally {
       setSending(false);
     }
