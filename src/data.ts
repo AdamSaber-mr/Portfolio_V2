@@ -327,7 +327,7 @@ export function buildCurrently(s: Strings): CurrentlyItem[] {
   const nl = s.workTitle === 'Werk';
   return [
     { label: s.curBuilding, value: nl ? 'Dit portfolio (V2)' : 'This portfolio (V2)', icon: 'code' },
-    { label: s.curLearning, value: 'Laravel', icon: 'book' },
+    { label: s.curLearning, value: 'Docker & CI/CD', icon: 'book' },
     { label: s.curLocation, value: 'Rotterdam, NL', icon: 'pin' },
   ];
 }
@@ -338,13 +338,13 @@ export interface JourneyNode extends JourneyStep {
   color: string; slug: string; year: string; current: boolean; chips: SkillChip[]; phase: string;
 }
 
-const JCOL = ['#e34f26', '#777bb4', '#61dafb', '#ff2d20'];
-const JSLUG = ['html5', 'php', 'react', 'laravel'];
-const JYEAR = ['2022', '2023', '2024', ''];
-const JSTACK = ['HTML · CSS · JS', 'PHP · MySQL', 'React · TypeScript', 'Laravel'];
+const JCOL = ['#e34f26', '#777bb4', '#61dafb', '#ff2d20', '#2496ed'];
+const JSLUG = ['html5', 'php', 'react', 'laravel', 'docker'];
+const JYEAR = ['2022', '2023', '2024', '2025', ''];
+const JSTACK = ['HTML · CSS · JS', 'PHP · MySQL', 'React · TypeScript', 'Laravel', 'Docker · CI/CD'];
 const JPHASE: Record<Lang, string[]> = {
-  nl: ['Fundament', 'Back-end', 'Front-end', 'Full-stack'],
-  en: ['Foundation', 'Back-end', 'Front-end', 'Full-stack'],
+  nl: ['Fundament', 'Back-end', 'Front-end', 'Full-stack', 'Cloud & DevOps'],
+  en: ['Foundation', 'Back-end', 'Front-end', 'Full-stack', 'Cloud & DevOps'],
 };
 
 export function buildJourney(lang: Lang): JourneyNode[] {
@@ -353,11 +353,13 @@ export function buildJourney(lang: Lang): JourneyNode[] {
     { title: 'PHP & MySQL', body: 'Back-end, databases en CRUD-applicaties.' },
     { title: 'React & TypeScript', body: 'Moderne component-gedreven front-ends.' },
     { title: 'Laravel', body: 'Full-stack apps bouwen met een modern PHP-framework.' },
+    { title: 'Docker & CI/CD', body: 'Apps containeriseren en automatisch deployen naar de cloud.' },
   ] : [
     { title: 'HTML, CSS & JavaScript', body: 'First sites, interaction and the basics of the web.' },
     { title: 'PHP & MySQL', body: 'Back-end, databases and CRUD applications.' },
     { title: 'React & TypeScript', body: 'Modern component-driven front-ends.' },
     { title: 'Laravel', body: 'Building full-stack apps with a modern PHP framework.' },
+    { title: 'Docker & CI/CD', body: 'Containerising apps and deploying them automatically to the cloud.' },
   ];
   const last = journey.length - 1;
   return journey.map((j, i) => ({
@@ -460,14 +462,14 @@ const TC: Record<string, string> = {
   JS: '#f7df1e', Vite: '#646cff', 'Next.js': '#e6e6ea', PHP: '#777bb4', MySQL: '#4479a1',
   Python: '#3776ab', D3: '#f68e56', 'Chart.js': '#ff6384', SQL: '#336791', Laravel: '#ff2d20',
   'scikit-learn': '#f7931e', ECharts: '#aa344d', NumPy: '#4dabcf', pandas: '#150458', 'Framer Motion': '#0055ff', Flask: '#5f6caf',
-  SQLite: '#0f80cc', PHPUnit: '#3c9cd7', Puppeteer: '#40b5a4',
+  SQLite: '#0f80cc', PHPUnit: '#3c9cd7', Puppeteer: '#40b5a4', Docker: '#2496ed',
 };
 const SLUG: Record<string, string> = {
   React: 'react', TypeScript: 'typescript', TS: 'typescript', HTML: 'html5', CSS: 'css',
   JS: 'javascript', Vite: 'vite', 'Next.js': 'nextdotjs', PHP: 'php', MySQL: 'mysql',
   Python: 'python', D3: 'd3', MariaDB: 'mariadb', 'Chart.js': 'chartdotjs', Laravel: 'laravel',
   'scikit-learn': 'scikitlearn', Flask: 'flask', ECharts: 'apacheecharts', NumPy: 'numpy', pandas: 'pandas', 'Framer Motion': 'framer',
-  SQLite: 'sqlite', Puppeteer: 'puppeteer',
+  SQLite: 'sqlite', Puppeteer: 'puppeteer', Docker: 'docker',
 };
 
 export interface SkillChip { label: string; icon: string | null; iconOpacity: number; style: string; }
