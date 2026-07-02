@@ -502,7 +502,7 @@ export function buildStackChips(stack: string, compact = true): SkillChip[] {
 export function buildSkills(lang: Lang): SkillGroup[] {
   const groups = [
     { area: 'Front-end', tag: 'UI', items: ['React', 'TypeScript', 'HTML', 'CSS', 'Vite', 'Framer Motion'], note: lang === 'nl' ? 'Interfaces voor RapidCars, Luxora en Sentinel gebouwd.' : 'Built the interfaces for RapidCars, Luxora and Sentinel.' },
-    { area: 'Back-end', tag: 'Server', items: ['PHP', 'MySQL', 'Python', 'Flask'], note: lang === 'nl' ? 'Full-stack apps zoals Yume Ramen, CookUp en de Flask-API van Sentinel.' : 'Full-stack apps like Yume Ramen, CookUp and the Flask API behind Sentinel.' },
+    { area: 'Back-end', tag: 'Server', items: ['PHP', 'Laravel', 'MySQL', 'SQLite', 'Python', 'Flask'], note: lang === 'nl' ? 'Full-stack apps zoals Yume Ramen, CookUp en de Laravel-API van Revenue OS.' : 'Full-stack apps like Yume Ramen, CookUp and the Laravel API behind Revenue OS.' },
     { area: 'Data & AI', tag: 'Insight', items: ['scikit-learn', 'NumPy', 'pandas', 'D3', 'ECharts', 'Chart.js', 'SQL'], note: lang === 'nl' ? 'Anomaliedetectie voor Sentinel AI en dashboards zoals Nike.' : 'Anomaly detection for Sentinel AI and dashboards like Nike.' },
     { area: lang === 'nl' ? 'Werkwijze' : 'Way of working', tag: 'Soft', items: ['Teamwork', lang === 'nl' ? 'Communicatie' : 'Communication', lang === 'nl' ? 'Doorzetten' : 'Persistence'], note: lang === 'nl' ? 'Probleemoplosser die blijft sleutelen tot het klopt.' : 'A problem solver who keeps going until it is right.' },
   ];
