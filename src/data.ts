@@ -127,6 +127,18 @@ export const PROJECTS: Project[] = [
       nl: ['Interactieve grafieken met D3 en Chart.js', 'Inzicht in supply chain en omzet', 'Ruwe data omgezet naar heldere visualisaties', 'Filteren en inzoomen op de cijfers'],
       en: ['Interactive charts with D3 and Chart.js', 'Insight into supply chain and revenue', 'Raw data turned into clear visualisations', 'Filter and zoom into the numbers'],
     } },
+  { name: 'Revenue OS', cat: 'full', ratio: '16/10', color: '#26243a', image: '/assets/projects/saas.png', imgPos: 'center top', stack: 'React · Laravel · SQLite',
+    blurb: { nl: 'Multi-tenant SaaS-dashboard dat abonnementsomzet live berekent uit een event-log.', en: 'Multi-tenant SaaS dashboard that computes subscription revenue live from an event log.' },
+    year: '2026', repo: 'https://github.com/AdamSaber-mr/SaaS_Subscription_Dashboard', live: 'https://revenue-os-app.vercel.app',
+    role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
+    overview: {
+      nl: 'Revenue OS is een Stripe/ChartMogul-achtig omzetdashboard voor SaaS-bedrijven. Elke abonnementswijziging — nieuw, upgrade, downgrade, opzegging of heractivering — wordt als event vastgelegd, en alle metrics (MRR, ARR, churn, retentie en cohort-analyses) worden daar server-side uit afgeleid, zodat de cijfers altijd onderling kloppen. Het platform is multi-tenant: elk bedrijf registreert een eigen omgeving met strikt gescheiden data. De tweetalige interface (NL/EN) heeft een licht en donker thema en volledig handgebouwde SVG-grafieken, en draait live op Vercel en Railway.',
+      en: 'Revenue OS is a Stripe/ChartMogul-style revenue dashboard for SaaS companies. Every subscription change — new, upgrade, downgrade, cancellation or reactivation — is recorded as an event, and all metrics (MRR, ARR, churn, retention and cohort analyses) are derived from it server-side, so the numbers always stay consistent with each other. The platform is multi-tenant: every company registers its own environment with strictly isolated data. The bilingual interface (NL/EN) ships light and dark themes and fully hand-built SVG charts, and runs live on Vercel and Railway.',
+    },
+    features: {
+      nl: ['Event-sourced metrics-engine: MRR, ARR, NRR, churn en cohort-retentie uit één append-only event-log', 'Multi-tenancy vanaf de datalaag: team-scoping op elke tabel, cross-tenant toegang leest als 404', 'Eigen SVG-chartengine in plaats van een chart-library — bundle van 800 KB naar 283 KB', 'Toegankelijk: focus-traps, volledige toetsenbordnavigatie en screenreader-tabellen bij elke grafiek', '28 PHPUnit feature-tests en 7 Puppeteer end-to-end-suites, o.a. voor tenant-isolatie'],
+      en: ['Event-sourced metrics engine: MRR, ARR, NRR, churn and cohort retention from one append-only event log', 'Multi-tenancy from the data layer up: team scoping on every table, cross-tenant access reads as a 404', 'Custom SVG chart engine instead of a chart library — bundle down from 800 KB to 283 KB', 'Accessible: focus traps, full keyboard navigation and screenreader tables behind every chart', '28 PHPUnit feature tests and 7 Puppeteer end-to-end suites, covering tenant isolation and more'],
+    } },
   { name: 'Luxora', cat: 'front', ratio: '3/4', color: '#2f3a2c', image: '/assets/projects/luxora.jpg', imgPos: 'left top', stack: 'Next.js · React · TS',
     blurb: { nl: 'Marketplace voor exclusieve luxeproducten met een volledige front-end.', en: 'Marketplace for exclusive luxury products with a full front-end.' },
     year: '2024', repo: 'https://github.com/itsamestachu/luxora', live: 'https://luxora.pages.dev/',
@@ -448,12 +460,14 @@ const TC: Record<string, string> = {
   JS: '#f7df1e', Vite: '#646cff', 'Next.js': '#e6e6ea', PHP: '#777bb4', MySQL: '#4479a1',
   Python: '#3776ab', D3: '#f68e56', 'Chart.js': '#ff6384', SQL: '#336791', Laravel: '#ff2d20',
   'scikit-learn': '#f7931e', ECharts: '#aa344d', NumPy: '#4dabcf', pandas: '#150458', 'Framer Motion': '#0055ff', Flask: '#5f6caf',
+  SQLite: '#0f80cc', PHPUnit: '#3c9cd7', Puppeteer: '#40b5a4',
 };
 const SLUG: Record<string, string> = {
   React: 'react', TypeScript: 'typescript', TS: 'typescript', HTML: 'html5', CSS: 'css',
   JS: 'javascript', Vite: 'vite', 'Next.js': 'nextdotjs', PHP: 'php', MySQL: 'mysql',
   Python: 'python', D3: 'd3', MariaDB: 'mariadb', 'Chart.js': 'chartdotjs', Laravel: 'laravel',
   'scikit-learn': 'scikitlearn', Flask: 'flask', ECharts: 'apacheecharts', NumPy: 'numpy', pandas: 'pandas', 'Framer Motion': 'framer',
+  SQLite: 'sqlite', Puppeteer: 'puppeteer',
 };
 
 export interface SkillChip { label: string; icon: string | null; iconOpacity: number; style: string; }
