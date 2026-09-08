@@ -174,7 +174,7 @@ export default function App() {
             {route.kind === 'work' && (
               <Work s={s} lang={lang} openDetail={openDetail} />
             )}
-            {route.kind === 'about' && <About s={s} lang={lang} />}
+            {route.kind === 'about' && <About s={s} lang={lang} go={go} />}
             {route.kind === 'contact' && (
               <Contact s={s} lang={lang} form={form} setForm={setForm} submit={submit} sent={sent} sending={sending} error={sendError} />
             )}

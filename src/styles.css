@@ -151,9 +151,7 @@
   --accentink: var(--accent-ink);
   --card: var(--paper-raised);
   --card-ink: var(--ink);
-  --card-ink2: var(--ink-2);
   --card-muted: var(--ink-3);
-  --card-faint: var(--ink-3);
   --card-line: var(--rule);
   --card-field: var(--paper-well);
 }
@@ -346,46 +344,6 @@ textarea:focus-visible,
   border-radius: var(--radius-s);
 }
 
-.jchip { transition: color var(--dur-fast) var(--ease); }
-
-/* --------------------------------------------------------------------------
-   Over mij — ontwikkelingsreis
-   -------------------------------------------------------------------------- */
-.tl { position: relative; }
-.tl-item { position: relative; display: grid; grid-template-columns: 52px 1fr; gap: var(--s-5); align-items: start; padding: var(--s-2) 0; }
-.tl-node {
-  position: relative; width: 52px; height: 52px; border-radius: var(--radius-full);
-  display: flex; align-items: center; justify-content: center;
-  background: var(--paper-raised); border: var(--border) solid var(--rule); z-index: 1; margin-top: var(--s-2);
-}
-.tl-card {
-  display: flex; align-items: center; gap: var(--s-5);
-  background: var(--paper-raised); color: var(--ink);
-  border: var(--border) solid var(--rule); border-radius: var(--radius-m);
-  padding: var(--card-pad);
-  transition: border-color var(--dur) var(--ease);
-}
-.tl-card:hover { border-color: var(--rule-strong); }
-.tl-card-main { flex: 1; min-width: 0; }
-.tl-badge {
-  font-family: var(--font-mono); font-size: var(--t-label); font-weight: var(--w-medium);
-  letter-spacing: var(--ls-label); white-space: nowrap; flex: none;
-  color: var(--ink-3);
-}
-.tl-aside { flex: none; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: var(--s-2); min-width: 86px; }
-.tl-index { display: none; }
-.tl-phase { font-family: var(--font-mono); font-size: var(--t-label); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--ink-3); }
-
-@media (min-width: 1024px) {
-  .fold-center {
-    min-height: calc(100dvh - var(--nav-h));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-block: var(--s-6);
-  }
-}
-
 /* --------------------------------------------------------------------------
    Home — nu aan het luisteren
    -------------------------------------------------------------------------- */
@@ -409,36 +367,66 @@ textarea:focus-visible,
    anders in het papier wegloopt.
    -------------------------------------------------------------------------- */
 
+
 /* --------------------------------------------------------------------------
-   Over mij — ervaring & opleiding
+   Over mij
+   Drie tabellen in plaats van drie systemen. `.ledger` is de gedeelde vorm: een
+   stapel rijen tussen haarlijnen, precies zoals de inhoudsopgave op Home en Werk.
+   Er zit geen paneel, geen tint en geen icoon in — de uitlijning doet het werk.
    -------------------------------------------------------------------------- */
-.exp-list { display: flex; flex-direction: column; gap: var(--s-4); color: var(--ink); }
-.exp-row {
-  position: relative; display: grid; grid-template-columns: auto 1fr; gap: var(--s-5);
-  padding: var(--card-pad);
-  background: var(--paper-raised);
-  border: var(--border) solid var(--rule);
-  border-radius: var(--radius-m);
-  transition: border-color var(--dur) var(--ease);
-}
-.exp-row:hover { border-color: var(--rule-strong); }
-.exp-wm { display: none; }
-.exp-ic {
-  width: 46px; height: 46px; border-radius: var(--radius-s); flex: none;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--mat); color: var(--ink-2);
-}
-.exp-top { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); margin-bottom: var(--s-2); }
-.exp-kicker { font-family: var(--font-mono); font-size: var(--t-label); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--ink-3); }
-.exp-period { font-family: var(--font-mono); font-size: var(--t-meta); color: var(--ink-2); white-space: nowrap; }
-.exp-org { font-size: var(--t-small); font-weight: var(--w-semibold); color: var(--ink-2); margin-top: var(--s-1); }
-.exp-points { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--s-2) var(--s-5); margin-top: var(--s-4); }
-.exp-points li { display: flex; gap: var(--s-3); align-items: baseline; font-size: var(--t-small); line-height: var(--lh-tight); }
-.exp-dot { flex: none; width: 5px; height: 5px; border-radius: var(--radius-full); background: var(--ink-3); transform: translateY(-1px); }
+.about-grid { display: grid; grid-template-columns: 8fr 4fr; gap: var(--s-8); align-items: start; }
+.about-prose { max-width: var(--measure); margin-top: var(--s-7); }
+.about-prose p { font-size: var(--t-body); line-height: var(--lh-body); color: var(--ink-2); }
+.about-prose p + p { margin-top: var(--s-5); }
+.about-prose .about-lead { font-size: var(--t-lede); color: var(--ink); }
 
-.skillcard { transition: border-color var(--dur) var(--ease); }
-.skillcard:hover { border-color: var(--rule-strong); }
+.ledger { display: block; }
+.ledger > * { border-top: var(--border) solid var(--rule); }
+.ledger > *:last-child { border-bottom: var(--border) solid var(--rule); }
 
+/* ontwikkelingsreis */
+.jr-row {
+  display: grid; grid-template-columns: 96px 1fr 12rem;
+  gap: var(--s-5); align-items: baseline;
+  padding: var(--s-5) 0;
+}
+.jr-year {
+  display: flex; align-items: baseline; gap: var(--s-2);
+  font-family: var(--font-mono); font-size: var(--t-meta); color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+/* Het enige accent op deze pagina, en het draagt informatie: waar ik nu sta. */
+.jr-row--now .jr-year { color: var(--accent); }
+.jr-mark { width: 6px; height: 6px; background: var(--accent); flex: none; transform: translateY(-1px); }
+.jr-title { font-family: var(--font-display); font-size: var(--t-heading); line-height: var(--lh-heading); font-weight: var(--w-body); }
+.jr-body { font-size: var(--t-small); line-height: var(--lh-body); color: var(--ink-2); margin-top: var(--s-2); max-width: var(--measure); }
+.jr-meta { display: flex; flex-direction: column; align-items: flex-end; gap: var(--s-2); text-align: right; }
+.jr-phase { font-family: var(--font-mono); font-size: var(--t-label); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--ink-3); }
+.jr-stack { font-family: var(--font-mono); font-size: var(--t-label); letter-spacing: var(--ls-label); color: var(--ink-3); }
+
+/* ervaring & opleiding */
+.ex-row { display: grid; grid-template-columns: 12rem 1fr; gap: var(--s-5); padding: var(--s-6) 0; }
+.ex-when { display: flex; flex-direction: column; gap: var(--s-2); }
+.ex-kicker { font-family: var(--font-mono); font-size: var(--t-label); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--ink-3); }
+.ex-period { font-family: var(--font-mono); font-size: var(--t-meta); color: var(--ink-2); }
+.ex-main { max-width: var(--measure); }
+.ex-title { font-family: var(--font-display); font-size: var(--t-heading); line-height: var(--lh-heading); font-weight: var(--w-body); }
+.ex-org { font-size: var(--t-small); color: var(--ink-3); margin-top: var(--s-1); }
+.ex-body { font-size: var(--t-small); line-height: var(--lh-body); color: var(--ink-2); margin-top: var(--s-4); }
+.ex-points { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3) var(--s-6); margin-top: var(--s-5); }
+.ex-points li { font-size: var(--t-small); line-height: var(--lh-tight); }
+.ex-point-title { color: var(--ink); }
+.ex-point-note { color: var(--ink-3); }
+
+/* vaardigheden */
+.sk-row { display: grid; grid-template-columns: 12rem 1fr 1fr; gap: var(--s-5); align-items: baseline; padding: var(--s-5) 0; }
+.sk-area { font-family: var(--font-display); font-size: var(--t-heading); line-height: var(--lh-heading); display: flex; flex-direction: column; gap: var(--s-1); }
+.sk-tag { font-family: var(--font-mono); font-size: var(--t-label); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--ink-3); }
+.sk-items { font-family: var(--font-mono); font-size: var(--t-meta); line-height: var(--lh-body); color: var(--ink); }
+/* De breedste kolom is waar het is toegepast — dat is het deel dat iets zegt. */
+.sk-note { font-size: var(--t-small); line-height: var(--lh-body); color: var(--ink-2); }
+.sk-row--coda { grid-template-columns: 12rem 1fr; }
+.sk-row--coda .sk-area { font-size: var(--t-lede); font-family: var(--font-body); color: var(--ink-2); }
 /* --------------------------------------------------------------------------
    Mobiele navigatie
    -------------------------------------------------------------------------- */
@@ -502,14 +490,21 @@ textarea:focus-visible,
 }
 
 @media (max-width: 1023px) {
-  .hero-grid, .about-bio, .contact-grid {
+  .hero-grid, .about-grid, .contact-grid {
     grid-template-columns: 1fr;
     gap: var(--s-7);
   }
   /* grid/flex items default to min-width:auto, which lets long content overflow
      instead of wrapping — force them to shrink to the column */
-  .hero-grid > *, .about-bio > *, .contact-grid > * { min-width: 0; }
+  .hero-grid > *, .about-grid > *, .contact-grid > * { min-width: 0; }
   .contact-wrap { min-height: 0; justify-content: flex-start; }
+
+  /* Over mij: de toelichtingskolom schuift onder de opsomming in plaats van
+     ernaast te knijpen. */
+  .jr-row { grid-template-columns: 88px 1fr; }
+  .jr-meta { grid-column: 2; flex-direction: row; align-items: baseline; gap: var(--s-4); text-align: left; }
+  .sk-row { grid-template-columns: 10rem 1fr; }
+  .sk-note { grid-column: 2; }
 }
 
 @media (max-width: 767px) {
@@ -521,14 +516,13 @@ textarea:focus-visible,
   .hero-photo { max-width: none; justify-self: stretch; aspect-ratio: 16 / 10; }
   .hero-photo img { object-position: center 28%; }
 
-  .tl-card { gap: var(--s-4); padding: var(--s-5); }
-  .tl-aside { min-width: 0; gap: var(--s-2); }
-  .exp-row { gap: var(--s-4); padding: var(--s-5); }
-  .exp-points { grid-template-columns: 1fr; }
+  .jr-row, .ex-row, .sk-row, .sk-row--coda { grid-template-columns: 1fr; gap: var(--s-3); }
+  .jr-meta, .sk-note { grid-column: auto; }
+  .ex-when { flex-direction: row; align-items: baseline; gap: var(--s-4); }
+  .ex-points { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 479px) {
-  .skills-grid { grid-template-columns: 1fr; }
   .field-row { grid-template-columns: 1fr; }
 }
 
