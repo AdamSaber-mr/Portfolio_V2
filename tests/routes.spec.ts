@@ -107,6 +107,9 @@ test('het categoriefilter zit in de URL en werkt met de terugknop', async ({ pag
  * in de zichtbare lijst geteld werd.
  */
 test('elk project heeft overal hetzelfde nummer', async ({ page }) => {
+  // Acht navigaties achter elkaar; onder parallelle belasting haalt dat de
+  // standaardtimeout niet altijd.
+  test.setTimeout(90_000);
   await page.goto(BASE + 'work/');
 
   // naam -> nummer, zoals de werkpagina ze toont (uitgelicht plus index)
@@ -145,6 +148,50 @@ test('een gefilterde URL werkt ook bij direct openen', async ({ page }) => {
   // duplicate content voor elke filtercombinatie
   const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
   expect(canonical).toMatch(/\/work\/$/);
+});
+
+/**
+ * De detailpagina moet doorbladerbaar zijn in plaats van doodlopend. Vorige en
+ * volgende lopen rond, zodat er nergens een dood uiteinde zit.
+ */
+test('vorige en volgende lopen rond langs alle projecten', async ({ page }) => {
+  const eerste = PROJECTS[0];
+  const laatste = PROJECTS[PROJECTS.length - 1];
+
+  await page.goto(BASE + 'work/' + eerste.slug + '/');
+  const vorige = page.locator('.pd-nav-link').first();
+  expect(await vorige.getAttribute('href')).toBe(BASE + 'work/' + laatste.slug + '/');
+
+  // doorklikken naar het laatste project en daar weer vooruit
+  await vorige.click();
+  await expect.poll(() => new URL(page.url()).pathname).toBe(BASE + 'work/' + laatste.slug + '/');
+  const volgende = page.locator('.pd-nav-link--next');
+  expect(await volgende.getAttribute('href')).toBe(BASE + 'work/' + eerste.slug + '/');
+});
+
+test('de byline draagt rol, jaar en stack', async ({ page }) => {
+  await page.goto(BASE + 'work/' + PROJECTS[0].slug + '/');
+  const byline = page.locator('.pd-byline');
+  await expect(byline).toBeVisible();
+  // drie definitieparen, geen zwevende zijbalk meer
+  await expect(byline.locator('dt')).toHaveCount(3);
+  await expect(byline).toContainText(PROJECTS[0].year);
+});
+
+test('context en reflectie verschijnen alleen als ze gevuld zijn', async ({ page }) => {
+  const met = PROJECTS.find((p) => p.context && p.retro)!;
+  const zonder = PROJECTS.find((p) => !p.context && !p.retro)!;
+  expect(met, 'geen project met context/retro').toBeTruthy();
+  expect(zonder, 'geen project zonder context/retro').toBeTruthy();
+
+  await page.goto(BASE + 'work/' + met.slug + '/');
+  const kopjesMet = await page.locator('.pd-h').allTextContents();
+  expect(kopjesMet.length).toBe(3);
+
+  await page.goto(BASE + 'work/' + zonder.slug + '/');
+  const kopjesZonder = await page.locator('.pd-h').allTextContents();
+  // alleen "Hoogtepunten" — nooit een lege kop
+  expect(kopjesZonder.length).toBe(1);
 });
 
 test('onbekende URL toont de 404-pagina', async ({ page }) => {

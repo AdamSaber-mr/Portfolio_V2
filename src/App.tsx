@@ -169,7 +169,7 @@ export default function App() {
           {route.kind === 'notfound' && <NotFound s={s} go={go} />}
           <Suspense fallback={null}>
             {route.kind === 'project' && detail && (
-              <ProjectDetail s={s} project={loc(detail, lang)} back={closeDetail} go={go} />
+              <ProjectDetail s={s} lang={lang} project={loc(detail, lang)} back={closeDetail} openDetail={openDetail} />
             )}
             {route.kind === 'work' && (
               <Work s={s} lang={lang} openDetail={openDetail} />

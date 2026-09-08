@@ -1,100 +1,143 @@
 import { sx } from '../lib/sx';
 import Img from './Img';
+import Colophon from './Colophon';
 import { href } from '../lib/router';
-import { catLabel, type LocProject, type Strings } from '../data';
-import FooterCTA from './FooterCTA';
-import TechChips from './TechChips';
-import type { Page } from '../App';
+import { PROJECTS, loc, catLabel, projectNumber, type Lang, type LocProject, type Strings } from '../data';
 
 interface Props {
   s: Strings;
+  lang: Lang;
   project: LocProject;
   back: () => void;
-  go: (p: Page) => void;
+  openDetail: (slug: string) => void;
 }
 
-function metaRow(label: string, value: string) {
+/**
+ * Een project als tijdschriftartikel.
+ *
+ * De vorige versie was een kop met twee pilknoppen en een kaart-zijbalk die op
+ * `align-items:center` stond, waardoor hij bij een lang overzicht halverwege de
+ * kolom zweefde. De zijbalk is nu één byline-regel tussen haarlijnen: rol, jaar
+ * en stack zijn feiten die je vóór het lezen wilt weten, niet ernaast. Daarmee
+ * verdwijnt ook de oorzaak van die bug.
+ *
+ * De live- en repo-links staan sticky in de rechtermarge. Als pil rechtsboven
+ * waren ze alleen klikbaar vóórdat je een reden had om te klikken.
+ */
+export default function ProjectDetail({ s, lang, project: p, back, openDetail }: Props) {
+  const i = PROJECTS.findIndex((x) => x.slug === p.slug);
+  // Rondlopen: vanaf het eerste project ga je terug naar het laatste.
+  const prev = loc(PROJECTS[(i - 1 + PROJECTS.length) % PROJECTS.length], lang);
+  const next = loc(PROJECTS[(i + 1) % PROJECTS.length], lang);
+
   return (
-    <div style={sx('display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:13px 0; border-bottom:1px solid var(--card-line);')}>
-      <span style={sx("font-family:var(--font-mono); font-size:12px; color:var(--card-muted); text-transform:uppercase; letter-spacing:.04em;")}>{label}</span>
-      <span style={sx('font-size:14px; font-weight:600; color:var(--card-ink); text-align:right;')}>{value}</span>
-    </div>
-  );
-}
+    <div className="pageintro">
+      <div className="u-page">
+        <article className="pd">
 
-export default function ProjectDetail({ s, project: p, back, go }: Props) {
-  return (
-    <div data-screen-label="Projectdetail" className="pageintro">
-      <div className="page-pad" style={sx('max-width:1100px; margin:0 auto; padding:40px 56px 10px;')}>
-        {/* back */}
-        <a
-          className="btn"
-          href={href({ kind: 'work' })}
-          onClick={(e) => { e.preventDefault(); back(); }}
-          style={sx("display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:13px; color:var(--muted); cursor:pointer; text-decoration:none;")}
-        >
-          <span aria-hidden="true" style={sx('font-size:17px; line-height:1;')}>‹</span> {s.pdBack}
-        </a>
+          <a
+            className="pd-crumb"
+            href={href({ kind: 'work' })}
+            onClick={(e) => { e.preventDefault(); back(); }}
+          >
+            {s.navWork} / {projectNumber(p.slug)} {p.name}
+          </a>
 
-        {/* header */}
-        <div data-reveal="" style={sx('display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin-top:26px;')}>
-          <div>
-            <h1 style={sx("font-family:var(--font-display); font-size:clamp(38px,6vw,72px); line-height:1; font-weight:700; letter-spacing:-.03em;")}>{p.name}</h1>
-          </div>
-          <div style={sx('display:flex; gap:12px; flex-wrap:wrap;')}>
-            {p.live && (
-              <a className="btn" href={p.live} target="_blank" rel="noopener noreferrer" style={sx('display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:var(--accentink); padding:13px 22px; border-radius:30px; font-size:14px; font-weight:600; text-decoration:none;')}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
-                {s.pdLive}
-              </a>
-            )}
-            {p.repo && (
-              <a className="btn" href={p.repo} target="_blank" rel="noopener noreferrer" style={sx('display:inline-flex; align-items:center; gap:8px; background:var(--surface); color:var(--ink); border:1px solid var(--line); padding:13px 22px; border-radius:30px; font-size:14px; font-weight:600; text-decoration:none;')}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.7c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z" /></svg>
-                {s.pdCode}
-              </a>
-            )}
-          </div>
-        </div>
+          <p className="pd-kicker">{catLabel(p.cat, s)} · {p.year}</p>
 
-        {/* cover */}
-        <div data-reveal="" style={sx(`position:relative; margin-top:32px; border-radius:24px; overflow:hidden; background:${p.color}; border:1px solid var(--line); aspect-ratio:16/9; `)}>
-          <Img src={p.image} alt={`${p.name} — ${s.altShot}`} priority style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
-        </div>
+          <h1 className="pd-title">{p.name}</h1>
 
-        {/* body */}
-        <div className="pd-grid" data-reveal="" style={sx('display:grid; grid-template-columns:1.7fr 1fr; gap:48px; margin-top:48px; align-items:center;')}>
-          {/* main column */}
-          <div>
-            <h2 style={sx("font-family:var(--font-display); font-size:22px; font-weight:700; letter-spacing:-.01em;")}>{s.pdOverview}</h2>
-            <p style={sx('font-size:17px; line-height:1.7; color:var(--ink2); margin-top:14px;')}>{p.overview}</p>
+          <p className="pd-standfirst">{p.blurb}</p>
 
-            <h2 style={sx("font-family:var(--font-display); font-size:22px; font-weight:700; letter-spacing:-.01em; margin-top:36px;")}>{s.pdHighlights}</h2>
-            <ul style={sx('list-style:none; margin-top:16px; display:flex; flex-direction:column; gap:12px;')}>
-              {p.features.map((f, i) => (
-                <li key={i} style={sx('display:flex; align-items:flex-start; gap:12px; font-size:15.5px; line-height:1.5; color:var(--ink2);')}>
-                  <span aria-hidden="true" style={sx('flex:none; margin-top:2px; color:var(--accent); font-weight:700;')}>→</span>
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* De byline vervangt de zwevende zijbalk: één regel tussen haarlijnen. */}
+          <dl className="pd-byline">
+            <div><dt>{s.pdRole}</dt><dd>{p.role}</dd></div>
+            <div><dt>{s.pdYear}</dt><dd>{p.year}</dd></div>
+            <div><dt>{s.pdStack}</dt><dd>{p.stack}</dd></div>
+          </dl>
 
-          {/* details sidebar */}
-          <aside style={sx('background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:18px; padding:8px 22px 18px;')}>
-            <h3 style={sx("font-family:var(--font-mono); font-size:12px; color:var(--card-faint); text-transform:uppercase; letter-spacing:.08em; padding:18px 0 6px;")}>{s.pdDetails}</h3>
-            {metaRow(s.pdType, catLabel(p.cat, s))}
-            {metaRow(s.pdRole, p.role)}
-            {metaRow(s.pdYear, p.year)}
-            <div style={sx('padding:16px 0 4px;')}>
-              <span style={sx("font-family:var(--font-mono); font-size:12px; color:var(--card-muted); text-transform:uppercase; letter-spacing:.04em; display:block; margin-bottom:12px;")}>{s.pdStack}</span>
-              <TechChips stack={p.stack} />
+          <figure className="pd-cover" data-reveal="">
+            <span className="plate">
+              <span className="plate-window" style={sx('display:block; aspect-ratio:16/9;')}>
+                <Img src={p.image} alt={`${p.name} — ${s.altShot}`} priority style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
+              </span>
+            </span>
+            <figcaption className="plate-caption">{p.name} — {p.blurb}</figcaption>
+          </figure>
+
+          <div className="pd-body">
+            <div className="pd-prose">
+              {/* Geen kop "Overzicht": een artikel labelt zijn eerste alinea niet.
+                  De rode initiaal is het enige accent op deze pagina. */}
+              <p className="pd-lead">{p.overview}</p>
+
+              {p.context && (
+                <section className="pd-block">
+                  <h2 className="pd-h">{s.pdContext}</h2>
+                  <p>{p.context}</p>
+                </section>
+              )}
+
+              <section className="pd-block">
+                <h2 className="pd-h">{s.pdHighlights}</h2>
+                <ol className="pd-list">
+                  {p.features.map((f, n) => (
+                    <li key={n}>
+                      <span className="pd-list-num">{String(n + 1).padStart(2, '0')}</span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+
+              {p.retro && (
+                <section className="pd-block">
+                  <h2 className="pd-h">{s.pdRetro}</h2>
+                  <p>{p.retro}</p>
+                </section>
+              )}
             </div>
-          </aside>
-        </div>
-      </div>
 
-      <FooterCTA s={s} maxw={1100} goContact={() => go('contact')} />
+            {(p.live || p.repo) && (
+              <aside className="pd-links">
+                {p.live && (
+                  <a className="rule-link rule-link--accent" href={p.live} target="_blank" rel="noopener noreferrer">
+                    {s.pdLive} ↗
+                  </a>
+                )}
+                {p.repo && (
+                  <a className="rule-link" href={p.repo} target="_blank" rel="noopener noreferrer">
+                    {s.pdCode} ↗
+                  </a>
+                )}
+              </aside>
+            )}
+          </div>
+
+          {/* Vorige/volgende: de beste manier om iemand een tweede project te
+              laten openen in plaats van weg te klikken. */}
+          <nav className="pd-nav" aria-label={s.navWork}>
+            <a
+              className="pd-nav-link"
+              href={href({ kind: 'project', slug: prev.slug })}
+              onClick={(e) => { e.preventDefault(); openDetail(prev.slug); }}
+            >
+              <span className="pd-nav-label">← {s.pdPrev}</span>
+              <span className="pd-nav-name">{projectNumber(prev.slug)} {prev.name}</span>
+            </a>
+            <a
+              className="pd-nav-link pd-nav-link--next"
+              href={href({ kind: 'project', slug: next.slug })}
+              onClick={(e) => { e.preventDefault(); openDetail(next.slug); }}
+            >
+              <span className="pd-nav-label">{s.pdNext} →</span>
+              <span className="pd-nav-name">{projectNumber(next.slug)} {next.name}</span>
+            </a>
+          </nav>
+        </article>
+
+        <Colophon />
+      </div>
     </div>
   );
 }
