@@ -24,7 +24,10 @@ interface Props {
 
 const inputStyle = 'width:100%; padding:13px 14px; background:var(--card-field); border:1px solid var(--card-line); border-radius:8px; font-size:15px; color:var(--card-ink);';
 const labelStyle = "display:block; font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--card-muted); margin-bottom:9px;";
-const errStyle = 'display:block; font-size:12.5px; color:#ff8080; margin-top:7px;';
+// Fouten worden aangegeven met gewicht en de accentkleur, niet met een eigen
+// rood: op papier haalt #ff8080 geen leesbaar contrast, en WCAG 1.4.1 vraagt
+// sowieso om meer dan alleen kleur. Fase 5 maakt hier een gelijnd veld van.
+const errStyle = 'display:block; font-size:var(--t-meta); font-weight:var(--w-semibold); color:var(--accent); margin-top:var(--s-2);';
 
 type FieldErrors = Partial<Record<'fName' | 'fEmail' | 'fMsg', string>>;
 
@@ -201,7 +204,7 @@ export default function Contact({ s, lang, form, setForm, submit, sent, sending,
                   {sending ? (lang === 'nl' ? 'Versturen…' : 'Sending…') : `${s.send} →`}
                 </button>
                 <div aria-live="assertive">
-                  {error && <p style={sx('font-size:12.5px; color:#ff8080; line-height:1.5; text-align:center; margin-top:14px;')}>{error}</p>}
+                  {error && <p style={sx('font-size:var(--t-meta); font-weight:var(--w-semibold); color:var(--accent); line-height:var(--lh-tight); text-align:center; margin-top:var(--s-4);')}>{error}</p>}
                 </div>
                 {!error && <p style={sx('font-size:12.5px; color:var(--card-muted); line-height:1.5; text-align:center; margin-top:14px;')}>{s.formNote}</p>}
               </form>

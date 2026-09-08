@@ -97,14 +97,14 @@ export default function About({ s, lang }: Props) {
                   </div>
                   <h3 style={sx("font-family:var(--font-display); font-size:clamp(18px,2vw,21px); font-weight:700; letter-spacing:-.01em;")}>{e.title}</h3>
                   <div className="exp-org">{e.org}</div>
-                  <p style={sx('font-size:14px; color:rgba(255,255,255,.92); line-height:1.6; margin-top:10px; max-width:680px;')}>{e.body}</p>
+                  <p style={sx('font-size:14px; color:var(--ink-2); line-height:1.6; margin-top:10px; max-width:680px;')}>{e.body}</p>
                   <ul className="exp-points">
                     {e.bullets.map((b, bi) => (
                       <li key={bi}>
                         <span className="exp-dot" />
                         <span>
-                          <span style={sx(`font-weight:${b.note ? 600 : 500}; color:#fff;`)}>{b.title}</span>
-                          {b.note && <span style={sx('color:rgba(255,255,255,.8);')}> — {b.note}</span>}
+                          <span style={sx(`font-weight:${b.note ? 600 : 500}; color:var(--ink);`)}>{b.title}</span>
+                          {b.note && <span style={sx('color:var(--ink-3);')}> — {b.note}</span>}
                         </span>
                       </li>
                     ))}

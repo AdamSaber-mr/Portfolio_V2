@@ -6,7 +6,8 @@
  * mode in de praktijk dark mode met een lichte rand eromheen. Elk van de vier
  * checks hieronder vangt één manier waarop dat opnieuw kan ontstaan.
  *
- * Draait als `npm run check-colors` en in CI.
+ * Draait als `npm run check-colors`. Nog niet in CI: `src/data.ts` bevat tot
+ * fase 6 de merkkleuren van het chip-systeem, dus de check staat daar nog rood.
  */
 import { readFile } from 'node:fs/promises';
 import { readdir } from 'node:fs/promises';
@@ -92,6 +93,8 @@ for (const file of await walk(path.join(ROOT, 'src'))) {
     // De browserchrome-kleur moet juist letterlijk zijn: check 2 hieronder eist
     // dat hij exact gelijk is aan --paper.
     if (line.includes('theme-color') || /meta\??\.setAttribute/.test(line)) return;
+    // Commentaar mag een kleur noemen — daar wordt niets mee geverfd.
+    if (/^\s*(\/\/|\*|\/\*)/.test(line)) return;
     if (COLOR_RE.test(line)) fail(rel, i + 1, `letterlijke kleur: ${line.trim().slice(0, 80)}`);
   });
 }
