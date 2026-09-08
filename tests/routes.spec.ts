@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { allRouteRefs, metaFor, pathFor } from '../src/lib/seo';
+import { PROJECTS } from '../src/data';
 
 /**
  * Bewaakt de naad tussen de gegenereerde HTML en de client-router.
@@ -57,14 +58,93 @@ test('navigatie werkt en de terugknop keert terug', async ({ page }) => {
   await expect(page).toHaveURL(new RegExp(`${BASE}$`));
 });
 
-test('een projectkaart is een echte link met een deelbare URL', async ({ page }) => {
-  await page.goto(BASE + 'work/');
-  const card = page.locator('main a.workcard').first();
-  const target = await card.getAttribute('href');
-  expect(target).toMatch(/\/Portfolio_V2\/work\/[a-z0-9-]+\/$/);
+/**
+ * De werkpagina toont projecten in twee vormen: de eerste drie als uitgelichte
+ * plaat, de rest als indexregel. Beide moeten echte links met een deelbare URL
+ * zijn — dat is de hele reden dat er routing onder ligt.
+ */
+for (const [vorm, selector] of [
+  ['uitgelicht project', 'main a.feature-plate'],
+  ['indexregel', 'main a.idx-row'],
+] as const) {
+  test(`${vorm} is een echte link met een deelbare URL`, async ({ page }) => {
+    await page.goto(BASE + 'work/');
+    const link = page.locator(selector).first();
+    const target = await link.getAttribute('href');
+    expect(target).toMatch(/\/Portfolio_V2\/work\/[a-z0-9-]+\/$/);
 
-  await card.click();
-  await expect(page).toHaveURL(new RegExp(target!.replace(/\//g, '\/') + '$'));
+    await link.click();
+    await expect(page).toHaveURL(new RegExp(target!.replace(/\//g, '\/') + '$'));
+  });
+}
+
+test('het categoriefilter zit in de URL en werkt met de terugknop', async ({ page }) => {
+  await page.goto(BASE + 'work/');
+  const rows = () => page.locator('main .feature-name, main .idx-name');
+  const alle = await rows().count();
+  expect(alle).toBe(8);
+
+  // filter aanzetten -> URL verandert mee
+  await page.getByRole('button', { name: /^data \(/i }).click();
+  await expect.poll(() => new URL(page.url()).pathname + new URL(page.url()).search)
+    .toBe(BASE + 'work/?cat=data');
+  const gefilterd = await rows().count();
+  expect(gefilterd).toBeGreaterThan(0);
+  expect(gefilterd).toBeLessThan(alle);
+
+  // terugknop keert terug naar de ongefilterde lijst
+  await page.goBack();
+  await expect.poll(() => new URL(page.url()).pathname + new URL(page.url()).search)
+    .toBe(BASE + 'work/');
+  await expect.poll(() => rows().count()).toBe(alle);
+});
+
+/**
+ * Het nummer van een project moet overal hetzelfde zijn: in de index, in het
+ * uitgelichte blok en in de dateline. Dit is twee keer misgegaan — eerst toonde
+ * de homepage een hardcoded "01" naast een dateline die 04 zei, daarna gaf een
+ * gefilterde weergave hetzelfde project een ander nummer omdat er op de positie
+ * in de zichtbare lijst geteld werd.
+ */
+test('elk project heeft overal hetzelfde nummer', async ({ page }) => {
+  await page.goto(BASE + 'work/');
+
+  // naam -> nummer, zoals de werkpagina ze toont (uitgelicht plus index)
+  const opDeWerkpagina = await page.evaluate(() => {
+    const uit = new Map<string, string>();
+    document.querySelectorAll('main .feature').forEach((el) => {
+      const n = el.querySelector('.feature-num')?.textContent?.trim();
+      const naam = el.querySelector('.feature-name')?.textContent?.trim();
+      if (n && naam) uit.set(naam, n);
+    });
+    document.querySelectorAll('main .idx-row').forEach((el) => {
+      const n = el.querySelector('.idx-num')?.textContent?.trim();
+      const naam = el.querySelector('.idx-name')?.textContent?.trim();
+      if (n && naam) uit.set(naam, n);
+    });
+    return Array.from(uit.entries());
+  });
+  expect(opDeWerkpagina.length).toBe(8);
+
+  // en datzelfde nummer moet in de dateline van de projectpagina staan
+  for (const [naam, nummer] of opDeWerkpagina) {
+    const project = PROJECTS.find((p) => p.name === naam);
+    expect(project, `project ${naam} niet gevonden in PROJECTS`).toBeTruthy();
+    await page.goto(BASE + 'work/' + project!.slug + '/');
+    const dateline = (await page.locator('.dateline-where').textContent())?.trim() ?? '';
+    expect(dateline, `dateline van ${naam}`).toContain(nummer);
+  }
+});
+
+test('een gefilterde URL werkt ook bij direct openen', async ({ page }) => {
+  const res = await page.goto(BASE + 'work/?cat=data');
+  expect(res?.status()).toBe(200);
+  await expect(page.getByRole('button', { name: /^data \(/i })).toHaveAttribute('aria-pressed', 'true');
+
+  // de canonical wijst naar de ongefilterde pagina — anders krijg je
+  // duplicate content voor elke filtercombinatie
+  const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+  expect(canonical).toMatch(/\/work\/$/);
 });
 
 test('onbekende URL toont de 404-pagina', async ({ page }) => {
