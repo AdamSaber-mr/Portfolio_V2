@@ -266,3 +266,55 @@ test('leeg contactformulier meldt geen succes', async ({ page }) => {
   await expect(page.locator('#cf-name-err')).toBeVisible();
   await expect(page.getByText(/verzonden!|sent!/i)).toHaveCount(0);
 });
+
+/* ---------- Over mij ---------- */
+
+test('over mij toont drie genummerde secties en geen lege kop', async ({ page }) => {
+  await page.goto(BASE + 'about/');
+
+  // Precies drie sectiekoppen, in volgorde genummerd. Eerder droeg deze pagina
+  // drie verschillende visuele systemen; nu is het één reeks.
+  const heads = page.locator('main .sec-head h2');
+  await expect(heads).toHaveCount(3);
+  for (const [i, text] of (await heads.allTextContents()).entries()) {
+    expect(text).toContain(`§ 0${i + 1} —`);
+    // "§ 01 — " is 7 tekens; daarachter hoort een echte titel te staan.
+    expect(text.replace(/§ 0\d —/, '').trim().length).toBeGreaterThan(2);
+  }
+});
+
+test('alleen de huidige stap in de ontwikkelingsreis is gemarkeerd', async ({ page }) => {
+  await page.goto(BASE + 'about/');
+
+  await expect(page.locator('main .jr-row')).toHaveCount(5);
+  // Het rode accent is hier informatie, geen versiering: precies één rij mag het
+  // dragen, en dat moet de laatste zijn.
+  await expect(page.locator('main .jr-row--now')).toHaveCount(1);
+  await expect(page.locator('main .jr-row').last()).toHaveClass(/jr-row--now/);
+});
+
+test('over mij haalt geen enkel beeld van buiten', async ({ page }) => {
+  // De bewijstest dat de gekleurde chips en de icoonbollen echt weg zijn: die
+  // haalden er zo'n dertig plaatjes bij van cdn.simpleicons.org. De letters
+  // komen wel van Google Fonts — dat is een font, geen beeld, en staat in de CSP.
+  const extern: string[] = [];
+  page.on('request', (r) => {
+    if (r.resourceType() !== 'image') return;
+    if (!new URL(r.url()).host.startsWith('localhost')) extern.push(r.url());
+  });
+
+  await page.goto(BASE + 'about/');
+  await page.locator('main .sk-row').last().scrollIntoViewIfNeeded();
+  await expect(page.locator('main .sk-row')).toHaveCount(5);
+
+  expect(extern).toEqual([]);
+});
+
+test('over mij verwijst door naar het werk', async ({ page }) => {
+  await page.goto(BASE + 'about/');
+
+  const link = page.locator('main a.rule-link--accent').last();
+  await expect(link).toHaveAttribute('href', BASE + 'work/');
+  await link.click();
+  await expect.poll(() => new URL(page.url()).pathname).toBe(BASE + 'work/');
+});
