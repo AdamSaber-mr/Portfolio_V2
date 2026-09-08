@@ -79,7 +79,10 @@ test('de skip-link is verborgen tot hij focus krijgt', async ({ page }) => {
   expect((await skip.boundingBox())!.y).toBeLessThan(0);
   await page.keyboard.press('Tab');
   await expect(skip).toBeFocused();
-  expect((await skip.boundingBox())!.y).toBeGreaterThanOrEqual(0);
+  // Pollen: hij schuift in beeld met een transitie van 0,2s.
+  await expect
+    .poll(async () => (await skip.boundingBox())!.y, { timeout: 2000 })
+    .toBeGreaterThanOrEqual(0);
 });
 
 test('het gekozen thema overleeft een refresh', async ({ page }) => {
