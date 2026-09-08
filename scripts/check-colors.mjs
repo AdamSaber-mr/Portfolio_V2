@@ -6,8 +6,9 @@
  * mode in de praktijk dark mode met een lichte rand eromheen. Elk van de vier
  * checks hieronder vangt één manier waarop dat opnieuw kan ontstaan.
  *
- * Draait als `npm run check-colors`. Nog niet in CI: `src/data.ts` bevat tot
- * fase 6 de merkkleuren van het chip-systeem, dus de check staat daar nog rood.
+ * Draait als `npm run check-colors`, lokaal en in CI. Sinds de over-mij-pagina
+ * geen chips meer rendert staat er geen letterlijke kleur meer buiten de twee
+ * tokenblokken, dus een nieuwe overtreding laat de build vallen.
  */
 import { readFile } from 'node:fs/promises';
 import { readdir } from 'node:fs/promises';
