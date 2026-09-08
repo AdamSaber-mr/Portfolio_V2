@@ -561,11 +561,10 @@ export function buildContactLinks(lang: Lang): ContactLink[] {
 }
 
 /**
- * Zet hier je LinkedIn-profiel-URL neer, bv.
- * 'https://www.linkedin.com/in/adam-saber/'. Zolang dit leeg is wordt de regel
- * helemaal niet getoond — beter dan een link die nergens heen gaat.
+ * LinkedIn-profiel. Zolang dit leeg is wordt de regel helemaal niet getoond —
+ * beter dan een link die nergens heen gaat.
  */
-export const LINKEDIN_URL = '';
+export const LINKEDIN_URL = 'https://www.linkedin.com/in/adam-saber-a47586365/';
 
 /** Stage-informatie: precies wat een stagecoördinator als eerste wil weten. */
 export interface StageInfo { label: string; value: string; }

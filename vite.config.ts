@@ -115,6 +115,7 @@ ${projects}
 ## Contact
 - Email: mt.adamsaber@gmail.com
 - GitHub: https://github.com/adamsaber-mr
+- LinkedIn: https://www.linkedin.com/in/adam-saber-a47586365/
 - Website: ${SITE_URL}
 `;
 }
