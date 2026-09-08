@@ -1,6 +1,6 @@
 import { sx } from '../lib/sx';
-import { clickable } from '../lib/a11y';
-import { asset } from '../lib/asset';
+import Img from './Img';
+import { href } from '../lib/router';
 import TechChips from './TechChips';
 import type { LocProject, Strings } from '../data';
 
@@ -19,17 +19,20 @@ export default function WorkList({ s, projects, openDetail }: Props) {
   return (
     <div className="workgrid" style={sx('display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:40px 30px;')}>
       {projects.map((p) => (
-        <figure
-          key={p.name}
-          className="workcard"
-          {...clickable(() => openDetail(p.name), `${s.pdView}: ${p.name}`)}
-          style={sx('margin:0; cursor:pointer;')}
-        >
+        <figure key={p.name} style={sx('margin:0;')}>
+          <a
+            className="workcard"
+            href={href({ kind: 'project', slug: p.slug })}
+            onClick={(e) => { e.preventDefault(); openDetail(p.slug); }}
+            aria-label={`${s.pdView}: ${p.name}`}
+            style={sx('display:block; cursor:pointer; text-decoration:none; color:inherit;')}
+          >
           <div className="workcard-img" style={sx(`background:${p.color};`)}>
-            <img src={asset(p.image)} alt={`${p.name} — screenshot`} loading="lazy" style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
+            <Img src={p.image} alt={`${p.name} — ${s.altShot}`} style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
           </div>
-          <h3 className="workcard-name">{p.name}</h3>
-          <TechChips stack={p.stack} />
+            <h3 className="workcard-name">{p.name}</h3>
+            <TechChips stack={p.stack} />
+          </a>
         </figure>
       ))}
     </div>

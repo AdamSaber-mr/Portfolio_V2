@@ -1,8 +1,9 @@
 name: Deploy to GitHub Pages
 
-# Manual-only for now: the site is not published until everything is ready.
-# Re-enable the push trigger (or run the workflow manually) when you want to go live.
+# Elke push naar main publiceert. Handmatig starten kan ook nog.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

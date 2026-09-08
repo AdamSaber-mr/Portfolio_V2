@@ -1,5 +1,4 @@
 import { sx } from '../lib/sx';
-import { clickable } from '../lib/a11y';
 import { PROJECTS, loc, type Filter, type Lang, type Strings } from '../data';
 import WorkList from './WorkList';
 
@@ -33,7 +32,7 @@ export default function Work({ s, lang, filter, setFilter, openDetail }: Props) 
 
         <div data-reveal="" style={sx("display:flex; gap:8px; flex-wrap:wrap; padding:16px 0 28px; font-family:'JetBrains Mono',monospace;")}>
           {filterDefs.map((f) => (
-            <span key={f.key} className="btn" {...clickable(() => setFilter(f.key))} aria-pressed={filter === f.key} style={sx(filterStyle(filter === f.key))}>{f.label}</span>
+            <button key={f.key} type="button" className="btn" onClick={() => setFilter(f.key)} aria-pressed={filter === f.key} style={sx(filterStyle(filter === f.key))}>{f.label}</button>
           ))}
         </div>
 

@@ -11,6 +11,10 @@
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
+    <!-- Zet het opgeslagen thema vóór de eerste paint (geen witte flits).
+         Apart bestand omdat de CSP `script-src 'self'` inline scripts blokkeert. -->
+    <script src="%BASE_URL%theme.js"></script>
+
     <!-- Primary meta -->
     <title>Adam Saber — Full-stack Developer & Software Development Student</title>
     <meta
@@ -28,8 +32,8 @@
     <meta name="color-scheme" content="dark light" />
 
     <!-- Icons -->
-    <link rel="icon" type="image/png" href="%BASE_URL%assets/logo.png?v=2" />
-    <link rel="apple-touch-icon" href="%BASE_URL%assets/logo.png?v=2" />
+    <link rel="icon" type="image/png" href="%BASE_URL%assets/logo-256.png?v=3" />
+    <link rel="apple-touch-icon" href="%BASE_URL%assets/logo-256.png?v=3" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -37,7 +41,9 @@
     <meta property="og:title" content="Adam Saber — Full-stack Developer" />
     <meta property="og:description" content="18-jarige full-stack developer uit Rotterdam. Digitale producten van interface tot database met React, TypeScript, PHP & MySQL." />
     <meta property="og:url" content="https://adamsaber-mr.github.io/Portfolio_V2/" />
-    <meta property="og:image" content="https://adamsaber-mr.github.io/Portfolio_V2/assets/me_header.png" />
+    <meta property="og:image" content="https://adamsaber-mr.github.io/Portfolio_V2/assets/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Adam Saber" />
     <meta property="og:locale" content="nl_NL" />
     <meta property="og:locale:alternate" content="en_US" />
@@ -46,9 +52,10 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Adam Saber — Full-stack Developer" />
     <meta name="twitter:description" content="18-jarige full-stack developer uit Rotterdam. Digitale producten van interface tot database." />
-    <meta name="twitter:image" content="https://adamsaber-mr.github.io/Portfolio_V2/assets/me_header.png" />
+    <meta name="twitter:image" content="https://adamsaber-mr.github.io/Portfolio_V2/assets/og-image.jpg" />
 
     <!-- Fonts -->
+    <link rel="preconnect" href="https://cdn.simpleicons.org" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -66,7 +73,7 @@
             "@id": "https://adamsaber-mr.github.io/Portfolio_V2/#adam",
             "name": "Adam Saber",
             "url": "https://adamsaber-mr.github.io/Portfolio_V2/",
-            "image": "https://adamsaber-mr.github.io/Portfolio_V2/assets/me_header.png",
+            "image": "https://adamsaber-mr.github.io/Portfolio_V2/assets/og-image.jpg",
             "jobTitle": "Full-stack developer & Software Development student",
             "description": "18-jarige full-stack developer uit Rotterdam die digitale producten bouwt van interface tot database.",
             "email": "mt.adamsaber@gmail.com",

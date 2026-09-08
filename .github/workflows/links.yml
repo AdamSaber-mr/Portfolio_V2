@@ -1,0 +1,19 @@
+name: Check project links
+
+# Twee demo's draaien op een schoolserver en kunnen zonder waarschuwing offline
+# gaan. Een dode demo is erger dan geen demo, dus dit controleert wekelijks of
+# elke repo- en live-URL uit PROJECTS nog bereikbaar is.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/check-links.mjs

@@ -11,8 +11,9 @@ Alle projectdata staat in `src/data.ts` in de `PROJECTS`-array (interface `Proje
 
 ### 1. Afbeelding
 
-- De cover hoort in `public/assets/projects/` (Adam levert deze meestal al aan; vraag anders om de bestandsnaam).
-- Bekijk de afbeelding (Read) om de focal point te bepalen en de dimensies op te vragen (`sips -g pixelWidth -g pixelHeight <pad>`).
+- Het **origineel** hoort in `assets-src/projects/` — niet in `public/`. Die map wordt niet meegedeployed.
+- Draai daarna `npm run images`. Dat maakt een `.webp` en een `.jpg` van 1600px breed in `public/assets/projects/`.
+- Bekijk de afbeelding (Read) om het focal point te bepalen.
 
 ### 2. Entry toevoegen aan `PROJECTS`
 
@@ -21,10 +22,11 @@ Schrijf één object in exact dezelfde stijl als de bestaande entries (compacte 
 | Veld | Hoe invullen |
 |---|---|
 | `name` | Projectnaam zonder ondertitel |
+| `slug` | URL-segment, bv. `sentinel-ai`. **Ligt permanent vast** zodra hij gedeeld is — kleine letters, streepjes, geen accenten. Wordt `/work/<slug>/` |
 | `cat` | `'front'`, `'full'` of `'data'` |
 | `ratio` | Kies uit de gebruikte set `'16/10'`, `'4/3'`, `'1/1'`, `'3/4'` — passend bij de afbeelding (dashboards/screenshots breed → `'16/10'`) |
 | `color` | Donkere tint die bij de afbeelding past (schemert door tijdens laden), bv. `'#26243a'` |
-| `image` | `/assets/projects/<bestand>` |
+| `image` | `/assets/projects/<bestand>` — **zonder extensie**; `Img` kiest zelf `.webp` of `.jpg` |
 | `imgPos` | CSS object-position op het focal point van de screenshot (`'center top'`, `'left top'`, …) |
 | `stack` | Máx. 3–4 tokens gescheiden door ` · `, bv. `'React · Laravel · SQLite'` — tokens moeten in de `TC`/`SLUG`-maps staan (zie stap 3) |
 | `blurb` | Eén pakkende zin per taal (kaart-tekst) |
@@ -51,8 +53,13 @@ Check ook of andere plekken verouderd raken: `buildCurrently()` ("Aan het leren"
 
 ### 5. Verifiëren
 
-- `npm run build` moet slagen (type-check + build).
-- Optioneel: `npm run dev` en de projectenpagina + detailpagina bekijken.
+- `npm run images` — genereert de geoptimaliseerde bestanden.
+- `npm run build` moet slagen (type-check + build). De build genereert automatisch
+  `/work/<slug>/index.html`, en werkt `sitemap.xml` en `llms.txt` bij — **die hoef
+  je dus nooit met de hand aan te passen.**
+- `npm test` — de Playwright-smoketest loopt automatisch ook over het nieuwe project.
+- `npm run check-links` — controleert of de nieuwe `repo`- en `live`-URL bestaan.
+- Optioneel: `npm run preview` (niet `dev`) om de echte route te bekijken.
 
 ### 6. Committen
 

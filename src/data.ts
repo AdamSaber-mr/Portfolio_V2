@@ -33,6 +33,14 @@ export const STR: Record<Lang, Strings> = {
     pdView: 'Bekijk project', pdBack: 'Terug naar projecten', pdLive: 'Bezoek website', pdCode: 'Code op GitHub',
     pdOverview: 'Overzicht', pdHighlights: 'Highlights', pdDetails: 'Details',
     pdRole: 'Rol', pdYear: 'Jaar', pdType: 'Type', pdStack: 'Stack',
+    altPortrait: 'Adam Saber — portret', altWorking: 'Adam Saber aan het werk',
+    altShot: 'schermafbeelding', themeToggle: 'Thema wisselen', menu: 'Menu',
+    skipToContent: 'Naar de inhoud', navLabel: 'Hoofdnavigatie',
+    stageTitle: 'Beschikbaar voor stage',
+    errName: 'Vul je naam in.', errEmail: 'Vul een geldig e-mailadres in.',
+    errMsg: 'Schrijf even kort waar het over gaat (minimaal 10 tekens).',
+    nfTitle: 'Deze pagina bestaat niet.', nfHome: 'Naar home', nfWork: 'Bekijk mijn werk',
+    nfBody: 'De link klopt niet meer, of is verkeerd overgenomen. Vanaf hier kom je overal.',
   },
   en: {
     navHome: 'Home', navWork: 'Work', navAbout: 'About', navContact: 'Contact', cv: 'CV',
@@ -63,11 +71,25 @@ export const STR: Record<Lang, Strings> = {
     pdView: 'View project', pdBack: 'Back to projects', pdLive: 'Visit website', pdCode: 'Code on GitHub',
     pdOverview: 'Overview', pdHighlights: 'Highlights', pdDetails: 'Details',
     pdRole: 'Role', pdYear: 'Year', pdType: 'Type', pdStack: 'Stack',
+    altPortrait: 'Adam Saber — portrait', altWorking: 'Adam Saber at work',
+    altShot: 'screenshot', themeToggle: 'Switch theme', menu: 'Menu',
+    skipToContent: 'Skip to content', navLabel: 'Main navigation',
+    stageTitle: 'Available for an internship',
+    errName: 'Please enter your name.', errEmail: 'Please enter a valid email address.',
+    errMsg: 'Tell me briefly what it is about (at least 10 characters).',
+    nfTitle: 'This page does not exist.', nfHome: 'Go home', nfWork: 'View my work',
+    nfBody: 'The link is out of date, or was copied incorrectly. You can get anywhere from here.',
   },
 };
 
 export interface Project {
   name: string;
+  /**
+   * URL-segment van dit project, bv. `/work/sentinel-ai/`.
+   * Ligt vast zodra hij gedeeld is — nooit meer wijzigen, anders breken links
+   * die al in sollicitaties zijn verstuurd.
+   */
+  slug: string;
   cat: Cat;
   ratio: string;
   color: string;
@@ -91,7 +113,7 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
-  { name: 'Sentinel AI', cat: 'data', ratio: '16/10', color: '#241a2e', image: '/assets/projects/ai_fraude.png', imgPos: 'center top', stack: 'Python · scikit-learn · Flask · React',
+  { name: 'Sentinel AI', slug: 'sentinel-ai', cat: 'data', ratio: '16/10', color: '#241a2e', image: '/assets/projects/ai_fraude', imgPos: 'center top', stack: 'Python · scikit-learn · Flask · React',
     blurb: { nl: 'Full-stack ML-demo die met anomaliedetectie verdachte transacties opspoort.', en: 'Full-stack ML demo that flags suspicious transactions with anomaly detection.' },
     year: '2026', repo: 'https://github.com/AdamSaber-mr/Ai-Fraud-Detection', live: 'https://adamsaber-mr.github.io/Ai-Fraud-Detection/',
     role: { nl: 'Full-stack & ML-ontwikkelaar', en: 'Full-stack & ML developer' },
@@ -103,7 +125,7 @@ export const PROJECTS: Project[] = [
       nl: ['Isolation Forest (scikit-learn) voor ongesuperviseerde anomaliedetectie', 'Eigen explainability-laag: per transactie uitleg waarom iets verdacht is', 'Anomaly-score omgezet naar een risico van 0–100 met HIGH/MEDIUM/LOW-banden', 'Flask REST-API met gelaagde architectuur en veilige CSV-upload', 'React 19 + ECharts-dashboard met o.a. een 3D-transactiewolk'],
       en: ['Isolation Forest (scikit-learn) for unsupervised anomaly detection', 'Custom explainability layer: per-transaction reasons why it’s suspect', 'Anomaly score mapped to a 0–100 risk with HIGH/MEDIUM/LOW bands', 'Flask REST API with a layered architecture and safe CSV upload', 'React 19 + ECharts dashboard featuring a 3D transaction cloud'],
     } },
-  { name: 'RapidCars', cat: 'front', ratio: '4/3', color: '#1b1d22', image: '/assets/projects/rapidcars.jpg', imgPos: 'left top', stack: 'React · TypeScript · Vite',
+  { name: 'RapidCars', slug: 'rapidcars', cat: 'front', ratio: '4/3', color: '#1b1d22', image: '/assets/projects/rapidcars', imgPos: 'left top', stack: 'React · TypeScript · Vite',
     blurb: { nl: 'Autoverhuur-webapp voor een echte klant: snel boeken, sportieve auto’s.', en: 'Car-rental web app for a real client: fast booking, sporty cars.' },
     year: '2024', repo: 'https://github.com/AdamSaber-mr/rapid_cars', live: 'https://adamsaber-mr.github.io/rapid_cars/',
     role: { nl: 'Front-end ontwikkelaar', en: 'Front-end developer' },
@@ -115,9 +137,9 @@ export const PROJECTS: Project[] = [
       nl: ['Boekingsflow van auto kiezen tot bevestiging', 'Filteren en bladeren door de wagenvloot', 'Responsive interface, mobiel-first', 'Gebouwd in nauw overleg met een echte klant'],
       en: ['Booking flow from picking a car to confirmation', 'Filter and browse the fleet', 'Responsive, mobile-first interface', 'Built in close collaboration with a real client'],
     } },
-  { name: 'Nike Business Anatomy', cat: 'data', ratio: '1/1', color: '#0e1b2b', image: '/assets/projects/nike.png', imgPos: 'left top', stack: 'React · D3 · Chart.js',
+  { name: 'Nike Business Anatomy', slug: 'nike-business-anatomy', cat: 'data', ratio: '1/1', color: '#0e1b2b', image: '/assets/projects/nike', imgPos: 'left top', stack: 'React · D3 · Chart.js',
     blurb: { nl: 'Interactief dashboard over Nike’s supply chain en revenue.', en: 'Interactive dashboard on Nike’s supply chain and revenue.' },
-    year: '2024', repo: 'https://github.com/AdamSaber-mr/Business-Anatomy', live: 'https://adamsaber-mr.github.io/Business_Anatomy/',
+    year: '2024', repo: 'https://github.com/AdamSaber-mr/Business_Anatomy', live: 'https://adamsaber-mr.github.io/Business_Anatomy/',
     role: { nl: 'Front-end & data-visualisatie', en: 'Front-end & data viz' },
     overview: {
       nl: 'Een interactief dashboard dat Nike’s business ontleedt: van supply chain tot omzet. Ruwe data wordt vertaald naar grafieken waarmee je trends en verbanden in één oogopslag ziet.',
@@ -127,7 +149,7 @@ export const PROJECTS: Project[] = [
       nl: ['Interactieve grafieken met D3 en Chart.js', 'Inzicht in supply chain en omzet', 'Ruwe data omgezet naar heldere visualisaties', 'Filteren en inzoomen op de cijfers'],
       en: ['Interactive charts with D3 and Chart.js', 'Insight into supply chain and revenue', 'Raw data turned into clear visualisations', 'Filter and zoom into the numbers'],
     } },
-  { name: 'Revenue OS', cat: 'full', ratio: '16/10', color: '#26243a', image: '/assets/projects/saas.png', imgPos: 'center top', stack: 'React · Laravel · SQLite',
+  { name: 'Revenue OS', slug: 'revenue-os', cat: 'full', ratio: '16/10', color: '#26243a', image: '/assets/projects/saas', imgPos: 'center top', stack: 'React · Laravel · SQLite',
     blurb: { nl: 'Multi-tenant SaaS-dashboard dat abonnementsomzet live berekent uit een event-log.', en: 'Multi-tenant SaaS dashboard that computes subscription revenue live from an event log.' },
     year: '2026', repo: 'https://github.com/AdamSaber-mr/SaaS_Subscription_Dashboard', live: 'https://revenue-os-app.vercel.app',
     role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
@@ -139,9 +161,9 @@ export const PROJECTS: Project[] = [
       nl: ['Event-sourced metrics-engine: MRR, ARR, NRR, churn en cohort-retentie uit één append-only event-log', 'Multi-tenancy vanaf de datalaag: team-scoping op elke tabel, cross-tenant toegang leest als 404', 'Eigen SVG-chartengine in plaats van een chart-library — bundle van 800 KB naar 283 KB', 'Toegankelijk: focus-traps, volledige toetsenbordnavigatie en screenreader-tabellen bij elke grafiek', '28 PHPUnit feature-tests en 7 Puppeteer end-to-end-suites, o.a. voor tenant-isolatie'],
       en: ['Event-sourced metrics engine: MRR, ARR, NRR, churn and cohort retention from one append-only event log', 'Multi-tenancy from the data layer up: team scoping on every table, cross-tenant access reads as a 404', 'Custom SVG chart engine instead of a chart library — bundle down from 800 KB to 283 KB', 'Accessible: focus traps, full keyboard navigation and screenreader tables behind every chart', '28 PHPUnit feature tests and 7 Puppeteer end-to-end suites, covering tenant isolation and more'],
     } },
-  { name: 'Luxora', cat: 'front', ratio: '3/4', color: '#2f3a2c', image: '/assets/projects/luxora.jpg', imgPos: 'left top', stack: 'Next.js · React · TS',
+  { name: 'Luxora', slug: 'luxora', cat: 'front', ratio: '3/4', color: '#2f3a2c', image: '/assets/projects/luxora', imgPos: 'left top', stack: 'Next.js · React · TS',
     blurb: { nl: 'Marketplace voor exclusieve luxeproducten met een volledige front-end.', en: 'Marketplace for exclusive luxury products with a full front-end.' },
-    year: '2024', repo: 'https://github.com/itsamestachu/luxora', live: 'https://luxora.pages.dev/',
+    year: '2024', repo: '', live: 'https://luxora.pages.dev/',
     role: { nl: 'Front-end ontwikkelaar', en: 'Front-end developer' },
     overview: {
       nl: 'Luxora is een marktplaats voor exclusieve luxeproducten. Ik bouwde de volledige front-end met een verzorgde, premium uitstraling en een vloeiende browse-ervaring.',
@@ -151,9 +173,9 @@ export const PROJECTS: Project[] = [
       nl: ['Volledige front-end in Next.js', 'Premium, verzorgd productontwerp', 'Productoverzichten en detailpagina’s', 'Snelle, vloeiende navigatie'],
       en: ['Full front-end in Next.js', 'Premium, polished product design', 'Product listings and detail pages', 'Fast, fluid navigation'],
     } },
-  { name: 'Yume Ramen', cat: 'full', ratio: '4/3', color: '#3a1f22', image: '/assets/projects/yume-ramen.jpg', imgPos: 'left top', stack: 'PHP · MySQL · Python',
+  { name: 'Yume Ramen', slug: 'yume-ramen', cat: 'full', ratio: '4/3', color: '#3a1f22', image: '/assets/projects/yume-ramen', imgPos: 'left top', stack: 'PHP · MySQL · Python',
     blurb: { nl: 'Food-delivery webapp: bestellen, afrekenen en beheer voor de keuken.', en: 'Food-delivery web app: ordering, checkout and a kitchen dashboard.' },
-    year: '2023', repo: 'https://github.com/AdamSaber-mr/Ramen_DeliveryApp', live: 'https://102896.stu.sd-lab.nl/schooljaar2/1_beroeps/Ramen_DeliveryApp/public/1_index.php',
+    year: '2023', repo: 'https://github.com/AdamSaber-mr/Ramen_DeliveryApp', live: '',
     role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
     overview: {
       nl: 'Yume Ramen is een food-delivery webapp: klanten bestellen en rekenen af, terwijl de keuken via een dashboard de bestellingen beheert. Een full-stack project van interface tot database.',
@@ -163,9 +185,9 @@ export const PROJECTS: Project[] = [
       nl: ['Bestellen en afrekenen voor klanten', 'Keuken-dashboard om orders te beheren', 'PHP back-end met MySQL-database', 'Volledige full-stack architectuur'],
       en: ['Ordering and checkout for customers', 'Kitchen dashboard to manage orders', 'PHP back-end with a MySQL database', 'Complete full-stack architecture'],
     } },
-  { name: 'CookUp', cat: 'full', ratio: '1/1', color: '#243027', image: '/assets/projects/cookup.jpg', imgPos: 'center top', stack: 'PHP · MySQL · CRUD',
+  { name: 'CookUp', slug: 'cookup', cat: 'full', ratio: '1/1', color: '#243027', image: '/assets/projects/cookup', imgPos: 'center top', stack: 'PHP · MySQL · CRUD',
     blurb: { nl: 'Receptenplatform met accounts, opslaan en categorieën.', en: 'Recipe platform with accounts, saving and categories.' },
-    year: '2023', repo: 'https://github.com/AdamSaber-mr/Recipe_Website', live: 'https://102896.stu.sd-lab.nl/schooljaar2/1_beroeps/stop_de_ontkoking/mamp_bp/index.php',
+    year: '2023', repo: 'https://github.com/AdamSaber-mr/Recipe_Website', live: '',
     role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
     overview: {
       nl: 'CookUp is een receptenplatform waar gebruikers een account maken, recepten opslaan en alles netjes per categorie ordenen. Draait op een PHP-back-end met volledige CRUD.',
@@ -175,9 +197,9 @@ export const PROJECTS: Project[] = [
       nl: ['Accounts met registratie en login', 'Recepten opslaan en beheren', 'Ordenen per categorie', 'Volledige CRUD op een PHP/MySQL-back-end'],
       en: ['Accounts with sign-up and login', 'Save and manage recipes', 'Organise by category', 'Full CRUD on a PHP/MySQL back-end'],
     } },
-  { name: 'Portfolio v1', cat: 'front', ratio: '3/4', color: '#26222c', image: '/assets/projects/portfolio.jpg', imgPos: 'center top', stack: 'HTML · CSS · JS',
+  { name: 'Portfolio v1', slug: 'portfolio-v1', cat: 'front', ratio: '3/4', color: '#26222c', image: '/assets/projects/portfolio', imgPos: 'center top', stack: 'HTML · CSS · JS',
     blurb: { nl: 'Mijn eerste portfolio, waar het bouwen begon.', en: 'My first portfolio, where the building began.' },
-    year: '2022', repo: 'https://github.com/AdamSaber-mr/portfolio_mr', live: 'https://adamsaber-mr.github.io/portfolio_mr/',
+    year: '2022', repo: '', live: 'https://adamsaber-mr.github.io/portfolio_mr/',
     role: { nl: 'Ontwerp & ontwikkeling', en: 'Design & development' },
     overview: {
       nl: 'Mijn allereerste portfolio — waar het bouwen begon. Volledig met de hand gemaakt in HTML, CSS en JavaScript, en de basis voor alles wat daarna kwam.',
@@ -193,14 +215,14 @@ export const PROJECTS: Project[] = [
 export type Filter = 'all' | Cat;
 
 export interface LocProject {
-  name: string; ratio: string; color: string; image: string; imgPos: string; stack: string;
+  name: string; slug: string; ratio: string; color: string; image: string; imgPos: string; stack: string;
   blurb: string; cat: Cat;
   year: string; repo: string; live: string; role: string; overview: string; features: string[];
 }
 
 export function loc(p: Project, lang: Lang): LocProject {
   return {
-    name: p.name, ratio: p.ratio, color: p.color, image: p.image, imgPos: p.imgPos, stack: p.stack,
+    name: p.name, slug: p.slug, ratio: p.ratio, color: p.color, image: p.image, imgPos: p.imgPos, stack: p.stack,
     blurb: p.blurb[lang], cat: p.cat, year: p.year, repo: p.repo, live: p.live,
     role: p.role[lang], overview: p.overview[lang], features: p.features[lang],
   };
@@ -256,9 +278,16 @@ export function spotifySearchUrl(t: Track): string {
 /* ---------- home: live chart tracks (Apple "Top Songs" RSS, no API key) ---------- */
 const TRACK_TINTS = ['#1f5562', '#2a3d5c', '#5c4632', '#3a4a32', '#5c3340', '#3a3f4c', '#4a3a2e', '#463a5c', '#2e4a4a'];
 
-/** Upscale an Apple artwork URL (e.g. .../170x170bb.png) to a sharper size. */
-function biggerArt(url: string): string {
-  return url.replace(/\/\d+x\d+bb\.(png|jpg)/, '/512x512bb.$1');
+/**
+ * Vraag een Apple-albumhoes op in precies de maat die getoond wordt.
+ *
+ * Apple's CDN accepteert elke maat in het pad. Eerder werd alles opgeschaald naar
+ * 512x512 met het oorspronkelijke bestandstype erbij — en waar dat een PNG was
+ * leverde dat hoezen van 250 tot 510 KB per stuk op, samen ruim 2 MB per pagina.
+ * Altijd `.jpg` forceren en de juiste maat vragen scheelt meer dan 95%.
+ */
+export function artUrl(url: string, px: number): string {
+  return url.replace(/\/\d+x\d+bb\.(png|jpg)/, `/${px}x${px}bb.jpg`);
 }
 
 function shuffle<T>(a: T[]): T[] {
@@ -286,7 +315,7 @@ export async function fetchChartTracks(): Promise<ChartTracks | null> {
     const tracks: Track[] = entries
       .map((e: any, i: number): Track => {
         const imgs: any[] = e['im:image'] || [];
-        const art = imgs.length ? biggerArt(imgs[imgs.length - 1].label) : '';
+        const art = imgs.length ? imgs[imgs.length - 1].label : '';
         const prev = (e.link || []).find((l: any) => l?.attributes?.type === 'audio/x-m4a');
         return {
           id: e.id?.attributes?.['im:id'] || String(i),
@@ -521,11 +550,33 @@ export function buildSkills(lang: Lang): SkillGroup[] {
 export interface ContactLink { label: string; value: string; href: string; }
 
 export function buildContactLinks(lang: Lang): ContactLink[] {
+  // `href` leeg laten = geen link, alleen tekst. Beter een nette regel dan een
+  // '#'-link die met een pijltje doet alsof hij ergens heen gaat.
   return [
-    { label: 'Email', value: 'mt.adamsaber@gmail.com', href: 'mailto:mt.adamsaber@gmail.com' },
+    { label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
     { label: 'GitHub', value: 'adamsaber-mr', href: 'https://github.com/adamsaber-mr' },
-    { label: 'LinkedIn', value: 'Adam Saber', href: '#' },
-    { label: lang === 'nl' ? 'Locatie' : 'Location', value: 'Rotterdam, NL', href: '#' },
+    ...(LINKEDIN_URL ? [{ label: 'LinkedIn', value: 'Adam Saber', href: LINKEDIN_URL }] : []),
+    { label: lang === 'nl' ? 'Locatie' : 'Location', value: 'Rotterdam, NL', href: '' },
+  ];
+}
+
+/**
+ * Zet hier je LinkedIn-profiel-URL neer, bv.
+ * 'https://www.linkedin.com/in/adam-saber/'. Zolang dit leeg is wordt de regel
+ * helemaal niet getoond — beter dan een link die nergens heen gaat.
+ */
+export const LINKEDIN_URL = '';
+
+/** Stage-informatie: precies wat een stagecoördinator als eerste wil weten. */
+export interface StageInfo { label: string; value: string; }
+
+export function buildStage(lang: Lang): StageInfo[] {
+  const nl = lang === 'nl';
+  return [
+    { label: nl ? 'Periode' : 'Period', value: nl ? 'September 2026 – februari 2027' : 'September 2026 – February 2027' },
+    { label: nl ? 'Omvang' : 'Days', value: nl ? '4 dagen per week' : '4 days a week' },
+    { label: nl ? 'Regio' : 'Region', value: nl ? 'Rotterdam en omgeving' : 'Rotterdam area' },
+    { label: nl ? 'Opleiding' : 'Programme', value: nl ? 'MBO Software Development, niveau 4' : 'MBO Software Development, level 4' },
   ];
 }
 

@@ -1,6 +1,6 @@
 import { sx } from '../lib/sx';
-import { clickable } from '../lib/a11y';
-import { asset } from '../lib/asset';
+import Img from './Img';
+import { href } from '../lib/router';
 import { catLabel, type LocProject, type Strings } from '../data';
 import FooterCTA from './FooterCTA';
 import TechChips from './TechChips';
@@ -27,13 +27,14 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
     <div data-screen-label="Projectdetail" className="pageintro">
       <div className="page-pad" style={sx('max-width:1100px; margin:0 auto; padding:40px 56px 10px;')}>
         {/* back */}
-        <span
+        <a
           className="btn"
-          {...clickable(back, s.pdBack)}
-          style={sx("display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); cursor:pointer;")}
+          href={href({ kind: 'work' })}
+          onClick={(e) => { e.preventDefault(); back(); }}
+          style={sx("display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); cursor:pointer; text-decoration:none;")}
         >
-          <span style={sx('font-size:17px; line-height:1;')}>‹</span> {s.pdBack}
-        </span>
+          <span aria-hidden="true" style={sx('font-size:17px; line-height:1;')}>‹</span> {s.pdBack}
+        </a>
 
         {/* header */}
         <div data-reveal="" style={sx('display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin-top:26px;')}>
@@ -58,7 +59,7 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
 
         {/* cover */}
         <div data-reveal="" style={sx(`position:relative; margin-top:32px; border-radius:24px; overflow:hidden; background:${p.color}; border:1px solid var(--line); aspect-ratio:16/9; box-shadow:0 40px 80px -36px var(--shadow);`)}>
-          <img src={asset(p.image)} alt={`${p.name} — screenshot`} style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
+          <Img src={p.image} alt={`${p.name} — ${s.altShot}`} priority style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
         </div>
 
         {/* body */}

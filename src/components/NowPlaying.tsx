@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { sx } from '../lib/sx';
-import { clickable } from '../lib/a11y';
 import {
-  FEATURED_TRACK, TRACKS_RECENT, TRACKS_TOP, spotifySearchUrl, fetchChartTracks,
+  FEATURED_TRACK, TRACKS_RECENT, TRACKS_TOP, spotifySearchUrl, fetchChartTracks, artUrl,
   type Track, type ChartTracks, type Strings,
 } from '../data';
 
@@ -27,16 +26,22 @@ function fmt(sec: number): string {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 }
 
-/** Album art that falls back to its tile colour if the image fails to load. */
-function Art({ track, radius }: { track: Track; radius: number }) {
+/**
+ * Album art that falls back to its tile colour if the image fails to load.
+ * `px` is de daadwerkelijke pixelmaat die opgevraagd wordt — zie `artUrl`.
+ */
+function Art({ track, radius, px }: { track: Track; radius: number; px: number }) {
   const [ok, setOk] = useState(true);
   return (
     <div style={sx(`position:relative; width:100%; height:100%; border-radius:${radius}px; overflow:hidden; background:${track.color}; box-shadow:0 14px 34px -16px rgba(0,0,0,.7);`)}>
       {ok && (
         <img
-          src={track.art}
+          src={artUrl(track.art, px)}
           alt={`${track.title} — ${track.artist}`}
+          width={px}
+          height={px}
           loading="lazy"
+          decoding="async"
           onError={() => setOk(false)}
           style={sx('position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;')}
         />
@@ -53,11 +58,23 @@ export default function NowPlaying({ s }: { s: Strings }) {
   const [elapsed, setElapsed] = useState(0); // seconds into the active preview
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // pull popular tracks from the Apple chart feed; keep the static list as fallback
+  // Haal populaire nummers op bij Apple; de statische lijst blijft de fallback.
+  // Bewust pas wanneer de browser niets beters te doen heeft: dit staat onderaan
+  // de pagina en mag de eerste load niet vertragen door mee te vechten om
+  // bandbreedte met de hero-afbeelding en de fonts.
   useEffect(() => {
     let active = true;
-    fetchChartTracks().then((c) => { if (active && c) setChart(c); });
-    return () => { active = false; };
+    const load = () => fetchChartTracks().then((c) => { if (active && c) setChart(c); });
+    // Safari kent requestIdleCallback pas sinds 2022, dus met een timeout-fallback.
+    const idle = 'requestIdleCallback' in window;
+    const handle = idle
+      ? window.requestIdleCallback(load, { timeout: 3000 })
+      : window.setTimeout(load, 1200);
+    return () => {
+      active = false;
+      if (idle) window.cancelIdleCallback(handle);
+      else window.clearTimeout(handle);
+    };
   }, []);
 
   // wire up the shared audio element once
@@ -96,14 +113,16 @@ export default function NowPlaying({ s }: { s: Strings }) {
   const isPlaying = (t: Track) => !!t.preview && playing === t.preview;
 
   const tabBtn = (id: 'recent' | 'top', label: string) => (
-    <span
-      {...clickable(() => setTab(id))}
-      style={sx(`padding:8px 16px; border-radius:30px; font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:600; cursor:pointer; transition:background .2s,color .2s; ${
-        tab === id ? 'background:var(--ink); color:var(--bg);' : 'color:var(--muted);'
+    <button
+      type="button"
+      onClick={() => setTab(id)}
+      aria-pressed={tab === id}
+      style={sx(`padding:9px 16px; border:none; border-radius:30px; font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:600; cursor:pointer; transition:background .2s,color .2s; ${
+        tab === id ? 'background:var(--ink); color:var(--bg);' : 'background:transparent; color:var(--muted);'
       }`)}
     >
       {label}
-    </span>
+    </button>
   );
 
   return (
@@ -128,30 +147,34 @@ export default function NowPlaying({ s }: { s: Strings }) {
           <div style={sx('position:absolute; inset:0; background:linear-gradient(160deg, rgba(255,255,255,.12), transparent 55%); pointer-events:none;')}></div>
           <img src={SPOTIFY_ICON} alt="Spotify" width={26} height={26} style={sx('position:absolute; top:22px; right:22px; opacity:.9;')} />
           <div style={sx('width:62%; max-width:230px; aspect-ratio:1/1; margin:14px auto 8px;')}>
-            <Art track={featured} radius={14} />
+            <Art track={featured} radius={14} px={460} />
           </div>
           <div style={sx('margin-top:auto;')}>
             <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(22px,2.6vw,30px); font-weight:700; letter-spacing:-.01em; line-height:1.05; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;")}>{featured.title}</h3>
             <p style={sx('font-size:15px; margin-top:4px; color:rgba(255,255,255,.7);')}>{featured.artist}</p>
-            <span
-              {...clickable(() => window.open(spotifySearchUrl(featured), '_blank', 'noopener,noreferrer'))}
-              style={sx('display:inline-flex; align-items:center; gap:9px; margin-top:16px; font-size:13.5px; font-weight:600; color:rgba(255,255,255,.92); cursor:pointer;')}
+            <a
+              href={spotifySearchUrl(featured)}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={sx('display:inline-flex; align-items:center; gap:9px; margin-top:16px; font-size:13.5px; font-weight:600; color:rgba(255,255,255,.92); cursor:pointer; text-decoration:none;')}
             >
               <span style={sx('display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(255,255,255,.7);')}><PlusIcon size={15} /></span>
               {s.saveSpotify}
-            </span>
+            </a>
             <div style={sx('display:flex; align-items:center; gap:14px; margin-top:18px;')}>
               <div style={sx('flex:1; height:4px; border-radius:3px; background:rgba(255,255,255,.22); overflow:hidden;')}>
                 <div style={sx(`width:${(isPlaying(featured) ? progress * 100 : 0).toFixed(1)}%; height:100%; background:rgba(255,255,255,.9); transition:width .25s linear;`)}></div>
               </div>
               <span style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:rgba(255,255,255,.8);")}>{isPlaying(featured) ? fmt(elapsed) : featured.dur}</span>
-              <span
-                {...clickable(() => toggle(featured), `${isPlaying(featured) ? 'Pause' : 'Play'} ${featured.title}`)}
+              <button
+                type="button"
+                onClick={() => toggle(featured)}
+                aria-label={`${isPlaying(featured) ? 'Pause' : 'Play'} ${featured.title}`}
                 className="np-play"
-                style={sx('display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:50%; background:#fff; color:#111; flex:none; cursor:pointer;')}
+                style={sx('display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border:none; border-radius:50%; background:#fff; color:#111; flex:none; cursor:pointer;')}
               >
                 {isPlaying(featured) ? <PauseIcon size={17} /> : <PlayIcon size={17} />}
-              </span>
+              </button>
             </div>
           </div>
         </div>
@@ -159,14 +182,16 @@ export default function NowPlaying({ s }: { s: Strings }) {
         {/* track list */}
         <div style={sx('display:flex; flex-direction:column; gap:12px;')}>
           {list.map((t, i) => (
-            <div
+            <button
               key={t.id || `${tab}-${i}`}
-              {...clickable(() => toggle(t), `${isPlaying(t) ? 'Pause' : 'Play'} ${t.title} — ${t.artist}`)}
+              type="button"
+              onClick={() => toggle(t)}
+              aria-label={`${isPlaying(t) ? 'Pause' : 'Play'} ${t.title} — ${t.artist}`}
               className="np-row"
-              style={sx(`display:flex; align-items:center; gap:14px; padding:11px 14px; border-radius:14px; background:${t.color}; border:1px solid rgba(255,255,255,.07); color:#fff; cursor:pointer; flex:1;`)}
+              style={sx(`display:flex; align-items:center; gap:14px; padding:11px 14px; border-radius:14px; background:${t.color}; border:1px solid rgba(255,255,255,.07); color:#fff; cursor:pointer; flex:1; width:100%; text-align:left; font:inherit;`)}
             >
               <div style={sx('width:54px; height:54px; flex:none;')}>
-                <Art track={t} radius={9} />
+                <Art track={t} radius={9} px={128} />
               </div>
               <div style={sx('flex:1; min-width:0;')}>
                 <div style={sx("font-family:'Space Grotesk',sans-serif; font-size:15.5px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;")}>{t.title}</div>
@@ -178,10 +203,10 @@ export default function NowPlaying({ s }: { s: Strings }) {
                   <span style={sx("font-family:'JetBrains Mono',monospace; font-size:11.5px; color:rgba(255,255,255,.7);")}>{isPlaying(t) ? fmt(elapsed) : t.dur}</span>
                 </div>
               </div>
-              <span className="np-play" style={sx('display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:#fff; color:#111; flex:none;')}>
+              <span aria-hidden="true" className="np-play" style={sx('display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; background:#fff; color:#111; flex:none;')}>
                 {isPlaying(t) ? <PauseIcon size={15} /> : <PlayIcon size={15} />}
               </span>
-            </div>
+            </button>
           ))}
         </div>
 

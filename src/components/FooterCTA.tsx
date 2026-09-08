@@ -1,5 +1,5 @@
 import { sx } from '../lib/sx';
-import { clickable } from '../lib/a11y';
+import { href } from '../lib/router';
 import { CONTACT_EMAIL, type Strings } from '../data';
 
 interface Props {
@@ -16,9 +16,9 @@ export default function FooterCTA({ s, maxw, goContact }: Props) {
           {s.contactTitle}
         </h2>
         <div style={sx('display:flex; gap:16px; margin-top:32px; align-items:center; flex-wrap:wrap;')}>
-          <span {...clickable(goContact)} style={sx('cursor:pointer; background:var(--accent); color:var(--accentink); padding:15px 26px; border-radius:30px; font-size:15px; font-weight:600;')}>
+          <a href={href({ kind: 'contact' })} onClick={(e) => { e.preventDefault(); goContact(); }} style={sx('cursor:pointer; background:var(--accent); color:var(--accentink); padding:15px 26px; border-radius:30px; font-size:15px; font-weight:600; text-decoration:none;')}>
             {s.contactKicker} →
-          </span>
+          </a>
           <a href={`mailto:${CONTACT_EMAIL}`} style={sx("font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); text-decoration:none;")}>
             {CONTACT_EMAIL}
           </a>

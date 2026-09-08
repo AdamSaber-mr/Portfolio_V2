@@ -1,5 +1,5 @@
 import { sx } from '../lib/sx';
-import { asset } from '../lib/asset';
+import Img from './Img';
 import { buildJourney, buildSkills, buildExperience, type Lang, type Strings } from '../data';
 
 interface Props {
@@ -34,11 +34,11 @@ export default function About({ s, lang }: Props) {
           <div data-reveal="" className="about-text" style={sx('display:flex; flex-direction:column; gap:22px;')}>
             <p style={sx('font-size:18px; line-height:1.7; color:var(--ink);')}>{s.aboutP1}</p>
             <p style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP2}</p>
-            <p className="about-hide-mobile" style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP3}</p>
+            <p style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP3}</p>
           </div>
           <div data-reveal="" style={sx('display:flex; justify-content:center; align-items:center;')}>
             <div style={sx('width:100%; max-width:360px; border-radius:22px; overflow:hidden; border:1px solid var(--line); box-shadow:0 34px 64px -26px var(--shadow);')}>
-              <img src={asset('assets/me_3.png')} alt="Adam Saber aan het werk" style={sx('width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 38%; display:block;')} />
+              <Img src="assets/me_3" alt={s.altWorking} style={sx('width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 38%; display:block;')} />
             </div>
           </div>
         </div>

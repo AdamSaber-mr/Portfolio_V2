@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { sx } from '../lib/sx';
-import { clickable } from '../lib/a11y';
-import { asset } from '../lib/asset';
+import Img from './Img';
+import { href } from '../lib/router';
 import { PROJECTS, loc, buildCurrently, DISCORD_USER_ID, type Lang, type Strings } from '../data';
 import FooterCTA from './FooterCTA';
 import TechChips from './TechChips';
@@ -92,7 +92,7 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
   const featured = PROJECTS.slice(0, 3).map((p) => loc(p, lang));
   const currently = buildCurrently(s);
   // me_header has a dark backdrop that clashes with light mode; swap to the white version there
-  const heroImg = dark ? 'assets/me_header.png' : 'assets/me_white.png';
+  const heroImg = dark ? 'assets/me_header' : 'assets/me_white';
 
   return (
     <div data-screen-label="Home" className="pageintro">
@@ -104,12 +104,12 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
             </h1>
             <p style={sx('max-width:440px; font-size:18px; line-height:1.55; color:var(--muted); margin-top:26px; pointer-events:auto;')}>{s.heroBody}</p>
             <div style={sx('display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; pointer-events:auto;')}>
-              <span className="btn" {...clickable(() => go('work'))} style={sx('background:var(--accent); color:var(--accentink); padding:14px 24px; border-radius:30px; font-size:15px; font-weight:600;')}>{s.heroCta1}</span>
-              <span className="btn" {...clickable(() => go('about'))} style={sx('border:1px solid var(--line); color:var(--ink); padding:13px 23px; border-radius:30px; font-size:15px; font-weight:500;')}>{s.heroCta2}</span>
+              <a className="btn" href={href({ kind: 'work' })} onClick={(e) => { e.preventDefault(); go('work'); }} style={sx('background:var(--accent); color:var(--accentink); padding:14px 24px; border-radius:30px; font-size:15px; font-weight:600; text-decoration:none;')}>{s.heroCta1}</a>
+              <a className="btn" href={href({ kind: 'about' })} onClick={(e) => { e.preventDefault(); go('about'); }} style={sx('border:1px solid var(--line); color:var(--ink); padding:13px 23px; border-radius:30px; font-size:15px; font-weight:500; text-decoration:none;')}>{s.heroCta2}</a>
             </div>
           </div>
           <div data-reveal="" className="hero-photo" style={sx('position:relative; width:100%; max-width:440px; justify-self:end; aspect-ratio:1/1; border-radius:28px; overflow:hidden; border:1px solid var(--line); box-shadow:0 40px 90px -30px var(--shadow); z-index:1;')}>
-            <img src={asset(heroImg)} alt="Adam Saber — portret" style={sx('width:100%; height:100%; object-fit:cover; display:block;')} />
+            <Img src={heroImg} alt={s.altPortrait} priority style={sx('width:100%; height:100%; object-fit:cover; display:block;')} />
             <div style={sx('position:absolute; inset:0; background:linear-gradient(135deg, rgba(139,124,255,.12), transparent 55%); pointer-events:none;')}></div>
           </div>
         </div>
@@ -118,20 +118,27 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
       <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:56px 56px 44px;')}>
         <div data-reveal="" style={sx('display:flex; align-items:baseline; justify-content:space-between; margin-bottom:30px;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(26px,3.6vw,46px); font-weight:700; letter-spacing:-.02em;")}>{s.selectedWork}</h2>
-          <span className="navlink" {...clickable(() => go('work'))} style={sx("font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:600;")}>{s.viewAll} →</span>
+          <a className="navlink" href={href({ kind: 'work' })} onClick={(e) => { e.preventDefault(); go('work'); }} style={sx("font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:600; text-decoration:none;")}>{s.viewAll} →</a>
         </div>
         <div className="home-cards" style={sx('display:grid; grid-template-columns:repeat(3,1fr); gap:20px;')}>
           {featured.map((p, i) => (
-            <div key={i} data-reveal="" className="card3d" {...clickable(() => openDetail(p.name), p.name)} style={sx('display:flex; flex-direction:column; height:100%; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:14px; overflow:hidden; cursor:pointer;')}>
+            <a
+              key={i}
+              data-reveal=""
+              className="card3d"
+              href={href({ kind: 'project', slug: p.slug })}
+              onClick={(e) => { e.preventDefault(); openDetail(p.slug); }}
+              style={sx('display:flex; flex-direction:column; height:100%; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:14px; overflow:hidden; cursor:pointer; text-decoration:none;')}
+            >
               <div style={sx(`aspect-ratio:16/10; background:${p.color}; position:relative; overflow:hidden;`)}>
-                <img src={asset(p.image)} alt={`${p.name} — screenshot`} loading="lazy" style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
+                <Img src={p.image} alt={`${p.name} — ${s.altShot}`} style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
               </div>
               <div style={sx('padding:16px 17px 18px; display:flex; flex-direction:column; flex:1;')}>
                 <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:17.5px; font-weight:600;")}>{p.name}</h3>
                 <p style={sx('font-size:13.5px; color:var(--card-muted); line-height:1.5; margin-top:8px;')}>{p.blurb}</p>
                 <div style={sx('margin-top:auto; padding-top:13px;')}><TechChips stack={p.stack} /></div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>

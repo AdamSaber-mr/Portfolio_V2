@@ -2,64 +2,87 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { sx } from './lib/sx';
 import { STR, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY, type Filter, type Lang } from './data';
 import { useReveal } from './hooks/useReveal';
+import { useHead } from './hooks/useHead';
+import { useRoute, navigate, topPageOf, type TopPage } from './lib/router';
 import Nav from './components/Nav';
 import Home from './components/Home';
-import Work from './components/Work';
-import ProjectDetail from './components/ProjectDetail';
-import About from './components/About';
-import Contact, { type ContactForm } from './components/Contact';
+import AuroraBackground from './components/AuroraBackground';
+import ErrorBoundary from './components/ErrorBoundary';
+import NotFound from './components/NotFound';
+import type { ContactForm } from './components/Contact';
 import { PROJECTS, loc } from './data';
 
-// three.js is heavy; load the animated background in its own chunk after paint
-const AuroraBackground = lazy(() => import('./components/AuroraBackground'));
+// Home is de landingspagina en blijft in de hoofdbundle. De rest komt pas binnen
+// wanneer je er daadwerkelijk heen navigeert, zodat de eerste load alleen betaalt
+// voor wat je meteen ziet.
+const Work = lazy(() => import('./components/Work'));
+const ProjectDetail = lazy(() => import('./components/ProjectDetail'));
+const About = lazy(() => import('./components/About'));
+const Contact = lazy(() => import('./components/Contact'));
 
-export type Page = 'home' | 'work' | 'about' | 'contact';
+/** De vier hoofdpagina's — projectdetails vallen onder 'work'. */
+export type Page = TopPage;
 
 const emptyForm: ContactForm = { fName: '', fEmail: '', fSubject: '', fMsg: '', hp: '' };
 
+/** Beginwaarde uit theme.js, dat het thema al vóór de eerste paint heeft gezet. */
+function initialDark(): boolean {
+  return document.documentElement.getAttribute('data-theme') !== 'light';
+}
+
+function initialLang(): Lang {
+  try {
+    return localStorage.getItem('lang') === 'en' ? 'en' : 'nl';
+  } catch {
+    return 'nl';
+  }
+}
+
 export default function App() {
-  const [page, setPage] = useState<Page>('home');
-  const [dark, setDark] = useState(true);
-  const [lang, setLang] = useState<Lang>('nl');
+  const route = useRoute();
+  const page = topPageOf(route);
+
+  const [dark, setDark] = useState(initialDark);
+  const [lang, setLang] = useState<Lang>(initialLang);
   const [filter, setFilterState] = useState<Filter>('all');
-  const [openProject, setOpenProject] = useState<string | null>(null);
   const [form, setFormState] = useState<ContactForm>(emptyForm);
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState('');
 
   const s = STR[lang];
+  const detail = route.kind === 'project' ? PROJECTS.find((p) => p.slug === route.slug) ?? null : null;
 
-  useReveal(`${page}-${lang}-${openProject ?? ''}`);
+  useReveal(route.kind + '-' + lang + '-' + (detail?.slug ?? ''));
+  useHead(route);
 
-  // keep the document background in sync with the theme (avoids white flash)
+  // houd de documentachtergrond gelijk aan het thema (voorkomt een witte flits)
   useEffect(() => {
+    const theme = dark ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
     document.body.style.background = dark ? '#0a0b0d' : '#e7e5f0';
+    try { localStorage.setItem('theme', theme); } catch { /* private mode */ }
   }, [dark]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
+    try { localStorage.setItem('lang', lang); } catch { /* private mode */ }
   }, [lang]);
 
   const go = (p: Page) => {
-    setOpenProject(null);
-    if (page === p) return;
-    setPage(p);
+    navigate({ kind: p });
     window.scrollTo(0, 0);
   };
 
-  const openDetail = (name: string) => {
-    setOpenProject(name);
-    setPage('work'); // so the detail view shows even when opened from the home teaser
+  const openDetail = (slug: string) => {
+    navigate({ kind: 'project', slug });
     window.scrollTo(0, 0);
   };
 
   const closeDetail = () => {
-    setOpenProject(null);
+    navigate({ kind: 'work' });
     window.scrollTo(0, 0);
   };
-
-  const detail = openProject ? PROJECTS.find((p) => p.name === openProject) ?? null : null;
 
   const setFilter = (f: Filter) => {
     setFilterState(f);
@@ -78,7 +101,7 @@ export default function App() {
     // (offline, or blocked by an ad/privacy blocker) so the message is never lost.
     const openMailFallback = () => {
       const body = encodeURIComponent((fMsg || '') + '\n\n' + (fName || '') + (fEmail ? ' (' + fEmail + ')' : ''));
-      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${body}`;
+      window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + body;
       setSent(true);
     };
 
@@ -121,11 +144,11 @@ export default function App() {
     <div
       className="root"
       data-theme={dark ? 'dark' : 'light'}
-      style={sx("background:var(--bg); color:var(--ink); font-family:'Hanken Grotesk',sans-serif; min-height:100vh; transition:background .35s ease,color .35s ease;")}
+      style={sx("background:var(--bg); color:var(--ink); font-family:'Hanken Grotesk',sans-serif; min-height:100dvh; transition:background .35s ease,color .35s ease;")}
     >
-      <Suspense fallback={null}>
-        <AuroraBackground dark={dark} page={page} />
-      </Suspense>
+      <AuroraBackground page={page} />
+
+      <a className="skiplink" href="#main">{s.skipToContent}</a>
 
       <Nav
         s={s}
@@ -137,15 +160,24 @@ export default function App() {
         toggleLang={() => setLang((l) => (l === 'nl' ? 'en' : 'nl'))}
       />
 
-      {page === 'home' && <Home s={s} lang={lang} go={go} openDetail={openDetail} dark={dark} />}
-      {page === 'work' &&
-        (detail ? (
-          <ProjectDetail s={s} project={loc(detail, lang)} back={closeDetail} go={go} />
-        ) : (
-          <Work s={s} lang={lang} filter={filter} setFilter={setFilter} openDetail={openDetail} />
-        ))}
-      {page === 'about' && <About s={s} lang={lang} />}
-      {page === 'contact' && <Contact s={s} lang={lang} form={form} setForm={setForm} submit={submit} sent={sent} sending={sending} error={sendError} />}
+      <main id="main" tabIndex={-1}>
+        <ErrorBoundary>
+          {route.kind === 'home' && <Home s={s} lang={lang} go={go} openDetail={openDetail} dark={dark} />}
+          {route.kind === 'notfound' && <NotFound s={s} go={go} />}
+          <Suspense fallback={null}>
+            {route.kind === 'project' && detail && (
+              <ProjectDetail s={s} project={loc(detail, lang)} back={closeDetail} go={go} />
+            )}
+            {route.kind === 'work' && (
+              <Work s={s} lang={lang} filter={filter} setFilter={setFilter} openDetail={openDetail} />
+            )}
+            {route.kind === 'about' && <About s={s} lang={lang} />}
+            {route.kind === 'contact' && (
+              <Contact s={s} lang={lang} form={form} setForm={setForm} submit={submit} sent={sent} sending={sending} error={sendError} />
+            )}
+          </Suspense>
+        </ErrorBoundary>
+      </main>
     </div>
   );
 }
