@@ -8,12 +8,11 @@ export const STR: Record<Lang, Strings> = {
     navHome: 'Home', navWork: 'Projecten', navAbout: 'Over mij', navContact: 'Contact', cv: 'CV',
     heroL1: 'Ik bouw digitale', heroL2: 'producten van', heroL3: 'begin tot eind.',
     heroBody: 'Adam Saber, 18 jaar. Student Software Development in Rotterdam, full-stack met PHP, JavaScript & React. Van interface tot database.',
-    heroCta1: 'Bekijk mijn werk', heroCta2: 'Over mij',
-    selectedWork: 'Geselecteerd werk', viewAll: 'Bekijk alles',
-    spotifyTitle: 'Waar ik nu naar luister', nowKicker: 'Nu',
-    tabRecent: 'Recent geluisterd', tabTop: 'Topnummers', saveSpotify: 'Open in Spotify',
+    heroCta1: 'Bekijk mijn werk',
+    selectedWork: 'Geselecteerd werk',
+    spotifyTitle: 'Waar ik nu naar luister',
     curStatus: 'Live status', curAvailable: 'Aan het werk', curTime: 'Lokale tijd',
-    stCoding: 'Aan het coderen', stListening: 'Luistert naar', stOnline: 'Online',
+    stCoding: 'Aan het coderen', stListening: 'Luistert naar',
     curBuilding: 'Aan het bouwen', curLearning: 'Aan het leren', curLocation: 'Locatie',
     workTitle: 'Werk', workBody: 'Een selectie van wat ik heb gebouwd, van klantopdrachten tot eigen experimenten. Filter op type.',
     fAll: 'Alles', fFront: 'Front-end', fFull: 'Full-stack', fData: 'Data',
@@ -24,15 +23,16 @@ export const STR: Record<Lang, Strings> = {
     journeyTitle: 'Mijn ontwikkelingsreis',
     experienceTitle: 'Ervaring & opleiding', experienceBody: 'Waar ik heb geleerd en gewerkt — van school tot de praktijk.',
     skillsTitle: 'Vaardigheden', skillsBody: 'Geen percentages, gewoon wat ik gebruik en waar ik het voor heb ingezet.',
+    aboutApproach: 'Werkwijze', aboutLanguages: 'Talen',
+    aboutCaption: 'Adam Saber aan het werk, Rotterdam',
     contactKicker: 'Contact', contactTitle: 'Laten we iets bouwen.',
     contactBody: 'Heb je een stageplek of wil je samenwerken? Ik hoor graag van je.',
     fName: 'Naam', fEmail: 'E-mail', fSubject: 'Onderwerp', fMsg: 'Bericht', send: 'Verstuur bericht',
     phName: 'Je naam', phEmail: 'jij@voorbeeld.nl', phSubject: 'Bijv. Stageplek front-end', phMsg: 'Vertel kort waar het over gaat…',
     formNote: 'Je bericht komt direct in mijn inbox terecht.',
     sentTitle: 'Verzonden!', sentBody: 'Bedankt voor je bericht — ik reageer zo snel mogelijk!',
-    pdBack: 'Terug naar projecten', pdLive: 'Bezoek website', pdCode: 'Code op GitHub',
-    pdOverview: 'Overzicht', pdHighlights: 'Hoogtepunten', pdDetails: 'Details',
-    pdRole: 'Rol', pdYear: 'Jaar', pdType: 'Type', pdStack: 'Stack',
+    pdLive: 'Bezoek website', pdCode: 'Code op GitHub', pdHighlights: 'Hoogtepunten',
+    pdRole: 'Rol', pdYear: 'Jaar', pdStack: 'Stack',
     pdContext: 'Context', pdRetro: 'Wat ik nu anders zou doen',
     pdPrev: 'Vorige', pdNext: 'Volgende',
     altPortrait: 'Adam Saber — portret', altWorking: 'Adam Saber aan het werk',
@@ -52,12 +52,11 @@ export const STR: Record<Lang, Strings> = {
     navHome: 'Home', navWork: 'Work', navAbout: 'About', navContact: 'Contact', cv: 'CV',
     heroL1: 'I build digital', heroL2: 'products from', heroL3: 'start to finish.',
     heroBody: 'Adam Saber, 18. Software Development student in Rotterdam, full-stack with PHP, JavaScript & React. From interface to database.',
-    heroCta1: 'View my work', heroCta2: 'About me',
-    selectedWork: 'Selected work', viewAll: 'View all',
-    spotifyTitle: 'What I am listening to', nowKicker: 'Right now',
-    tabRecent: 'Recently Played', tabTop: 'Top Tracks', saveSpotify: 'Open in Spotify',
+    heroCta1: 'View my work',
+    selectedWork: 'Selected work',
+    spotifyTitle: 'What I am listening to',
     curStatus: 'Live status', curAvailable: 'At work', curTime: 'Local time',
-    stCoding: 'Coding', stListening: 'Listening to', stOnline: 'Online',
+    stCoding: 'Coding', stListening: 'Listening to',
     curBuilding: 'Building', curLearning: 'Learning', curLocation: 'Location',
     workTitle: 'Work', workBody: 'A selection of what I have built, from client work to personal experiments. Filter by type.',
     fAll: 'All', fFront: 'Front-end', fFull: 'Full-stack', fData: 'Data',
@@ -68,15 +67,16 @@ export const STR: Record<Lang, Strings> = {
     journeyTitle: 'My development journey',
     experienceTitle: 'Experience & education', experienceBody: 'Where I have learned and worked — from school to practice.',
     skillsTitle: 'Skills', skillsBody: 'No percentages, just what I use and where I have applied it.',
+    aboutApproach: 'Way of working', aboutLanguages: 'Languages',
+    aboutCaption: 'Adam Saber at work, Rotterdam',
     contactKicker: 'Contact', contactTitle: 'Let us build something.',
     contactBody: 'Got an internship opening or want to collaborate? I would love to hear from you.',
     fName: 'Name', fEmail: 'Email', fSubject: 'Subject', fMsg: 'Message', send: 'Send message',
     phName: 'Your name', phEmail: 'you@example.com', phSubject: 'e.g. Front-end internship', phMsg: 'Tell me briefly what it is about…',
     formNote: 'Your message lands straight in my inbox.',
     sentTitle: 'Sent!', sentBody: 'Thanks for your message — I will reply as soon as I can!',
-    pdBack: 'Back to projects', pdLive: 'Visit website', pdCode: 'Code on GitHub',
-    pdOverview: 'Overview', pdHighlights: 'Highlights', pdDetails: 'Details',
-    pdRole: 'Role', pdYear: 'Year', pdType: 'Type', pdStack: 'Stack',
+    pdLive: 'Visit website', pdCode: 'Code on GitHub', pdHighlights: 'Highlights',
+    pdRole: 'Role', pdYear: 'Year', pdStack: 'Stack',
     pdContext: 'Context', pdRetro: 'What I would do differently now',
     pdPrev: 'Previous', pdNext: 'Next',
     altPortrait: 'Adam Saber — portrait', altWorking: 'Adam Saber at work',
@@ -103,7 +103,6 @@ export interface Project {
    */
   slug: string;
   cat: Cat;
-  color: string;
   image: string;
   /** CSS object-position for the cover crop, tuned per screenshot's focal point */
   imgPos: string;
@@ -135,7 +134,7 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
-  { name: 'RapidCars', slug: 'rapidcars', cat: 'front', color: '#1b1d22', image: '/assets/projects/rapidcars', imgPos: 'left top', stack: 'React · TypeScript · Vite',
+  { name: 'RapidCars', slug: 'rapidcars', cat: 'front', image: '/assets/projects/rapidcars', imgPos: 'left top', stack: 'React · TypeScript · Vite',
     blurb: { nl: 'Autoverhuur-webapp voor een echte klant: snel boeken, sportieve auto’s.', en: 'Car-rental web app for a real client: fast booking, sporty cars.' },
     year: '2024', repo: 'https://github.com/AdamSaber-mr/rapid_cars', live: 'https://adamsaber-mr.github.io/rapid_cars/',
     role: { nl: 'Front-end ontwikkelaar', en: 'Front-end developer' },
@@ -150,7 +149,7 @@ export const PROJECTS: Project[] = [
     context: { nl: 'Klantopdracht — gebouwd in nauw overleg met de opdrachtgever.', en: 'Client project — built in close consultation with the client.' },
     retro: { nl: 'De stack was puur front-end, dus een boeking eindigde in de interface en niet in een systeem. Nu zou ik er een kleine API achter zetten, zodat een reservering ook echt ergens landt en de klant hem kan terugzien.', en: 'The stack was front-end only, so a booking ended in the interface rather than in a system. Today I would put a small API behind it, so a reservation actually lands somewhere the client can see it.' },
   },
-  { name: 'Revenue OS', slug: 'revenue-os', cat: 'full', color: '#26243a', image: '/assets/projects/saas', imgPos: 'center top', stack: 'React · Laravel · SQLite',
+  { name: 'Revenue OS', slug: 'revenue-os', cat: 'full', image: '/assets/projects/saas', imgPos: 'center top', stack: 'React · Laravel · SQLite',
     blurb: { nl: 'Multi-tenant SaaS-dashboard dat abonnementsomzet live berekent uit een event-log.', en: 'Multi-tenant SaaS dashboard that computes subscription revenue live from an event log.' },
     year: '2026', repo: 'https://github.com/AdamSaber-mr/SaaS_Subscription_Dashboard', live: 'https://revenue-os-app.vercel.app',
     role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
@@ -165,7 +164,7 @@ export const PROJECTS: Project[] = [
     context: { nl: 'Eigen project — draait live op Vercel en Railway.', en: 'Personal project — running live on Vercel and Railway.' },
     retro: { nl: 'Ik heb de grafiekengine volledig zelf gebouwd om de bundle klein te houden, en dat werkte: van 800 naar 283 KB. Maar het kostte tijd die niet in de metrics zelf ging zitten. Nu zou ik eerst met een bestaande library uitkomen en pas zelf bouwen wanneer de bundle daadwerkelijk in de weg zit.', en: 'I built the entire chart engine myself to keep the bundle small, and it worked: 800 KB down to 283. But it cost time that did not go into the metrics themselves. Today I would ship with an existing library first and only build my own once the bundle actually became a problem.' },
   },
-  { name: 'Sentinel AI', slug: 'sentinel-ai', cat: 'data', color: '#241a2e', image: '/assets/projects/ai_fraude', imgPos: 'center top', stack: 'Python · scikit-learn · Flask · React',
+  { name: 'Sentinel AI', slug: 'sentinel-ai', cat: 'data', image: '/assets/projects/ai_fraude', imgPos: 'center top', stack: 'Python · scikit-learn · Flask · React',
     blurb: { nl: 'Full-stack ML-demo die met anomaliedetectie verdachte transacties opspoort.', en: 'Full-stack ML demo that flags suspicious transactions with anomaly detection.' },
     year: '2026', repo: 'https://github.com/AdamSaber-mr/Ai-Fraud-Detection', live: 'https://adamsaber-mr.github.io/Ai-Fraud-Detection/',
     role: { nl: 'Full-stack & ML-ontwikkelaar', en: 'Full-stack & ML developer' },
@@ -180,7 +179,7 @@ export const PROJECTS: Project[] = [
     context: { nl: 'Schoolproject — mijn full-stack eindproject.', en: 'School project — my full-stack final project.' },
     retro: { nl: 'Het model leert ongesuperviseerd wat normaal is, dus het heeft nooit gelabelde fraude gezien. Daardoor kan ik wel laten zien wát eruit springt, maar niet met cijfers onderbouwen hoeveel daarvan echt fraude was. Nu zou ik eerst een kleine gelabelde testset maken om de uitkomsten tegen af te zetten.', en: 'The model learns what is normal without supervision, so it has never seen labelled fraud. That means I can show what stands out, but I cannot back up with numbers how much of it really was fraud. Today I would first build a small labelled test set to measure the results against.' },
   },
-  { name: 'Nike Business Anatomy', slug: 'nike-business-anatomy', cat: 'data', color: '#0e1b2b', image: '/assets/projects/nike', imgPos: 'left top', stack: 'React · D3 · Chart.js',
+  { name: 'Nike Business Anatomy', slug: 'nike-business-anatomy', cat: 'data', image: '/assets/projects/nike', imgPos: 'left top', stack: 'React · D3 · Chart.js',
     blurb: { nl: 'Interactief dashboard over Nike’s supply chain en revenue.', en: 'Interactive dashboard on Nike’s supply chain and revenue.' },
     year: '2024', repo: 'https://github.com/AdamSaber-mr/Business_Anatomy', live: 'https://adamsaber-mr.github.io/Business_Anatomy/',
     role: { nl: 'Front-end & data-visualisatie', en: 'Front-end & data viz' },
@@ -192,7 +191,7 @@ export const PROJECTS: Project[] = [
       nl: ['Interactieve grafieken met D3 en Chart.js', 'Inzicht in supply chain en omzet', 'Ruwe data omgezet naar heldere visualisaties', 'Filteren en inzoomen op de cijfers'],
       en: ['Interactive charts with D3 and Chart.js', 'Insight into supply chain and revenue', 'Raw data turned into clear visualisations', 'Filter and zoom into the numbers'],
     } },
-  { name: 'Luxora', slug: 'luxora', cat: 'front', color: '#2f3a2c', image: '/assets/projects/luxora', imgPos: 'left top', stack: 'Next.js · React · TS',
+  { name: 'Luxora', slug: 'luxora', cat: 'front', image: '/assets/projects/luxora', imgPos: 'left top', stack: 'Next.js · React · TS',
     blurb: { nl: 'Marketplace voor exclusieve luxeproducten met een volledige front-end.', en: 'Marketplace for exclusive luxury products with a full front-end.' },
     year: '2024', repo: '', live: 'https://luxora.pages.dev/',
     role: { nl: 'Front-end ontwikkelaar', en: 'Front-end developer' },
@@ -204,7 +203,7 @@ export const PROJECTS: Project[] = [
       nl: ['Volledige front-end in Next.js', 'Premium, verzorgd productontwerp', 'Productoverzichten en detailpagina’s', 'Snelle, vloeiende navigatie'],
       en: ['Full front-end in Next.js', 'Premium, polished product design', 'Product listings and detail pages', 'Fast, fluid navigation'],
     } },
-  { name: 'Yume Ramen', slug: 'yume-ramen', cat: 'full', color: '#3a1f22', image: '/assets/projects/yume-ramen', imgPos: 'left top', stack: 'PHP · MySQL · Python',
+  { name: 'Yume Ramen', slug: 'yume-ramen', cat: 'full', image: '/assets/projects/yume-ramen', imgPos: 'left top', stack: 'PHP · MySQL · Python',
     blurb: { nl: 'Food-delivery webapp: bestellen, afrekenen en beheer voor de keuken.', en: 'Food-delivery web app: ordering, checkout and a kitchen dashboard.' },
     year: '2023', repo: 'https://github.com/AdamSaber-mr/Ramen_DeliveryApp', live: '',
     role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
@@ -216,7 +215,7 @@ export const PROJECTS: Project[] = [
       nl: ['Bestellen en afrekenen voor klanten', 'Keuken-dashboard om orders te beheren', 'PHP back-end met MySQL-database', 'Volledige full-stack architectuur'],
       en: ['Ordering and checkout for customers', 'Kitchen dashboard to manage orders', 'PHP back-end with a MySQL database', 'Complete full-stack architecture'],
     } },
-  { name: 'CookUp', slug: 'cookup', cat: 'full', color: '#243027', image: '/assets/projects/cookup', imgPos: 'center top', stack: 'PHP · MySQL · CRUD',
+  { name: 'CookUp', slug: 'cookup', cat: 'full', image: '/assets/projects/cookup', imgPos: 'center top', stack: 'PHP · MySQL · CRUD',
     blurb: { nl: 'Receptenplatform met accounts, opslaan en categorieën.', en: 'Recipe platform with accounts, saving and categories.' },
     year: '2023', repo: 'https://github.com/AdamSaber-mr/Recipe_Website', live: '',
     role: { nl: 'Full-stack ontwikkelaar', en: 'Full-stack developer' },
@@ -228,7 +227,7 @@ export const PROJECTS: Project[] = [
       nl: ['Accounts met registratie en login', 'Recepten opslaan en beheren', 'Ordenen per categorie', 'Volledige CRUD op een PHP/MySQL-back-end'],
       en: ['Accounts with sign-up and login', 'Save and manage recipes', 'Organise by category', 'Full CRUD on a PHP/MySQL back-end'],
     } },
-  { name: 'Portfolio v1', slug: 'portfolio-v1', cat: 'front', color: '#26222c', image: '/assets/projects/portfolio', imgPos: 'center top', stack: 'HTML · CSS · JS',
+  { name: 'Portfolio v1', slug: 'portfolio-v1', cat: 'front', image: '/assets/projects/portfolio', imgPos: 'center top', stack: 'HTML · CSS · JS',
     blurb: { nl: 'Mijn eerste portfolio, waar het bouwen begon.', en: 'My first portfolio, where the building began.' },
     year: '2022', repo: '', live: 'https://adamsaber-mr.github.io/portfolio_mr/',
     role: { nl: 'Ontwerp & ontwikkeling', en: 'Design & development' },
@@ -256,7 +255,7 @@ export function projectNumber(slug: string): string {
 }
 
 export interface LocProject {
-  name: string; slug: string; color: string; image: string; imgPos: string; stack: string;
+  name: string; slug: string; image: string; imgPos: string; stack: string;
   blurb: string; cat: Cat;
   year: string; repo: string; live: string; role: string; overview: string; features: string[];
   context?: string; retro?: string;
@@ -264,7 +263,7 @@ export interface LocProject {
 
 export function loc(p: Project, lang: Lang): LocProject {
   return {
-    name: p.name, slug: p.slug, color: p.color, image: p.image, imgPos: p.imgPos, stack: p.stack,
+    name: p.name, slug: p.slug, image: p.image, imgPos: p.imgPos, stack: p.stack,
     blurb: p.blurb[lang], cat: p.cat, year: p.year, repo: p.repo, live: p.live,
     role: p.role[lang], overview: p.overview[lang], features: p.features[lang],
     context: p.context?.[lang], retro: p.retro?.[lang],
@@ -284,34 +283,24 @@ export function catLabel(cat: Cat, s: Strings): string {
  * song, change its title/artist/dur and paste a new `art` URL (or leave it — the
  * play button just opens a Spotify search for "title artist").
  */
-export interface Track { title: string; artist: string; dur: string; art: string; color: string; id?: string; preview?: string; }
+export interface Track { title: string; artist: string; dur: string; art: string; id?: string; preview?: string; }
 
 export const FEATURED_TRACK: Track = {
-  title: 'LIMBO', artist: 'keshi', dur: '3:32', color: '#1f5562',
+  title: 'LIMBO', artist: 'keshi', dur: '3:32',
   art: 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/e2/de/98/e2de9860-b40b-e33f-f68e-ab8e0956a538/22UMGIM07345.rgb.jpg/300x300bb.jpg',
 };
 
 export const TRACKS_RECENT: Track[] = [
-  { title: 'blue', artist: 'keshi', dur: '2:58', color: '#2a3d5c',
+  { title: 'blue', artist: 'keshi', dur: '2:58',
     art: 'https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/83/d7/8a/83d78a91-effe-ea4e-ec91-b40a550e6b87/20UMGIM13994.rgb.jpg/300x300bb.jpg' },
-  { title: 'Glimpse of Us', artist: 'Joji', dur: '3:53', color: '#5c4632',
+  { title: 'Glimpse of Us', artist: 'Joji', dur: '3:53',
     art: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d0/2a/43/d02a433a-3ab8-9a94-b07d-1dc599b64966/93624864387.jpg/300x300bb.jpg' },
-  { title: 'Bad Habit', artist: 'Steve Lacy', dur: '3:52', color: '#3a4a32',
+  { title: 'Bad Habit', artist: 'Steve Lacy', dur: '3:52',
     art: 'https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/f4/b4/c4/f4b4c458-e52c-859b-fdef-2600dd4fe768/196589380630.jpg/300x300bb.jpg' },
-  { title: 'Sofia', artist: 'Clairo', dur: '3:08', color: '#5c3340',
+  { title: 'Sofia', artist: 'Clairo', dur: '3:08',
     art: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f2/47/06/f24706bc-a90c-f730-bd8a-586ddde8af3e/829299184631.jpg/300x300bb.jpg' },
 ];
 
-export const TRACKS_TOP: Track[] = [
-  { title: 'drunk', artist: 'keshi', dur: '3:47', color: '#3a3f4c',
-    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/c9/99/96/c999962f-a98e-45f3-c9a7-0a1b49198216/20UMGIM87054.rgb.jpg/300x300bb.jpg' },
-  { title: 'Get You', artist: 'Daniel Caesar', dur: '4:38', color: '#4a3a2e',
-    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b6/cd/1a/b6cd1a5b-83af-a1e2-0ad7-ea530fcf2522/859722261219.jpg/300x300bb.jpg' },
-  { title: 'Lo Que Siento', artist: 'Cuco', dur: '5:12', color: '#463a5c',
-    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/98/3f/3a/983f3a97-a9ba-e291-9e7b-242e7c00c6ca/191061742319_1.jpg/300x300bb.jpg' },
-  { title: 'Pluto Projector', artist: 'Rex Orange County', dur: '4:27', color: '#2e4a4a',
-    art: 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/e3/af/48/e3af4809-2a90-38c3-c485-44ae6471f75b/886447950241.jpg/300x300bb.jpg' },
-];
 
 /** Open a Spotify search for a track (no API/login needed). */
 export function spotifySearchUrl(t: Track): string {
@@ -319,7 +308,6 @@ export function spotifySearchUrl(t: Track): string {
 }
 
 /* ---------- home: live chart tracks (Apple "Top Songs" RSS, no API key) ---------- */
-const TRACK_TINTS = ['#1f5562', '#2a3d5c', '#5c4632', '#3a4a32', '#5c3340', '#3a3f4c', '#4a3a2e', '#463a5c', '#2e4a4a'];
 
 /**
  * Vraag een Apple-albumhoes op in precies de maat die getoond wordt.
@@ -342,7 +330,7 @@ function shuffle<T>(a: T[]): T[] {
   return r;
 }
 
-export interface ChartTracks { featured: Track; recent: Track[]; top: Track[]; }
+export interface ChartTracks { featured: Track; recent: Track[]; }
 
 /**
  * Fetch popular songs from Apple's public Top Songs RSS feed (CORS-enabled, no key).
@@ -366,15 +354,13 @@ export async function fetchChartTracks(): Promise<ChartTracks | null> {
           artist: e['im:artist']?.label || '',
           dur: '0:30',
           art,
-          color: TRACK_TINTS[i % TRACK_TINTS.length],
           preview: prev?.attributes?.href || '',
         };
       })
       .filter((t) => t.preview && t.art);
     if (tracks.length < 6) return null;
-    const top = tracks.slice(0, 4); // genuine chart order (most popular)
-    const rest = shuffle(tracks.slice(4)); // randomised each load
-    return { featured: rest[0], recent: rest.slice(1, 5), top };
+    const rest = shuffle(tracks); // elke lading een andere volgorde
+    return { featured: rest[0], recent: rest.slice(1, 5) };
   } catch {
     return null;
   }
@@ -404,14 +390,16 @@ export function buildCurrently(s: Strings): CurrentlyItem[] {
   ];
 }
 
-/* ---------- journey (vertical timeline) ---------- */
+/* ---------- over mij: ontwikkelingsreis ---------- */
 export interface JourneyStep { title: string; body: string; }
 export interface JourneyNode extends JourneyStep {
-  color: string; slug: string; year: string; current: boolean; chips: SkillChip[]; phase: string;
+  year: string;
+  /** Alleen de laatste stap. Dat is het enige dat een accent verdient: waar ik nu sta. */
+  current: boolean;
+  stack: string;
+  phase: string;
 }
 
-const JCOL = ['#e34f26', '#777bb4', '#61dafb', '#ff2d20', '#2496ed'];
-const JSLUG = ['html5', 'php', 'react', 'laravel', 'docker'];
 const JYEAR = ['2022', '2023', '2024', '2025', ''];
 const JSTACK = ['HTML · CSS · JS', 'PHP · MySQL', 'React · TypeScript', 'Laravel', 'Docker · CI/CD'];
 const JPHASE: Record<Lang, string[]> = {
@@ -436,23 +424,16 @@ export function buildJourney(lang: Lang): JourneyNode[] {
   const last = journey.length - 1;
   return journey.map((j, i) => ({
     ...j,
-    color: JCOL[i] || '#8b7cff',
-    slug: JSLUG[i] || '',
     year: JYEAR[i] || (lang === 'nl' ? 'Nu' : 'Now'),
     current: i === last,
-    chips: buildStackChips(JSTACK[i] || '', true),
+    stack: JSTACK[i] || '',
     phase: JPHASE[lang][i] || '',
   }));
 }
 
-/* ---------- experience & education (about cards) ---------- */
+/* ---------- over mij: ervaring & opleiding ---------- */
 export interface ExpBullet { title: string; note?: string; }
 export interface ExpItem {
-  kind: 'edu' | 'work';
-  /** Line-icon name shown in the tinted tile. */
-  icon: string;
-  /** Soft accent colour for the tile tint, dots and hover bar. */
-  color: string;
   kicker: string;
   title: string;
   org: string;
@@ -465,7 +446,6 @@ export function buildExperience(lang: Lang): ExpItem[] {
   const nl = lang === 'nl';
   return [
     {
-      kind: 'edu', icon: 'cap', color: '#8b7cff',
       kicker: nl ? 'Opleiding' : 'Education',
       title: 'Software Development',
       org: nl ? 'Grafisch Lyceum Rotterdam · MBO Niveau 4' : 'Grafisch Lyceum Rotterdam · MBO Level 4',
@@ -484,7 +464,6 @@ export function buildExperience(lang: Lang): ExpItem[] {
       ],
     },
     {
-      kind: 'work', icon: 'bag', color: '#c79155',
       kicker: nl ? 'Werkervaring' : 'Experience',
       title: 'Verkoopmedewerker',
       org: nl ? 'Van Haren · Schoenenwinkel' : 'Van Haren · Shoe store',
@@ -493,7 +472,7 @@ export function buildExperience(lang: Lang): ExpItem[] {
         ? 'Ervaring opgedaan in klantcontact, teamwork en commerciële vaardigheden. Sterke basis in communicatie en samenwerken in een professionele omgeving.'
         : 'Gained experience in customer contact, teamwork and commercial skills. A strong base in communication and collaboration in a professional setting.',
       bullets: nl ? [
-        { title: 'Communicatie', note: "Effectief met klanten en collega's" },
+        { title: 'Communicatie', note: 'Effectief met klanten en collega’s' },
         { title: 'Verkoop', note: 'Klantbehoeften identificeren en adviseren' },
         { title: 'Samenwerken', note: 'Teamwork in drukke omgeving' },
         { title: 'Klantcontact', note: 'Professionele en vriendelijke service' },
@@ -505,7 +484,6 @@ export function buildExperience(lang: Lang): ExpItem[] {
       ],
     },
     {
-      kind: 'work', icon: 'mega', color: '#5fa394',
       kicker: nl ? 'Werkervaring' : 'Experience',
       title: 'Medewerker',
       org: 'Sagitta Marketing · Marketing & Communicatie',
@@ -528,65 +506,50 @@ export function buildExperience(lang: Lang): ExpItem[] {
   ];
 }
 
-/* ---------- skills / tech chips ---------- */
-const TC: Record<string, string> = {
-  React: '#61dafb', TypeScript: '#3178c6', TS: '#3178c6', HTML: '#e34f26', CSS: '#1572b6',
-  JS: '#f7df1e', Vite: '#646cff', 'Next.js': '#e6e6ea', PHP: '#777bb4', MySQL: '#4479a1',
-  Python: '#3776ab', D3: '#f68e56', 'Chart.js': '#ff6384', SQL: '#336791', Laravel: '#ff2d20',
-  'scikit-learn': '#f7931e', ECharts: '#aa344d', NumPy: '#4dabcf', pandas: '#150458', 'Framer Motion': '#0055ff', Flask: '#5f6caf',
-  SQLite: '#0f80cc', PHPUnit: '#3c9cd7', Puppeteer: '#40b5a4', Docker: '#2496ed',
-};
-const SLUG: Record<string, string> = {
-  React: 'react', TypeScript: 'typescript', TS: 'typescript', HTML: 'html5', CSS: 'css',
-  JS: 'javascript', Vite: 'vite', 'Next.js': 'nextdotjs', PHP: 'php', MySQL: 'mysql',
-  Python: 'python', D3: 'd3', MariaDB: 'mariadb', 'Chart.js': 'chartdotjs', Laravel: 'laravel',
-  'scikit-learn': 'scikitlearn', Flask: 'flask', ECharts: 'apacheecharts', NumPy: 'numpy', pandas: 'pandas', 'Framer Motion': 'framer',
-  SQLite: 'sqlite', Puppeteer: 'puppeteer', Docker: 'docker',
-};
-
-export interface SkillChip { label: string; icon: string | null; iconOpacity: number; style: string; }
-export interface SkillGroup { area: string; tag: string; note: string; color: string; chips: SkillChip[]; }
-
-/** Build one chip for a tech token, using its muted brand colour (like the skills). */
-export function techChip(it: string, compact = false): SkillChip {
-  const c = TC[it] || '#8b7cff';
-  const slug = SLUG[it];
-  const hx = c.replace('#', '');
-  const r = parseInt(hx.substr(0, 2), 16), gg = parseInt(hx.substr(2, 2), 16), b = parseInt(hx.substr(4, 2), 16);
-  const mr = Math.round(r * 0.66 + 34 * 0.34), mg = Math.round(gg * 0.66 + 36 * 0.34), mb = Math.round(b * 0.66 + 42 * 0.34);
-  const lum = (0.299 * mr + 0.587 * mg + 0.114 * mb) / 255;
-  const txt = lum > 0.62 ? '#15151c' : '#ffffff';
-  const bg = `rgb(${mr},${mg},${mb})`;
-  const pad = compact ? '4px 9px' : '7px 12px';
-  const fs = compact ? '11px' : '12.5px';
-  const rad = compact ? '8px' : '9px';
-  return {
-    label: it,
-    icon: slug ? `https://cdn.simpleicons.org/${slug}/ffffff` : null,
-    iconOpacity: txt === '#15151c' ? 0.55 : 0.92,
-    style: `display:inline-flex;align-items:center;gap:6px;padding:${pad};border-radius:${rad};font-family:var(--font-mono);font-size:${fs};font-weight:600;border:1px solid rgba(255,255,255,.08);background:${bg};color:${txt};`,
-  };
-}
-
-/** Split a "React · TypeScript · Vite" stack string into coloured chips. */
-export function buildStackChips(stack: string, compact = true): SkillChip[] {
-  return stack.split('·').map((s) => s.trim()).filter(Boolean).map((it) => techChip(it, compact));
-}
+/* ---------- over mij: vaardigheden ---------- */
+/**
+ * Kale tekst, geen chips.
+ *
+ * De vorige versie kleurde elke technologie met zijn merkkleur en haalde er een
+ * icoon bij van een externe CDN — samen zo'n dertig verzoeken, en het laatste
+ * regenboogeffect dat nog op de site stond. `note` (waar ik het heb toegepast)
+ * is nu de breedste kolom: dat is het deel dat iets zegt.
+ */
+export interface SkillGroup { area: string; tag: string; note: string; items: string[] }
 
 export function buildSkills(lang: Lang): SkillGroup[] {
-  const groups = [
-    { area: 'Front-end', tag: 'UI', items: ['React', 'TypeScript', 'HTML', 'CSS', 'Vite', 'Framer Motion'], note: lang === 'nl' ? 'Interfaces voor RapidCars, Luxora en Sentinel gebouwd.' : 'Built the interfaces for RapidCars, Luxora and Sentinel.' },
-    { area: 'Back-end', tag: 'Server', items: ['PHP', 'Laravel', 'MySQL', 'SQLite', 'Python', 'Flask'], note: lang === 'nl' ? 'Full-stack apps zoals Yume Ramen, CookUp en de Laravel-API van Revenue OS.' : 'Full-stack apps like Yume Ramen, CookUp and the Laravel API behind Revenue OS.' },
-    { area: 'Data & AI', tag: 'Insight', items: ['scikit-learn', 'NumPy', 'pandas', 'D3', 'ECharts', 'Chart.js', 'SQL'], note: lang === 'nl' ? 'Anomaliedetectie voor Sentinel AI en dashboards zoals Nike.' : 'Anomaly detection for Sentinel AI and dashboards like Nike.' },
-    { area: lang === 'nl' ? 'Werkwijze' : 'Way of working', tag: 'Soft', items: ['Teamwork', lang === 'nl' ? 'Communicatie' : 'Communication', lang === 'nl' ? 'Doorzetten' : 'Persistence'], note: lang === 'nl' ? 'Probleemoplosser die blijft sleutelen tot het klopt.' : 'A problem solver who keeps going until it is right.' },
+  const nl = lang === 'nl';
+  return [
+    {
+      area: 'Front-end', tag: 'UI',
+      items: ['React', 'TypeScript', 'HTML', 'CSS', 'Vite', 'Framer Motion'],
+      note: nl ? 'Interfaces voor RapidCars, Luxora en Sentinel gebouwd.' : 'Built the interfaces for RapidCars, Luxora and Sentinel.',
+    },
+    {
+      area: 'Back-end', tag: 'Server',
+      items: ['PHP', 'Laravel', 'MySQL', 'SQLite', 'Python', 'Flask'],
+      note: nl ? 'Full-stack apps zoals Yume Ramen, CookUp en de Laravel-API van Revenue OS.' : 'Full-stack apps like Yume Ramen, CookUp and the Laravel API behind Revenue OS.',
+    },
+    {
+      area: 'Data & AI', tag: 'Insight',
+      items: ['scikit-learn', 'NumPy', 'pandas', 'D3', 'ECharts', 'Chart.js', 'SQL'],
+      note: nl ? 'Anomaliedetectie voor Sentinel AI en dashboards zoals Nike.' : 'Anomaly detection for Sentinel AI and dashboards like Nike.',
+    },
   ];
-  return groups.map((g) => ({
-    area: g.area,
-    tag: g.tag,
-    note: g.note,
-    color: TC[g.items[0]] || '#8b7cff',
-    chips: g.items.map((it) => techChip(it)),
-  }));
+}
+
+/** Werkwijze — bewust los van de technische rijen: dit zijn geen tools. */
+export function buildApproach(lang: Lang): string[] {
+  return lang === 'nl'
+    ? ['Teamwork', 'Communicatie', 'Doorzetten']
+    : ['Teamwork', 'Communication', 'Persistence'];
+}
+
+/** Talen. Eén regel aanpassen als er iets bij of af moet. */
+export function buildLanguages(lang: Lang): string[] {
+  return lang === 'nl'
+    ? ['Nederlands', 'Engels', 'Arabisch']
+    : ['Dutch', 'English', 'Arabic'];
 }
 
 /* ---------- contact ---------- */
