@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { sx } from './lib/sx';
-import { STR, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY, buildDateline, type Filter, type Lang } from './data';
+import { STR, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY, buildDateline, projectNumber, type Lang } from './data';
 import { useReveal } from './hooks/useReveal';
 import { useHead } from './hooks/useHead';
 import { useRoute, navigate, topPageOf, type TopPage } from './lib/router';
@@ -43,7 +43,6 @@ export default function App() {
 
   const [dark, setDark] = useState(initialDark);
   const [lang, setLang] = useState<Lang>(initialLang);
-  const [filter, setFilterState] = useState<Filter>('all');
   const [form, setFormState] = useState<ContactForm>(emptyForm);
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -58,7 +57,7 @@ export default function App() {
     home: s.navHome, work: s.navWork, about: s.navAbout, contact: s.navContact,
   };
   const where = detail
-    ? `${s.navWork} — ${String(PROJECTS.indexOf(detail) + 1).padStart(2, '0')} ${detail.name}`
+    ? `${s.navWork} — ${projectNumber(detail.slug)} ${detail.name}`
     : route.kind === 'notfound' ? '404' : sectionLabel[page];
 
   useReveal(route.kind + '-' + lang + '-' + (detail?.slug ?? ''));
@@ -94,10 +93,6 @@ export default function App() {
   const closeDetail = () => {
     navigate({ kind: 'work' });
     window.scrollTo(0, 0);
-  };
-
-  const setFilter = (f: Filter) => {
-    setFilterState(f);
   };
 
   const setForm = (patch: Partial<ContactForm>) => setFormState((prev) => ({ ...prev, ...patch }));
@@ -177,7 +172,7 @@ export default function App() {
               <ProjectDetail s={s} project={loc(detail, lang)} back={closeDetail} go={go} />
             )}
             {route.kind === 'work' && (
-              <Work s={s} lang={lang} filter={filter} setFilter={setFilter} openDetail={openDetail} />
+              <Work s={s} lang={lang} openDetail={openDetail} />
             )}
             {route.kind === 'about' && <About s={s} lang={lang} />}
             {route.kind === 'contact' && (

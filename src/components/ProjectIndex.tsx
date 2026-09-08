@@ -1,11 +1,9 @@
 import { href } from '../lib/router';
 import Img from './Img';
-import type { LocProject } from '../data';
+import { projectNumber, type LocProject } from '../data';
 
 interface Props {
   projects: LocProject[];
-  /** Startnummer — de homepage begint bij 02 omdat 01 groot uitgelicht staat. */
-  startAt?: number;
   openDetail: (slug: string) => void;
 }
 
@@ -20,18 +18,22 @@ interface Props {
  * van 2022 naar 2026 als één leesbare kolom onder elkaar komt te staan. Dat is
  * precies het verhaal dat een stagecoördinator zoekt en het was in het oude
  * kaartenraster volstrekt onzichtbaar.
+ *
+ * Het nummer komt altijd uit de vaste volgorde van PROJECTS, nooit uit de positie
+ * in de weergegeven lijst. Anders zou een gefilterde weergave hetzelfde project
+ * een ander nummer geven dan de dateline erboven.
  */
-export default function ProjectIndex({ projects, startAt = 1, openDetail }: Props) {
+export default function ProjectIndex({ projects, openDetail }: Props) {
   return (
     <div className="idx">
-      {projects.map((p, i) => (
+      {projects.map((p) => (
         <a
           key={p.slug}
           className="idx-row"
           href={href({ kind: 'project', slug: p.slug })}
           onClick={(e) => { e.preventDefault(); openDetail(p.slug); }}
         >
-          <span className="idx-num">{String(startAt + i).padStart(2, '0')}</span>
+          <span className="idx-num">{projectNumber(p.slug)}</span>
           <span className="idx-name">{p.name}</span>
           <span className="idx-blurb">{p.blurb}</span>
           <span className="idx-stack">{p.stack}</span>

@@ -12,8 +12,8 @@ interface Props {
   langLabel: string;
   /** Linkerhelft van de dateline: waar je nu bent, bv. `WERK — 04 REVENUE OS`. */
   where: string;
-  /** Rechterhelft: het beschikbaarheidsfeit. */
-  status: string;
+  /** Rechterhelft: het beschikbaarheidsfeit, in losse delen. */
+  status: string[];
   go: (p: Page) => void;
   toggleTheme: () => void;
   toggleLang: () => void;
@@ -131,7 +131,12 @@ export default function Nav({ s, page, isDark, langLabel, where, status, go, tog
           <span className="dateline-where">{where}</span>
           <span className="dateline-status">
             <span className="dateline-dot" aria-hidden="true"></span>
-            {status}
+            {status.map((part, i) => (
+              <span key={i} className={`dateline-part${i === status.length - 1 ? ' dateline-part--last' : ''}`}>
+                {i > 0 && <span aria-hidden="true"> · </span>}
+                {part}
+              </span>
+            ))}
           </span>
         </div>
       </div>

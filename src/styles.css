@@ -305,17 +305,17 @@ body::after {
   .dateline-where { display: none; }
   .dateline-inner { justify-content: flex-start; }
 }
+/* Op de smalste schermen valt de locatie weg. De strook mag nooit afbreken naar
+   twee regels of middenin een woord worden afgekapt. */
+@media (max-width: 479px) {
+  .dateline-part--last { display: none; }
+}
 
 /* --------------------------------------------------------------------------
    Basisinteractie
    -------------------------------------------------------------------------- */
 .navlink { position: relative; cursor: pointer; color: var(--ink-3); transition: color var(--dur-fast) var(--ease); }
 .navlink:hover { color: var(--ink); }
-
-/* Kaarten liften niet meer: de lijn wordt donkerder en de titel wordt rood.
-   De vijf verschillende liftafstanden bestonden juist omdat ze niets betekenden. */
-.card3d { transition: border-color var(--dur) var(--ease); }
-.card3d:hover { border-color: var(--rule-strong); }
 
 .btn { cursor: pointer; transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
 .btn:hover { transform: translateY(-2px); }
@@ -424,29 +424,6 @@ textarea:focus-visible,
    mat nodig om te kalmeren, een witte heeft juist de fillet nodig omdat hij
    anders in het papier wegloopt.
    -------------------------------------------------------------------------- */
-.workcard-img {
-  position: relative; aspect-ratio: 16 / 10; overflow: hidden;
-  border-radius: var(--radius-none);
-  border: var(--border) solid var(--rule-strong);
-  transition: border-color var(--dur) var(--ease);
-}
-.workcard:hover .workcard-img,
-.workcard:focus-visible .workcard-img { border-color: var(--accent); }
-.workcard-name {
-  font-family: var(--font-display); font-weight: var(--w-body);
-  font-size: var(--t-heading); line-height: var(--lh-heading);
-  margin: var(--s-4) 0 var(--s-3); transition: color var(--dur-fast) var(--ease);
-}
-.workcard:hover .workcard-name,
-.workcard:focus-visible .workcard-name { color: var(--accent); }
-
-.workgrid {
-  display: grid;
-  gap: var(--s-6) var(--col-gap);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 768px)  { .workgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .workgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* --------------------------------------------------------------------------
    Over mij — ervaring & opleiding
@@ -640,7 +617,7 @@ textarea:focus-visible,
   text-decoration: none; color: inherit;
   transition: background var(--dur-fast) var(--ease);
 }
-.idx:last-child .idx-row:last-of-type { border-bottom: var(--border) solid var(--rule); }
+.idx .idx-row:last-of-type { border-bottom: var(--border) solid var(--rule); }
 .idx-num, .idx-year { font-family: var(--font-mono); font-size: var(--t-meta); color: var(--ink-3); font-variant-numeric: tabular-nums; }
 .idx-year { text-align: right; }
 .idx-name { font-family: var(--font-display); font-size: var(--t-heading); line-height: var(--lh-heading); transition: color var(--dur-fast) var(--ease); }
@@ -773,4 +750,38 @@ textarea:focus-visible,
   .idx-stack { grid-area: 2 / 2 / 3 / 4; }
   .hero-photo { max-width: none; }
   .hero-photo .plate-window { aspect-ratio: 16 / 10 !important; }
+}
+
+/* --------------------------------------------------------------------------
+   Werkpagina
+   -------------------------------------------------------------------------- */
+.work-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-5); flex-wrap: wrap; }
+.work-count {
+  font-family: var(--font-mono); font-size: var(--t-label);
+  letter-spacing: var(--ls-label); text-transform: uppercase;
+  color: var(--ink-3); font-variant-numeric: tabular-nums;
+}
+
+/* Filters als één mono-regel op de sectielijn. Actief is een rood streepje,
+   geen gevulde pil — een pil leest als SaaS, een streepje als drukwerk. */
+.filters { display: flex; align-items: baseline; flex-wrap: wrap; }
+.filter-sep { color: var(--rule-strong); margin: 0 var(--s-2); }
+.filter {
+  font: inherit; background: none; border: 0; padding: var(--s-1) 0;
+  color: var(--ink-3); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.filter:hover { color: var(--ink); }
+.filter--on { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* Uitgelicht project — de tweede in de rij wordt gespiegeld */
+.feature-plate { display: block; }
+.feature--mirror { grid-template-columns: 5fr 7fr; }
+
+@media (max-width: 1023px) {
+  /* Op een telefoon altijd plaat-dan-tekst: tekst-dan-plaat zou het beeld van
+     het tweede project onder de vouw duwen zonder dat het iets oplevert. */
+  .feature--mirror { grid-template-columns: 1fr; }
+  .feature--mirror .feature-plate { order: -1; }
 }

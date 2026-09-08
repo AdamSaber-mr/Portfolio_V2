@@ -3,9 +3,10 @@ import { sx } from '../lib/sx';
 import Img from './Img';
 import ProjectIndex from './ProjectIndex';
 import NowPlaying from './NowPlaying';
+import Colophon from './Colophon';
 import { href } from '../lib/router';
 import {
-  PROJECTS, loc, buildCurrently, buildStage, buildContactLinks, CONTACT_EMAIL,
+  PROJECTS, loc, projectNumber, buildCurrently, buildStage, buildContactLinks,
   DISCORD_USER_ID, type Lang, type Strings,
 } from '../data';
 import type { Page } from '../App';
@@ -17,9 +18,6 @@ interface Props {
   openDetail: (slug: string) => void;
   dark: boolean;
 }
-
-/** Het project dat groot wordt uitgelicht. Bewust bij naam, niet op index. */
-const LEAD_SLUG = 'revenue-os';
 
 /** Live lokale tijd in Rotterdam; los component zodat het de rest niet hertekent. */
 function LocalTime({ lang }: { lang: Lang }) {
@@ -63,8 +61,10 @@ function LiveStatus({ s }: { s: Strings }) {
 
 export default function Home({ s, lang, go, openDetail, dark }: Props) {
   const all = PROJECTS.map((p) => loc(p, lang));
-  const lead = all.find((p) => p.slug === LEAD_SLUG) ?? all[0];
-  const rest = all.filter((p) => p.slug !== lead.slug);
+  // De blikvanger is simpelweg het eerste project. Eerder stond hier een vaste
+  // slug, waardoor de grote "01" op de homepage een ander project aanwees dan
+  // het nummer in de dateline — twee nummersystemen naast elkaar.
+  const [lead, ...rest] = all;
   const currently = buildCurrently(s);
   const stage = buildStage(lang);
   const links = buildContactLinks(lang);
@@ -145,7 +145,7 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
             </a>
 
             <div>
-              <div className="feature-num">01</div>
+              <div className="feature-num">{projectNumber(lead.slug)}</div>
               <h3 className="feature-name">{lead.name}</h3>
               <p className="feature-blurb">{lead.blurb}</p>
               <dl className="feature-meta">
@@ -170,7 +170,7 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
             <span>{all.length} {lang === 'nl' ? 'projecten' : 'projects'} · 2022–2026</span>
           </div>
           <div data-reveal="">
-            <ProjectIndex projects={rest} startAt={2} openDetail={openDetail} />
+            <ProjectIndex projects={rest} openDetail={openDetail} />
           </div>
         </section>
 
@@ -238,14 +238,7 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
           </div>
         </section>
 
-        {/* ---------- colofon ---------- */}
-        <footer className="colophon">
-          <span>Adam Saber</span>
-          <span>Rotterdam</span>
-          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-          <a href="https://github.com/adamsaber-mr" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          <span style={sx('margin-left:auto;')}>© 2026</span>
-        </footer>
+        <Colophon />
       </div>
     </div>
   );
