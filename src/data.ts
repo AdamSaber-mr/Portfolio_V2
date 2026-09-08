@@ -30,9 +30,11 @@ export const STR: Record<Lang, Strings> = {
     phName: 'Je naam', phEmail: 'jij@voorbeeld.nl', phSubject: 'Bijv. Stageplek front-end', phMsg: 'Vertel kort waar het over gaat…',
     formNote: 'Je bericht komt direct in mijn inbox terecht.',
     sentTitle: 'Verzonden!', sentBody: 'Bedankt voor je bericht — ik reageer zo snel mogelijk!',
-    pdView: 'Bekijk project', pdBack: 'Terug naar projecten', pdLive: 'Bezoek website', pdCode: 'Code op GitHub',
-    pdOverview: 'Overzicht', pdHighlights: 'Highlights', pdDetails: 'Details',
+    pdBack: 'Terug naar projecten', pdLive: 'Bezoek website', pdCode: 'Code op GitHub',
+    pdOverview: 'Overzicht', pdHighlights: 'Hoogtepunten', pdDetails: 'Details',
     pdRole: 'Rol', pdYear: 'Jaar', pdType: 'Type', pdStack: 'Stack',
+    pdContext: 'Context', pdRetro: 'Wat ik nu anders zou doen',
+    pdPrev: 'Vorige', pdNext: 'Volgende',
     altPortrait: 'Adam Saber — portret', altWorking: 'Adam Saber aan het werk',
     altShot: 'schermafbeelding', themeToggle: 'Thema wisselen', menu: 'Menu',
     skipToContent: 'Naar de inhoud', navLabel: 'Hoofdnavigatie',
@@ -72,9 +74,11 @@ export const STR: Record<Lang, Strings> = {
     phName: 'Your name', phEmail: 'you@example.com', phSubject: 'e.g. Front-end internship', phMsg: 'Tell me briefly what it is about…',
     formNote: 'Your message lands straight in my inbox.',
     sentTitle: 'Sent!', sentBody: 'Thanks for your message — I will reply as soon as I can!',
-    pdView: 'View project', pdBack: 'Back to projects', pdLive: 'Visit website', pdCode: 'Code on GitHub',
+    pdBack: 'Back to projects', pdLive: 'Visit website', pdCode: 'Code on GitHub',
     pdOverview: 'Overview', pdHighlights: 'Highlights', pdDetails: 'Details',
     pdRole: 'Role', pdYear: 'Year', pdType: 'Type', pdStack: 'Stack',
+    pdContext: 'Context', pdRetro: 'What I would do differently now',
+    pdPrev: 'Previous', pdNext: 'Next',
     altPortrait: 'Adam Saber — portrait', altWorking: 'Adam Saber at work',
     altShot: 'screenshot', themeToggle: 'Switch theme', menu: 'Menu',
     skipToContent: 'Skip to content', navLabel: 'Main navigation',
@@ -117,6 +121,17 @@ export interface Project {
   overview: Record<Lang, string>;
   /** Highlights / what the project can do, per language. */
   features: Record<Lang, string[]>;
+  /**
+   * Wat voor project dit was: klantopdracht, schoolopdracht of eigen werk.
+   * Optioneel — een project zonder dit veld toont het blok simpelweg niet.
+   */
+  context?: Record<Lang, string>;
+  /**
+   * "Wat ik nu anders zou doen." Het sterkste volwassenheidssignaal op een
+   * portfolio, en het enige veld dat Adam zelf moet schrijven — wat hier staat
+   * is een voorstel, afgeleid uit wat er technisch in het project zit.
+   */
+  retro?: Record<Lang, string>;
 }
 
 export const PROJECTS: Project[] = [
@@ -131,7 +146,10 @@ export const PROJECTS: Project[] = [
     features: {
       nl: ['Boekingsflow van auto kiezen tot bevestiging', 'Filteren en bladeren door de wagenvloot', 'Responsive interface, mobiel-first', 'Gebouwd in nauw overleg met een echte klant'],
       en: ['Booking flow from picking a car to confirmation', 'Filter and browse the fleet', 'Responsive, mobile-first interface', 'Built in close collaboration with a real client'],
-    } },
+    },
+    context: { nl: 'Klantopdracht — gebouwd in nauw overleg met de opdrachtgever.', en: 'Client project — built in close consultation with the client.' },
+    retro: { nl: 'De stack was puur front-end, dus een boeking eindigde in de interface en niet in een systeem. Nu zou ik er een kleine API achter zetten, zodat een reservering ook echt ergens landt en de klant hem kan terugzien.', en: 'The stack was front-end only, so a booking ended in the interface rather than in a system. Today I would put a small API behind it, so a reservation actually lands somewhere the client can see it.' },
+  },
   { name: 'Revenue OS', slug: 'revenue-os', cat: 'full', color: '#26243a', image: '/assets/projects/saas', imgPos: 'center top', stack: 'React · Laravel · SQLite',
     blurb: { nl: 'Multi-tenant SaaS-dashboard dat abonnementsomzet live berekent uit een event-log.', en: 'Multi-tenant SaaS dashboard that computes subscription revenue live from an event log.' },
     year: '2026', repo: 'https://github.com/AdamSaber-mr/SaaS_Subscription_Dashboard', live: 'https://revenue-os-app.vercel.app',
@@ -143,7 +161,10 @@ export const PROJECTS: Project[] = [
     features: {
       nl: ['Event-sourced metrics-engine: MRR, ARR, NRR, churn en cohort-retentie uit één append-only event-log', 'Multi-tenancy vanaf de datalaag: team-scoping op elke tabel, cross-tenant toegang leest als 404', 'Eigen SVG-chartengine in plaats van een chart-library — bundle van 800 KB naar 283 KB', 'Toegankelijk: focus-traps, volledige toetsenbordnavigatie en screenreader-tabellen bij elke grafiek', '28 PHPUnit feature-tests en 7 Puppeteer end-to-end-suites, o.a. voor tenant-isolatie'],
       en: ['Event-sourced metrics engine: MRR, ARR, NRR, churn and cohort retention from one append-only event log', 'Multi-tenancy from the data layer up: team scoping on every table, cross-tenant access reads as a 404', 'Custom SVG chart engine instead of a chart library — bundle down from 800 KB to 283 KB', 'Accessible: focus traps, full keyboard navigation and screenreader tables behind every chart', '28 PHPUnit feature tests and 7 Puppeteer end-to-end suites, covering tenant isolation and more'],
-    } },
+    },
+    context: { nl: 'Eigen project — draait live op Vercel en Railway.', en: 'Personal project — running live on Vercel and Railway.' },
+    retro: { nl: 'Ik heb de grafiekengine volledig zelf gebouwd om de bundle klein te houden, en dat werkte: van 800 naar 283 KB. Maar het kostte tijd die niet in de metrics zelf ging zitten. Nu zou ik eerst met een bestaande library uitkomen en pas zelf bouwen wanneer de bundle daadwerkelijk in de weg zit.', en: 'I built the entire chart engine myself to keep the bundle small, and it worked: 800 KB down to 283. But it cost time that did not go into the metrics themselves. Today I would ship with an existing library first and only build my own once the bundle actually became a problem.' },
+  },
   { name: 'Sentinel AI', slug: 'sentinel-ai', cat: 'data', color: '#241a2e', image: '/assets/projects/ai_fraude', imgPos: 'center top', stack: 'Python · scikit-learn · Flask · React',
     blurb: { nl: 'Full-stack ML-demo die met anomaliedetectie verdachte transacties opspoort.', en: 'Full-stack ML demo that flags suspicious transactions with anomaly detection.' },
     year: '2026', repo: 'https://github.com/AdamSaber-mr/Ai-Fraud-Detection', live: 'https://adamsaber-mr.github.io/Ai-Fraud-Detection/',
@@ -155,7 +176,10 @@ export const PROJECTS: Project[] = [
     features: {
       nl: ['Isolation Forest (scikit-learn) voor ongesuperviseerde anomaliedetectie', 'Eigen explainability-laag: per transactie uitleg waarom iets verdacht is', 'Anomaly-score omgezet naar een risico van 0–100 met HIGH/MEDIUM/LOW-banden', 'Flask REST-API met gelaagde architectuur en veilige CSV-upload', 'React 19 + ECharts-dashboard met o.a. een 3D-transactiewolk'],
       en: ['Isolation Forest (scikit-learn) for unsupervised anomaly detection', 'Custom explainability layer: per-transaction reasons why it’s suspect', 'Anomaly score mapped to a 0–100 risk with HIGH/MEDIUM/LOW bands', 'Flask REST API with a layered architecture and safe CSV upload', 'React 19 + ECharts dashboard featuring a 3D transaction cloud'],
-    } },
+    },
+    context: { nl: 'Schoolproject — mijn full-stack eindproject.', en: 'School project — my full-stack final project.' },
+    retro: { nl: 'Het model leert ongesuperviseerd wat normaal is, dus het heeft nooit gelabelde fraude gezien. Daardoor kan ik wel laten zien wát eruit springt, maar niet met cijfers onderbouwen hoeveel daarvan echt fraude was. Nu zou ik eerst een kleine gelabelde testset maken om de uitkomsten tegen af te zetten.', en: 'The model learns what is normal without supervision, so it has never seen labelled fraud. That means I can show what stands out, but I cannot back up with numbers how much of it really was fraud. Today I would first build a small labelled test set to measure the results against.' },
+  },
   { name: 'Nike Business Anatomy', slug: 'nike-business-anatomy', cat: 'data', color: '#0e1b2b', image: '/assets/projects/nike', imgPos: 'left top', stack: 'React · D3 · Chart.js',
     blurb: { nl: 'Interactief dashboard over Nike’s supply chain en revenue.', en: 'Interactive dashboard on Nike’s supply chain and revenue.' },
     year: '2024', repo: 'https://github.com/AdamSaber-mr/Business_Anatomy', live: 'https://adamsaber-mr.github.io/Business_Anatomy/',
@@ -235,6 +259,7 @@ export interface LocProject {
   name: string; slug: string; color: string; image: string; imgPos: string; stack: string;
   blurb: string; cat: Cat;
   year: string; repo: string; live: string; role: string; overview: string; features: string[];
+  context?: string; retro?: string;
 }
 
 export function loc(p: Project, lang: Lang): LocProject {
@@ -242,6 +267,7 @@ export function loc(p: Project, lang: Lang): LocProject {
     name: p.name, slug: p.slug, color: p.color, image: p.image, imgPos: p.imgPos, stack: p.stack,
     blurb: p.blurb[lang], cat: p.cat, year: p.year, repo: p.repo, live: p.live,
     role: p.role[lang], overview: p.overview[lang], features: p.features[lang],
+    context: p.context?.[lang], retro: p.retro?.[lang],
   };
 }
 
