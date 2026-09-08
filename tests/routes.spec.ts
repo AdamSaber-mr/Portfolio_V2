@@ -87,20 +87,49 @@ test('de skip-link is verborgen tot hij focus krijgt', async ({ page }) => {
 
 test('het gekozen thema overleeft een refresh', async ({ page }) => {
   await page.goto(BASE);
-  const root = page.locator('.root');
+  const html = page.locator('html');
 
   // Welke kant het op gaat hangt af van de systeemvoorkeur van de bezoeker, dus
   // testen we dat het thema omslaat en daarna blijft staan — niet welke kleur.
-  const before = await root.getAttribute('data-theme');
+  const before = await html.getAttribute('data-theme');
   await page.getByRole('button', { name: /thema wisselen|switch theme/i }).click();
-  const after = await root.getAttribute('data-theme');
+  const after = await html.getAttribute('data-theme');
   expect(after).not.toBe(before);
 
   await page.reload();
-  await expect(root).toHaveAttribute('data-theme', after!);
-  // theme.js moet het al vóór de eerste paint zetten, anders zie je een flits.
-  await expect(page.locator('html')).toHaveAttribute('data-theme', after!);
+  // theme.js zet dit vóór de eerste paint; staat het er na een refresh niet,
+  // dan zie je een flits van het verkeerde thema.
+  await expect(html).toHaveAttribute('data-theme', after!);
 });
+
+/**
+ * Dit is de test die de oude bug zou hebben gevangen: theme.js schreef naar
+ * <html> terwijl de CSS `.root[data-theme]` las, dus het thema veranderde wel van
+ * attribuut maar niet van kleur. Deze test kijkt naar het gedrag, niet naar de
+ * implementatie, en blijft dus kloppen als we later verhuizen waar het attribuut staat.
+ */
+for (const route of allRouteRefs()) {
+  const label = route.kind === 'project' ? `project ${route.slug}` : route.kind;
+
+  test(`${label} verandert echt van kleur bij een themawissel`, async ({ page }) => {
+    await page.goto(BASE + pathFor(route));
+    const bg = () => page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+
+    const before = await bg();
+    // geen doorzichtige grond — dan zou er helemaal niets geverfd zijn
+    expect(before).not.toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
+
+    await page.evaluate(() => {
+      const el = document.documentElement;
+      el.setAttribute('data-theme', el.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+
+    // Pollen: html/body hebben een kleurtransitie, dus direct uitlezen geeft nog
+    // de oude waarde terug.
+    await expect.poll(bg, { timeout: 3000 }).not.toBe(before);
+    expect(await bg()).not.toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
+  });
+}
 
 test('leeg contactformulier meldt geen succes', async ({ page }) => {
   await page.goto(BASE + 'contact/');

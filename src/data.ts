@@ -41,6 +41,10 @@ export const STR: Record<Lang, Strings> = {
     errMsg: 'Schrijf even kort waar het over gaat (minimaal 10 tekens).',
     nfTitle: 'Deze pagina bestaat niet.', nfHome: 'Naar home', nfWork: 'Bekijk mijn werk',
     nfBody: 'De link klopt niet meer, of is verkeerd overgenomen. Vanaf hier kom je overal.',
+    heroKicker: 'Adam Saber · 18 · Software Development, Grafisch Lyceum Rotterdam',
+    secStage: 'Stage', secLive: 'Live', secIndex: 'Index',
+    stageLead: 'Ik zoek een stageplek voor september 2026.',
+    readCase: 'Lees de case', allProjects: 'Alle projecten',
   },
   en: {
     navHome: 'Home', navWork: 'Work', navAbout: 'About', navContact: 'Contact', cv: 'CV',
@@ -79,6 +83,10 @@ export const STR: Record<Lang, Strings> = {
     errMsg: 'Tell me briefly what it is about (at least 10 characters).',
     nfTitle: 'This page does not exist.', nfHome: 'Go home', nfWork: 'View my work',
     nfBody: 'The link is out of date, or was copied incorrectly. You can get anywhere from here.',
+    heroKicker: 'Adam Saber · 18 · Software Development, Grafisch Lyceum Rotterdam',
+    secStage: 'Internship', secLive: 'Live', secIndex: 'Index',
+    stageLead: 'I am looking for an internship starting September 2026.',
+    readCase: 'Read the case', allProjects: 'All projects',
   },
 };
 
@@ -521,7 +529,7 @@ export function techChip(it: string, compact = false): SkillChip {
     label: it,
     icon: slug ? `https://cdn.simpleicons.org/${slug}/ffffff` : null,
     iconOpacity: txt === '#15151c' ? 0.55 : 0.92,
-    style: `display:inline-flex;align-items:center;gap:6px;padding:${pad};border-radius:${rad};font-family:'JetBrains Mono',monospace;font-size:${fs};font-weight:600;border:1px solid rgba(255,255,255,.08);background:${bg};color:${txt};`,
+    style: `display:inline-flex;align-items:center;gap:6px;padding:${pad};border-radius:${rad};font-family:var(--font-mono);font-size:${fs};font-weight:600;border:1px solid rgba(255,255,255,.08);background:${bg};color:${txt};`,
   };
 }
 
@@ -565,6 +573,16 @@ export function buildContactLinks(lang: Lang): ContactLink[] {
  * beter dan een link die nergens heen gaat.
  */
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/adam-saber-a47586365/';
+
+/**
+ * De regel rechts in de dateline — het enige feit waar deze site voor bestaat,
+ * op elke pagina zichtbaar.
+ */
+export function buildDateline(lang: Lang): string {
+  return lang === 'nl'
+    ? 'Beschikbaar · Stage sep 2026 – feb 2027 · Rotterdam'
+    : 'Available · Internship Sep 2026 – Feb 2027 · Rotterdam';
+}
 
 /** Stage-informatie: precies wat een stagecoördinator als eerste wil weten. */
 export interface StageInfo { label: string; value: string; }

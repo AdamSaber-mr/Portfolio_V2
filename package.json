@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "images": "node scripts/optimize-images.mjs",
     "test": "playwright test",
-    "check-links": "node scripts/check-links.mjs"
+    "check-links": "node scripts/check-links.mjs",
+    "check-colors": "node scripts/check-colors.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

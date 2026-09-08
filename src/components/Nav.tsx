@@ -10,29 +10,40 @@ interface Props {
   page: Page;
   isDark: boolean;
   langLabel: string;
+  /** Linkerhelft van de dateline: waar je nu bent, bv. `WERK — 04 REVENUE OS`. */
+  where: string;
+  /** Rechterhelft: het beschikbaarheidsfeit. */
+  status: string;
   go: (p: Page) => void;
   toggleTheme: () => void;
   toggleLang: () => void;
 }
 
-function navStyle(active: boolean): string {
-  return `position:relative;cursor:pointer;text-decoration:none;font-weight:${active ? '600' : '500'};color:${active ? 'var(--ink)' : 'var(--muted)'};`;
-}
-
 function SunMoon({ isDark }: { isDark: boolean }) {
   return isDark ? (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
   ) : (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
   );
 }
 
-export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggleLang }: Props) {
+/**
+ * Masthead + dateline.
+ *
+ * De dateline is het herkenningspunt van de site: één mono-strook die op elke
+ * pagina links vertelt waar je bent en rechts het enige feit draagt waar dit
+ * portfolio voor bestaat. Hij staat bewust in de shell en niet in een pagina,
+ * zodat hij niet uit de pas kan gaan lopen.
+ *
+ * Er zit geen pasfoto meer in de balk — een masthead draagt een naam. Het
+ * portret verdient zijn plek één keer, in de hero.
+ */
+export default function Nav({ s, page, isDark, langLabel, where, status, go, toggleTheme, toggleLang }: Props) {
   const [open, setOpen] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const navTo = (p: Page) => { setOpen(false); go(p); };
-  const nl = langLabel === 'EN'; // current language is Dutch when the toggle offers EN
+  const nl = langLabel === 'EN';
 
   const links: { p: Page; label: string }[] = [
     { p: 'home', label: s.navHome },
@@ -51,9 +62,7 @@ export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggl
     return () => { document.body.style.overflow = prev; window.removeEventListener('keydown', onKey); };
   }, [open]);
 
-  // Verplaats de focus het menu in bij openen, en terug naar de hamburger bij
-  // sluiten. Zonder dit blijft de focus achter het geopende menu hangen, waardoor
-  // het met een toetsenbord niet te bedienen is.
+  // Focus het menu in bij openen en terug naar de hamburger bij sluiten.
   useEffect(() => {
     if (open) {
       menuRef.current?.querySelector<HTMLElement>('a, button')?.focus();
@@ -62,26 +71,23 @@ export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggl
     }
   }, [open]);
 
-  // `inert` haalt het gesloten menu volledig uit de tab-volgorde en uit de
-  // toegankelijkheidsboom, terwijl het in de DOM blijft zodat de open-animatie
-  // gewoon kan afspelen.
+  // `inert` haalt het gesloten menu uit de tab-volgorde terwijl het in de DOM
+  // blijft, zodat de open-animatie gewoon kan afspelen.
   const inertWhenClosed = (open ? {} : { inert: '' }) as Record<string, string>;
 
   return (
     <header>
-      <div style={sx('position:sticky; top:0; z-index:100; backdrop-filter:blur(12px) saturate(150%); -webkit-backdrop-filter:blur(12px) saturate(150%); background:var(--navbg); border-bottom:1px solid var(--line);')}>
-        <div className="nav-inner" style={sx('max-width:1440px; margin:0 auto; padding:18px 56px; display:flex; align-items:center; justify-content:space-between; gap:16px;')}>
+      <div className="masthead">
+        <div className="u-page masthead-inner">
           <a
+            className="wordmark"
             href={href({ kind: 'home' })}
             onClick={(e) => { e.preventDefault(); navTo('home'); }}
-            style={sx('cursor:pointer; display:flex; align-items:center; gap:11px; text-decoration:none; color:inherit;')}
           >
-            <img src={asset('assets/logo-256.png')} alt="" width={40} height={40} style={sx('width:40px; height:40px; border-radius:50%; object-fit:cover; object-position:50% 18%; display:block; border:1px solid var(--line);')} />
-            <span style={sx("font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; letter-spacing:-.01em;")}>Adam Saber</span>
+            Adam Saber
           </a>
 
-          {/* desktop links */}
-          <nav className="nav-links" aria-label={s.navLabel} style={sx('display:flex; gap:26px; align-items:center; font-size:14px; font-weight:500;')}>
+          <nav className="nav-links" aria-label={s.navLabel}>
             {links.map((l) => (
               <a
                 key={l.p}
@@ -89,38 +95,23 @@ export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggl
                 href={href({ kind: l.p })}
                 onClick={(e) => { e.preventDefault(); navTo(l.p); }}
                 aria-current={page === l.p ? 'page' : undefined}
-                style={sx(navStyle(page === l.p))}
               >
                 {l.label}
               </a>
             ))}
-            <div style={sx('display:flex; align-items:center; gap:8px; padding-left:6px;')}>
-              <button
-                type="button"
-                className="icon-btn"
-                onClick={toggleLang}
-                aria-label="Taal wisselen / switch language"
-                style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; color:var(--accent); background:transparent; border:1px solid var(--line); border-radius:30px; padding:9px 14px; cursor:pointer;")}
-              >
+            <span className="nav-tools">
+              <button type="button" className="nav-tool" onClick={toggleLang} aria-label="Taal wisselen / switch language">
                 {langLabel}
               </button>
-              <button
-                type="button"
-                className="icon-btn"
-                onClick={toggleTheme}
-                aria-label={s.themeToggle}
-                style={sx('display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; background:var(--surface); border:1px solid var(--line); border-radius:11px; color:var(--ink); cursor:pointer;')}
-              >
+              <button type="button" className="nav-tool" onClick={toggleTheme} aria-label={s.themeToggle}>
                 <SunMoon isDark={isDark} />
               </button>
-              <a className="btn nav-cv" href={asset('assets/cv_adam.pdf')} download="CV_Adam_Saber.pdf" style={sx('display:inline-flex; align-items:center; gap:7px; background:var(--surface); color:var(--ink); border:1px solid var(--line); padding:9px 15px; border-radius:11px; font-size:13px; font-weight:600; white-space:nowrap; text-decoration:none;')}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <a className="nav-tool" href={asset('assets/cv_adam.pdf')} download="CV_Adam_Saber.pdf">
                 {s.cv}
               </a>
-            </div>
+            </span>
           </nav>
 
-          {/* mobile hamburger */}
           <button
             ref={burgerRef}
             className={`nav-burger${open ? ' open' : ''}`}
@@ -134,7 +125,17 @@ export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggl
         </div>
       </div>
 
-      {/* mobile fullscreen menu — kept outside the backdrop-filtered bar so it can be full-viewport */}
+      {/* De dateline. Scrollt mee — alleen de masthead blijft plakken. */}
+      <div className="dateline">
+        <div className="u-page dateline-inner">
+          <span className="dateline-where">{where}</span>
+          <span className="dateline-status">
+            <span className="dateline-dot" aria-hidden="true"></span>
+            {status}
+          </span>
+        </div>
+      </div>
+
       <div
         id="nav-menu"
         ref={menuRef}
@@ -167,8 +168,10 @@ export default function Nav({ s, page, isDark, langLabel, go, toggleTheme, toggl
             {nl ? 'Thema' : 'Theme'}
           </button>
           <a className="nav-menu-btn" href={asset('assets/cv_adam.pdf')} download="CV_Adam_Saber.pdf" onClick={() => setOpen(false)}>
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            {s.cv}
+            <span style={sx('display:inline-flex; align-items:center; gap:var(--s-3);')}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              {s.cv}
+            </span>
           </a>
         </div>
       </div>

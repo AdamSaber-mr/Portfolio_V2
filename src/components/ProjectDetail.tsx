@@ -16,7 +16,7 @@ interface Props {
 function metaRow(label: string, value: string) {
   return (
     <div style={sx('display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:13px 0; border-bottom:1px solid var(--card-line);')}>
-      <span style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--card-muted); text-transform:uppercase; letter-spacing:.04em;")}>{label}</span>
+      <span style={sx("font-family:var(--font-mono); font-size:12px; color:var(--card-muted); text-transform:uppercase; letter-spacing:.04em;")}>{label}</span>
       <span style={sx('font-size:14px; font-weight:600; color:var(--card-ink); text-align:right;')}>{value}</span>
     </div>
   );
@@ -31,7 +31,7 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
           className="btn"
           href={href({ kind: 'work' })}
           onClick={(e) => { e.preventDefault(); back(); }}
-          style={sx("display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); cursor:pointer; text-decoration:none;")}
+          style={sx("display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:13px; color:var(--muted); cursor:pointer; text-decoration:none;")}
         >
           <span aria-hidden="true" style={sx('font-size:17px; line-height:1;')}>‹</span> {s.pdBack}
         </a>
@@ -39,7 +39,7 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
         {/* header */}
         <div data-reveal="" style={sx('display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin-top:26px;')}>
           <div>
-            <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(38px,6vw,72px); line-height:1; font-weight:700; letter-spacing:-.03em;")}>{p.name}</h1>
+            <h1 style={sx("font-family:var(--font-display); font-size:clamp(38px,6vw,72px); line-height:1; font-weight:700; letter-spacing:-.03em;")}>{p.name}</h1>
           </div>
           <div style={sx('display:flex; gap:12px; flex-wrap:wrap;')}>
             {p.live && (
@@ -58,7 +58,7 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
         </div>
 
         {/* cover */}
-        <div data-reveal="" style={sx(`position:relative; margin-top:32px; border-radius:24px; overflow:hidden; background:${p.color}; border:1px solid var(--line); aspect-ratio:16/9; box-shadow:0 40px 80px -36px var(--shadow);`)}>
+        <div data-reveal="" style={sx(`position:relative; margin-top:32px; border-radius:24px; overflow:hidden; background:${p.color}; border:1px solid var(--line); aspect-ratio:16/9; `)}>
           <Img src={p.image} alt={`${p.name} — ${s.altShot}`} priority style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />
         </div>
 
@@ -66,10 +66,10 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
         <div className="pd-grid" data-reveal="" style={sx('display:grid; grid-template-columns:1.7fr 1fr; gap:48px; margin-top:48px; align-items:center;')}>
           {/* main column */}
           <div>
-            <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; letter-spacing:-.01em;")}>{s.pdOverview}</h2>
+            <h2 style={sx("font-family:var(--font-display); font-size:22px; font-weight:700; letter-spacing:-.01em;")}>{s.pdOverview}</h2>
             <p style={sx('font-size:17px; line-height:1.7; color:var(--ink2); margin-top:14px;')}>{p.overview}</p>
 
-            <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; letter-spacing:-.01em; margin-top:36px;")}>{s.pdHighlights}</h2>
+            <h2 style={sx("font-family:var(--font-display); font-size:22px; font-weight:700; letter-spacing:-.01em; margin-top:36px;")}>{s.pdHighlights}</h2>
             <ul style={sx('list-style:none; margin-top:16px; display:flex; flex-direction:column; gap:12px;')}>
               {p.features.map((f, i) => (
                 <li key={i} style={sx('display:flex; align-items:flex-start; gap:12px; font-size:15.5px; line-height:1.5; color:var(--ink2);')}>
@@ -82,12 +82,12 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
 
           {/* details sidebar */}
           <aside style={sx('background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:18px; padding:8px 22px 18px;')}>
-            <h3 style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--card-faint); text-transform:uppercase; letter-spacing:.08em; padding:18px 0 6px;")}>{s.pdDetails}</h3>
+            <h3 style={sx("font-family:var(--font-mono); font-size:12px; color:var(--card-faint); text-transform:uppercase; letter-spacing:.08em; padding:18px 0 6px;")}>{s.pdDetails}</h3>
             {metaRow(s.pdType, catLabel(p.cat, s))}
             {metaRow(s.pdRole, p.role)}
             {metaRow(s.pdYear, p.year)}
             <div style={sx('padding:16px 0 4px;')}>
-              <span style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--card-muted); text-transform:uppercase; letter-spacing:.04em; display:block; margin-bottom:12px;")}>{s.pdStack}</span>
+              <span style={sx("font-family:var(--font-mono); font-size:12px; color:var(--card-muted); text-transform:uppercase; letter-spacing:.04em; display:block; margin-bottom:12px;")}>{s.pdStack}</span>
               <TechChips stack={p.stack} />
             </div>
           </aside>

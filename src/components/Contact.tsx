@@ -23,7 +23,7 @@ interface Props {
 }
 
 const inputStyle = 'width:100%; padding:13px 14px; background:var(--card-field); border:1px solid var(--card-line); border-radius:8px; font-size:15px; color:var(--card-ink);';
-const labelStyle = "display:block; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--card-muted); margin-bottom:9px;";
+const labelStyle = "display:block; font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--card-muted); margin-bottom:9px;";
 const errStyle = 'display:block; font-size:12.5px; color:#ff8080; margin-top:7px;';
 
 type FieldErrors = Partial<Record<'fName' | 'fEmail' | 'fMsg', string>>;
@@ -73,13 +73,13 @@ export default function Contact({ s, lang, form, setForm, submit, sent, sending,
       <div className="page-pad contact-wrap" style={sx('max-width:1320px; margin:0 auto; padding:48px 56px; min-height:calc(100dvh - 74px); display:flex; flex-direction:column; justify-content:center;')}>
         <div className="contact-grid" style={sx('display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;')}>
           <div data-reveal="">
-            <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(38px,6vw,72px); line-height:1.0; font-weight:700; letter-spacing:-.03em;")}>{s.contactTitle}</h1>
+            <h1 style={sx("font-family:var(--font-display); font-size:clamp(38px,6vw,72px); line-height:1.0; font-weight:700; letter-spacing:-.03em;")}>{s.contactTitle}</h1>
             <p style={sx('font-size:18px; line-height:1.6; color:var(--muted); margin-top:22px; max-width:380px;')}>{s.contactBody}</p>
 
             {/* Stage-details: haalt de eerste drie vragen weg die een
                 stagecoördinator anders per mail zou moeten stellen. */}
             <section aria-labelledby="stage-title" style={sx('margin-top:34px; padding:22px 24px; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:16px;')}>
-              <h2 id="stage-title" style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:14px;")}>
+              <h2 id="stage-title" style={sx("font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:14px;")}>
                 {s.stageTitle}
               </h2>
               <dl style={sx('display:grid; grid-template-columns:auto 1fr; gap:9px 18px; margin:0; font-size:14px;')}>
@@ -96,7 +96,7 @@ export default function Contact({ s, lang, form, setForm, submit, sent, sending,
               {links.map((c, i) => {
                 const external = c.href.startsWith('http');
                 const rowStyle = sx('display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 0; border-top:1px solid var(--line); text-decoration:none; color:var(--ink);');
-                const label = <span style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink2);")}>{c.label}</span>;
+                const label = <span style={sx("font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink2);")}>{c.label}</span>;
 
                 // Geen href = geen link. Locatie is informatie, geen bestemming.
                 if (!c.href) {
@@ -130,7 +130,7 @@ export default function Contact({ s, lang, form, setForm, submit, sent, sending,
               {sent && (
                 <div style={sx('padding:40px 0; text-align:center;')}>
                   <div aria-hidden="true" style={sx('font-size:34px; margin-bottom:14px; color:var(--accent);')}>✓</div>
-                  <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:600; margin-bottom:8px;")}>{s.sentTitle}</h3>
+                  <h3 style={sx("font-family:var(--font-display); font-size:22px; font-weight:600; margin-bottom:8px;")}>{s.sentTitle}</h3>
                   <p style={sx('font-size:15px; color:var(--card-muted);')}>{s.sentBody}</p>
                 </div>
               )}

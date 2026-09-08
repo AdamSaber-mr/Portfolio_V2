@@ -26,11 +26,11 @@ export default function Work({ s, lang, filter, setFilter, openDetail }: Props) 
     <div data-screen-label="Projecten" className="pageintro">
       <div className="page-pad fold-center" style={sx('max-width:1440px; margin:0 auto; padding:56px 56px 72px; justify-content:flex-start;')}>
         <div data-reveal="" style={sx('padding-bottom:22px;')}>
-          <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(40px,6vw,80px); line-height:.98; font-weight:700; letter-spacing:-.03em;")}>{s.workTitle}</h1>
+          <h1 style={sx("font-family:var(--font-display); font-size:clamp(40px,6vw,80px); line-height:.98; font-weight:700; letter-spacing:-.03em;")}>{s.workTitle}</h1>
           <p style={sx('max-width:460px; font-size:17px; line-height:1.55; color:var(--muted); margin-top:20px;')}>{s.workBody}</p>
         </div>
 
-        <div data-reveal="" style={sx("display:flex; gap:8px; flex-wrap:wrap; padding:16px 0 28px; font-family:'JetBrains Mono',monospace;")}>
+        <div data-reveal="" style={sx("display:flex; gap:8px; flex-wrap:wrap; padding:16px 0 28px; font-family:var(--font-mono);")}>
           {filterDefs.map((f) => (
             <button key={f.key} type="button" className="btn" onClick={() => setFilter(f.key)} aria-pressed={filter === f.key} style={sx(filterStyle(filter === f.key))}>{f.label}</button>
           ))}

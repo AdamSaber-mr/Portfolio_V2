@@ -27,7 +27,7 @@ export default function About({ s, lang }: Props) {
     <div data-screen-label="Over mij" className="pageintro">
       <div className="page-pad fold-center" style={sx('max-width:1320px; margin:0 auto; padding:104px 56px 10px;')}>
         <div data-reveal="" style={sx('border-bottom:1px solid var(--line); padding:6px 0 24px;')}>
-          <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(34px,5vw,62px); line-height:1.04; font-weight:700; letter-spacing:-.03em; max-width:780px;")}>{s.aboutTitle}</h1>
+          <h1 style={sx("font-family:var(--font-display); font-size:clamp(34px,5vw,62px); line-height:1.04; font-weight:700; letter-spacing:-.03em; max-width:780px;")}>{s.aboutTitle}</h1>
         </div>
 
         <div className="about-bio" style={sx('display:grid; grid-template-columns:1.1fr .82fr; gap:56px; align-items:center; padding:26px 0 22px;')}>
@@ -37,7 +37,7 @@ export default function About({ s, lang }: Props) {
             <p style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP3}</p>
           </div>
           <div data-reveal="" style={sx('display:flex; justify-content:center; align-items:center;')}>
-            <div style={sx('width:100%; max-width:360px; border-radius:22px; overflow:hidden; border:1px solid var(--line); box-shadow:0 34px 64px -26px var(--shadow);')}>
+            <div style={sx('width:100%; max-width:360px; border-radius:22px; overflow:hidden; border:1px solid var(--line); ')}>
               <Img src="assets/me_3" alt={s.altWorking} style={sx('width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 38%; display:block;')} />
             </div>
           </div>
@@ -47,7 +47,7 @@ export default function About({ s, lang }: Props) {
       <div className="page-pad" style={sx('max-width:1320px; margin:0 auto; padding:0 56px 72px;')}>
         {/* journey — vertical timeline */}
         <div data-reveal="" style={sx('padding:54px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);')}>
-          <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:40px;")}>{s.journeyTitle}</h2>
+          <h2 style={sx("font-family:var(--font-display); font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:40px;")}>{s.journeyTitle}</h2>
           <div className="tl">
             {journey.map((j, i) => (
               <div key={i} data-reveal="" className={`tl-item jstep${j.current ? ' current' : ''}`} style={{ ['--c' as string]: j.color }}>
@@ -56,7 +56,7 @@ export default function About({ s, lang }: Props) {
                 </div>
                 <div className="tl-card">
                   <div className="tl-card-main">
-                    <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:clamp(17px,1.7vw,20px); letter-spacing:-.01em;")}>{j.title}</h3>
+                    <h3 style={sx("font-family:var(--font-display); font-weight:600; font-size:clamp(17px,1.7vw,20px); letter-spacing:-.01em;")}>{j.title}</h3>
                     <p style={sx('font-size:14px; color:var(--card-muted); line-height:1.55; margin-top:7px; max-width:560px;')}>{j.body}</p>
                     {j.chips.length > 0 && (
                       <div style={sx('display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;')}>
@@ -82,7 +82,7 @@ export default function About({ s, lang }: Props) {
 
         {/* experience & education — editorial ledger */}
         <div data-reveal="" style={sx('padding:54px 0; border-bottom:1px solid var(--line);')}>
-          <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:8px;")}>{s.experienceTitle}</h2>
+          <h2 style={sx("font-family:var(--font-display); font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:8px;")}>{s.experienceTitle}</h2>
           <p style={sx('font-size:16px; color:var(--muted); margin-bottom:14px; max-width:520px;')}>{s.experienceBody}</p>
           <div className="exp-list" style={sx('margin-top:30px;')}>
             {experience.map((e, i) => (
@@ -95,7 +95,7 @@ export default function About({ s, lang }: Props) {
                     <div className="exp-kicker">{e.kicker}</div>
                     <span className="exp-period">{e.period}</span>
                   </div>
-                  <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(18px,2vw,21px); font-weight:700; letter-spacing:-.01em;")}>{e.title}</h3>
+                  <h3 style={sx("font-family:var(--font-display); font-size:clamp(18px,2vw,21px); font-weight:700; letter-spacing:-.01em;")}>{e.title}</h3>
                   <div className="exp-org">{e.org}</div>
                   <p style={sx('font-size:14px; color:rgba(255,255,255,.92); line-height:1.6; margin-top:10px; max-width:680px;')}>{e.body}</p>
                   <ul className="exp-points">
@@ -118,14 +118,14 @@ export default function About({ s, lang }: Props) {
 
         {/* skills */}
         <div data-reveal="" style={sx('padding:54px 0 30px;')}>
-          <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:8px;")}>{s.skillsTitle}</h2>
+          <h2 style={sx("font-family:var(--font-display); font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:8px;")}>{s.skillsTitle}</h2>
           <p style={sx('font-size:16px; color:var(--muted); margin-bottom:14px; max-width:520px;')}>{s.skillsBody}</p>
           <div className="skills-grid" style={sx('display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:30px;')}>
             {skills.map((g, i) => (
               <div key={i} data-reveal="" className="skillcard" style={sx('position:relative; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:18px; padding:26px 26px 24px;')}>
                 <div style={sx('display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:16px;')}>
-                  <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; letter-spacing:-.01em;")}>{g.area}</h3>
-                  <span style={sx("font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--card-faint);")}>{g.tag}</span>
+                  <h3 style={sx("font-family:var(--font-display); font-size:22px; font-weight:700; letter-spacing:-.01em;")}>{g.area}</h3>
+                  <span style={sx("font-family:var(--font-mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--card-faint);")}>{g.tag}</span>
                 </div>
                 <div style={sx('display:flex; flex-wrap:wrap; gap:9px; margin-bottom:16px;')}>
                   {g.chips.map((c, ci) => (

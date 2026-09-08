@@ -1,12 +1,11 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { sx } from './lib/sx';
-import { STR, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY, type Filter, type Lang } from './data';
+import { STR, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY, buildDateline, type Filter, type Lang } from './data';
 import { useReveal } from './hooks/useReveal';
 import { useHead } from './hooks/useHead';
 import { useRoute, navigate, topPageOf, type TopPage } from './lib/router';
 import Nav from './components/Nav';
 import Home from './components/Home';
-import AuroraBackground from './components/AuroraBackground';
 import ErrorBoundary from './components/ErrorBoundary';
 import NotFound from './components/NotFound';
 import type { ContactForm } from './components/Contact';
@@ -27,7 +26,7 @@ const emptyForm: ContactForm = { fName: '', fEmail: '', fSubject: '', fMsg: '', 
 
 /** Beginwaarde uit theme.js, dat het thema al vóór de eerste paint heeft gezet. */
 function initialDark(): boolean {
-  return document.documentElement.getAttribute('data-theme') !== 'light';
+  return document.documentElement.getAttribute('data-theme') === 'dark';
 }
 
 function initialLang(): Lang {
@@ -53,14 +52,27 @@ export default function App() {
   const s = STR[lang];
   const detail = route.kind === 'project' ? PROJECTS.find((p) => p.slug === route.slug) ?? null : null;
 
+  // Linkerhelft van de dateline. Op een projectpagina staat het nummer erbij, wat
+  // hetzelfde nummer is als in de index op de homepage en op de werkpagina.
+  const sectionLabel: Record<typeof page, string> = {
+    home: s.navHome, work: s.navWork, about: s.navAbout, contact: s.navContact,
+  };
+  const where = detail
+    ? `${s.navWork} — ${String(PROJECTS.indexOf(detail) + 1).padStart(2, '0')} ${detail.name}`
+    : route.kind === 'notfound' ? '404' : sectionLabel[page];
+
   useReveal(route.kind + '-' + lang + '-' + (detail?.slug ?? ''));
   useHead(route);
 
-  // houd de documentachtergrond gelijk aan het thema (voorkomt een witte flits)
+  // `data-theme` op <html> is de enige themaschakelaar; de achtergrond komt uit
+  // --paper in de CSS. Een inline-style op body zou dat token overrulen en het
+  // thema met zichzelf laten vechten bij het omzetten.
   useEffect(() => {
     const theme = dark ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
-    document.body.style.background = dark ? '#0a0b0d' : '#e7e5f0';
+    document.documentElement.style.colorScheme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', dark ? '#16130f' : '#f4f1ea');
     try { localStorage.setItem('theme', theme); } catch { /* private mode */ }
   }, [dark]);
 
@@ -141,13 +153,7 @@ export default function App() {
   };
 
   return (
-    <div
-      className="root"
-      data-theme={dark ? 'dark' : 'light'}
-      style={sx("background:var(--bg); color:var(--ink); font-family:'Hanken Grotesk',sans-serif; min-height:100dvh; transition:background .35s ease,color .35s ease;")}
-    >
-      <AuroraBackground page={page} />
-
+    <div className="root" style={sx('min-height:100dvh;')}>
       <a className="skiplink" href="#main">{s.skipToContent}</a>
 
       <Nav
@@ -155,6 +161,8 @@ export default function App() {
         page={page}
         isDark={dark}
         langLabel={lang === 'nl' ? 'EN' : 'NL'}
+        where={where}
+        status={buildDateline(lang)}
         go={go}
         toggleTheme={() => setDark((d) => !d)}
         toggleLang={() => setLang((l) => (l === 'nl' ? 'en' : 'nl'))}

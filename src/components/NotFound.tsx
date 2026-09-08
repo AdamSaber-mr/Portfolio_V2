@@ -13,8 +13,8 @@ export default function NotFound({ s, go }: Props) {
   return (
     <div className="pageintro">
       <div className="page-pad" style={sx('max-width:760px; margin:0 auto; padding:120px 56px 96px; text-align:center;')}>
-        <p style={sx("font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:18px;")}>404</p>
-        <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(34px,5vw,58px); line-height:1.05; font-weight:700; letter-spacing:-.03em;")}>
+        <p style={sx("font-family:var(--font-mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:18px;")}>404</p>
+        <h1 style={sx("font-family:var(--font-display); font-size:clamp(34px,5vw,58px); line-height:1.05; font-weight:700; letter-spacing:-.03em;")}>
           {s.nfTitle}
         </h1>
         <p style={sx('font-size:17px; line-height:1.6; color:var(--muted); margin:22px auto 36px; max-width:420px;')}>

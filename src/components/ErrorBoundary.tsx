@@ -26,7 +26,7 @@ export default class ErrorBoundary extends Component<Props, State> {
     if (!this.state.failed) return this.props.children;
     return (
       <div style={{ maxWidth: '520px', margin: '0 auto', padding: '96px 24px', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '28px', marginBottom: '12px' }}>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: '28px', marginBottom: '12px' }}>
           Er ging iets mis
         </h1>
         <p style={{ color: 'var(--muted)', lineHeight: 1.6, marginBottom: '24px' }}>
