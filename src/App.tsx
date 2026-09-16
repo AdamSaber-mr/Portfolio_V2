@@ -1,11 +1,12 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { sx } from './lib/sx';
-import { STR, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY, buildDateline, projectNumber, type Lang } from './data';
+import { STR, CONTACT_EMAIL, WEB3FORMS_ACCESS_KEY, type Filter, type Lang } from './data';
 import { useReveal } from './hooks/useReveal';
 import { useHead } from './hooks/useHead';
 import { useRoute, navigate, topPageOf, type TopPage } from './lib/router';
 import Nav from './components/Nav';
 import Home from './components/Home';
+import AuroraBackground from './components/AuroraBackground';
 import ErrorBoundary from './components/ErrorBoundary';
 import NotFound from './components/NotFound';
 import type { ContactForm } from './components/Contact';
@@ -26,7 +27,7 @@ const emptyForm: ContactForm = { fName: '', fEmail: '', fSubject: '', fMsg: '', 
 
 /** Beginwaarde uit theme.js, dat het thema al vóór de eerste paint heeft gezet. */
 function initialDark(): boolean {
-  return document.documentElement.getAttribute('data-theme') === 'dark';
+  return document.documentElement.getAttribute('data-theme') !== 'light';
 }
 
 function initialLang(): Lang {
@@ -43,6 +44,7 @@ export default function App() {
 
   const [dark, setDark] = useState(initialDark);
   const [lang, setLang] = useState<Lang>(initialLang);
+  const [filter, setFilterState] = useState<Filter>('all');
   const [form, setFormState] = useState<ContactForm>(emptyForm);
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -51,27 +53,14 @@ export default function App() {
   const s = STR[lang];
   const detail = route.kind === 'project' ? PROJECTS.find((p) => p.slug === route.slug) ?? null : null;
 
-  // Linkerhelft van de dateline. Op een projectpagina staat het nummer erbij, wat
-  // hetzelfde nummer is als in de index op de homepage en op de werkpagina.
-  const sectionLabel: Record<typeof page, string> = {
-    home: s.navHome, work: s.navWork, about: s.navAbout, contact: s.navContact,
-  };
-  const where = detail
-    ? `${s.navWork} — ${projectNumber(detail.slug)} ${detail.name}`
-    : route.kind === 'notfound' ? '404' : sectionLabel[page];
-
   useReveal(route.kind + '-' + lang + '-' + (detail?.slug ?? ''));
   useHead(route);
 
-  // `data-theme` op <html> is de enige themaschakelaar; de achtergrond komt uit
-  // --paper in de CSS. Een inline-style op body zou dat token overrulen en het
-  // thema met zichzelf laten vechten bij het omzetten.
+  // houd de documentachtergrond gelijk aan het thema (voorkomt een witte flits)
   useEffect(() => {
     const theme = dark ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
-    document.documentElement.style.colorScheme = theme;
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', dark ? '#16130f' : '#f4f1ea');
+    document.body.style.background = dark ? '#0a0b0d' : '#e7e5f0';
     try { localStorage.setItem('theme', theme); } catch { /* private mode */ }
   }, [dark]);
 
@@ -93,6 +82,10 @@ export default function App() {
   const closeDetail = () => {
     navigate({ kind: 'work' });
     window.scrollTo(0, 0);
+  };
+
+  const setFilter = (f: Filter) => {
+    setFilterState(f);
   };
 
   const setForm = (patch: Partial<ContactForm>) => setFormState((prev) => ({ ...prev, ...patch }));
@@ -148,7 +141,13 @@ export default function App() {
   };
 
   return (
-    <div className="root" style={sx('min-height:100dvh;')}>
+    <div
+      className="root"
+      data-theme={dark ? 'dark' : 'light'}
+      style={sx("background:var(--bg); color:var(--ink); font-family:'Hanken Grotesk',sans-serif; min-height:100dvh; transition:background .35s ease,color .35s ease;")}
+    >
+      <AuroraBackground page={page} />
+
       <a className="skiplink" href="#main">{s.skipToContent}</a>
 
       <Nav
@@ -156,8 +155,6 @@ export default function App() {
         page={page}
         isDark={dark}
         langLabel={lang === 'nl' ? 'EN' : 'NL'}
-        where={where}
-        status={buildDateline(lang)}
         go={go}
         toggleTheme={() => setDark((d) => !d)}
         toggleLang={() => setLang((l) => (l === 'nl' ? 'en' : 'nl'))}
@@ -169,12 +166,12 @@ export default function App() {
           {route.kind === 'notfound' && <NotFound s={s} go={go} />}
           <Suspense fallback={null}>
             {route.kind === 'project' && detail && (
-              <ProjectDetail s={s} lang={lang} project={loc(detail, lang)} back={closeDetail} openDetail={openDetail} />
+              <ProjectDetail s={s} project={loc(detail, lang)} back={closeDetail} go={go} />
             )}
             {route.kind === 'work' && (
-              <Work s={s} lang={lang} openDetail={openDetail} />
+              <Work s={s} lang={lang} filter={filter} setFilter={setFilter} openDetail={openDetail} />
             )}
-            {route.kind === 'about' && <About s={s} lang={lang} go={go} />}
+            {route.kind === 'about' && <About s={s} lang={lang} />}
             {route.kind === 'contact' && (
               <Contact s={s} lang={lang} form={form} setForm={setForm} submit={submit} sent={sent} sending={sending} error={sendError} />
             )}

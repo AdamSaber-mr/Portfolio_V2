@@ -7,7 +7,7 @@
     <!-- Security: content security policy (GitHub Pages can't set headers, so it lives here too) -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; img-src 'self' data: https://*.mzstatic.com; media-src 'self' https://*.itunes.apple.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self' https://itunes.apple.com https://api.lanyard.rest; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+      content="default-src 'self'; img-src 'self' data: https://cdn.simpleicons.org https://*.mzstatic.com; media-src 'self' https://*.itunes.apple.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self' https://itunes.apple.com https://api.lanyard.rest; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
@@ -27,7 +27,9 @@
     <link rel="canonical" href="https://adamsaber-mr.github.io/Portfolio_V2/" />
 
     <!-- Theme -->
-    <meta name="theme-color" content="#f4f1ea" />
+    <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#e7e5f0" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="dark light" />
 
     <!-- Icons -->
     <link rel="icon" type="image/png" href="%BASE_URL%assets/logo-256.png?v=3" />
@@ -53,10 +55,11 @@
     <meta name="twitter:image" content="https://adamsaber-mr.github.io/Portfolio_V2/assets/og-image.jpg" />
 
     <!-- Fonts -->
+    <link rel="preconnect" href="https://cdn.simpleicons.org" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
