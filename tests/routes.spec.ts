@@ -79,7 +79,9 @@ test('de skip-link is verborgen tot hij focus krijgt', async ({ page }) => {
   expect((await skip.boundingBox())!.y).toBeLessThan(0);
   await page.keyboard.press('Tab');
   await expect(skip).toBeFocused();
-  expect((await skip.boundingBox())!.y).toBeGreaterThanOrEqual(0);
+  // De link schuift met een transitie naar binnen; meet pas als hij stilstaat,
+  // anders lees je een positie halverwege de beweging af.
+  await expect.poll(async () => (await skip.boundingBox())!.y).toBeGreaterThanOrEqual(0);
 });
 
 test('het gekozen thema overleeft een refresh', async ({ page }) => {
