@@ -26,6 +26,9 @@ body { -webkit-font-smoothing: antialiased; background: #181a21; }
   --shadow: rgba(23, 25, 45, .12);
 }
 
+/* links en knoppen staan op desktop als één groep rechts, zoals voorheen; de
+   tabbalk heeft ze op telefoon uit deze balk gehaald */
+.nav-links { margin-left: auto; margin-right: 32px; }
 .navlink { position: relative; cursor: pointer; color: var(--muted); transition: color .2s; }
 .navlink:hover { color: var(--ink); }
 .card3d { transition: transform .4s cubic-bezier(.2, .7, .2, 1), border-color .3s; }
