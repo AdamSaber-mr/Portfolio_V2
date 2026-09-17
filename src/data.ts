@@ -367,7 +367,7 @@ export interface JourneyNode extends JourneyStep {
 
 const JCOL = ['#e34f26', '#777bb4', '#61dafb', '#ff2d20', '#2496ed'];
 const JSLUG = ['html5', 'php', 'react', 'laravel', 'docker'];
-const JYEAR = ['2022', '2023', '2024', '2025', ''];
+const JYEAR = ['2025', '2026', '2026', '2026', ''];  // leeg = 'Nu' / 'Now'
 const JSTACK = ['HTML · CSS · JS', 'PHP · MySQL', 'React · TypeScript', 'Laravel', 'Docker · CI/CD'];
 const JPHASE: Record<Lang, string[]> = {
   nl: ['Fundament', 'Back-end', 'Front-end', 'Full-stack', 'Cloud & DevOps'],
