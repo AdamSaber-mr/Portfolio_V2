@@ -118,7 +118,7 @@ export default function NowPlaying({ s }: { s: Strings }) {
       onClick={() => setTab(id)}
       aria-pressed={tab === id}
       style={sx(`padding:9px 16px; border:none; border-radius:30px; font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:600; cursor:pointer; transition:background .2s,color .2s; ${
-        tab === id ? 'background:var(--ink); color:var(--bg);' : 'background:transparent; color:var(--muted);'
+        tab === id ? 'background:var(--accent); color:var(--accentink);' : 'background:transparent; color:var(--muted);'
       }`)}
     >
       {label}
