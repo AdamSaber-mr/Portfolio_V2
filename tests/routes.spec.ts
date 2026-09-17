@@ -109,3 +109,15 @@ test('leeg contactformulier meldt geen succes', async ({ page }) => {
   await expect(page.locator('#cf-name-err')).toBeVisible();
   await expect(page.getByText(/verzonden!|sent!/i)).toHaveCount(0);
 });
+
+test('het mobiele menu ligt boven de pagina', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(BASE);
+  await page.getByRole('button', { name: /menu/i }).click();
+
+  // Het menu dekt de pagina af; zonder de juiste stapelvolgorde prikt een klik
+  // midden in het menu door naar de hero eronder.
+  await expect
+    .poll(async () => page.evaluate(() => !!document.elementFromPoint(120, 300)?.closest('#nav-menu')))
+    .toBe(true);
+});
