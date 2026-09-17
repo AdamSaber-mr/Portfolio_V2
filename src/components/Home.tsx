@@ -123,13 +123,6 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
              één korte zin. De paginavullende foto van desktop kostte hier een
              half scherm voordat je bij de knoppen was. */
           <div data-reveal="">
-            <div style={sx('display:flex; align-items:center; gap:13px; margin-bottom:22px;')}>
-              <Img src={heroImg} alt={s.altPortrait} priority style={sx('width:60px; height:60px; border-radius:50%; object-fit:cover; object-position:center 20%; display:block; border:1px solid var(--line); flex:none;')} />
-              <div style={sx('min-width:0;')}>
-                <div style={sx("font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; letter-spacing:-.01em;")}>Adam Saber</div>
-                <div style={sx('font-size:13.5px; color:var(--muted); margin-top:2px;')}>{s.heroRole}</div>
-              </div>
-            </div>
             <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(31px,8.6vw,38px); line-height:1.08; font-weight:700; letter-spacing:-.03em;")}>
               {s.heroL1}<br />{s.heroL2}<br /><span style={sx('color:var(--accent);')}>{s.heroL3}</span>
             </h1>
