@@ -36,11 +36,11 @@ function NowCell({ icon, label, value, accent = false, compact = false }: { icon
   if (compact) {
     return (
       <span style={sx('display:inline-flex; align-items:center; gap:9px; white-space:nowrap;')}>
-        <span style={sx(`display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:9px; flex:none; ${accent ? 'background:color-mix(in srgb, var(--accent) 16%, transparent); color:var(--accent);' : 'background:var(--card-line); color:var(--card-muted);'}`)}>
+        <span style={sx(`display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:11px; flex:none; ${accent ? 'background:color-mix(in srgb, var(--accent) 16%, transparent); color:var(--accent);' : 'background:var(--card-line); color:var(--card-muted);'}`)}>
           <NowIcon name={icon} />
         </span>
-        <span style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--card-faint);")}>{label}</span>
-        <span style={sx(`font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; letter-spacing:-.01em; color:${accent ? 'var(--accent)' : 'var(--card-ink)'};`)}>{value}</span>
+        <span style={sx("font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--card-faint);")}>{label}</span>
+        <span style={sx(`font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; letter-spacing:-.01em; color:${accent ? 'var(--accent)' : 'var(--card-ink)'};`)}>{value}</span>
       </span>
     );
   }
