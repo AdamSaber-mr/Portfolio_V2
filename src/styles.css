@@ -372,10 +372,15 @@ textarea:focus-visible,
     display: flex !important; gap: 12px !important;
     overflow-x: auto; scroll-snap-type: x mandatory;
     margin: 0 -22px; padding: 4px 22px 8px;
+    /* zonder scroll-padding legt de snap de eerste kaart tegen de schermrand en
+       eet hij de 22px marge van de pagina op */
+    scroll-padding-left: 22px;
     scrollbar-width: none; -ms-overflow-style: none;
   }
   .home-cards::-webkit-scrollbar { display: none; }
-  .home-cards > * { flex: 0 0 76%; scroll-snap-align: start; }
+  /* height:100% op de kaart zelf liet elke kaart zijn eigen hoogte houden; met
+     stretch zijn ze allemaal even hoog */
+  .home-cards > * { flex: 0 0 76%; scroll-snap-align: start; align-self: stretch; height: auto !important; }
   .home-cards .chip:nth-child(n+4) { display: none !important; }
 
   /* muziek: alleen de drie laatste nummers, zonder de grote uitgelichte kaart */
@@ -386,7 +391,7 @@ textarea:focus-visible,
      die een half scherm opeten */
   .workfilters {
     flex-wrap: nowrap !important; overflow-x: auto; scroll-snap-type: x proximity;
-    margin: 0 -22px; padding: 16px 22px 24px !important;
+    margin: 0 -22px; padding: 16px 22px 24px !important; scroll-padding-left: 22px;
     scrollbar-width: none; -ms-overflow-style: none;
   }
   .workfilters::-webkit-scrollbar { display: none; }
