@@ -149,32 +149,49 @@ textarea:focus-visible,
 /* ===== about: experience & education (solid-tinted cards, Spotify-style) ===== */
 .exp-list { display: flex; flex-direction: column; gap: 16px; color: var(--card-ink); }
 .exp-row {
+  /* één set knoppen voor de tint; het lichte thema draait ze hieronder om */
+  --exp-tint: color-mix(in srgb, var(--c) 32%, var(--card));
+  --exp-tint-hover: color-mix(in srgb, var(--c) 42%, var(--card));
+  --exp-veil: rgba(255, 255, 255, .13);
+  --exp-veil-strong: rgba(255, 255, 255, .18);
+  --exp-edge: rgba(255, 255, 255, .08);
+  --exp-sheen: rgba(255, 255, 255, .08);
+  --exp-dot: color-mix(in srgb, var(--c) 50%, #fff);
   position: relative; display: grid; grid-template-columns: auto 1fr; gap: 20px; padding: 24px 28px; overflow: hidden;
-  background: color-mix(in srgb, var(--c) 32%, var(--card));
-  border: 1px solid rgba(255, 255, 255, .08);
+  background: var(--exp-tint);
+  border: 1px solid var(--exp-edge);
   border-radius: 18px;
   transition: background .3s ease, transform .3s cubic-bezier(.2, .7, .2, 1);
 }
+.root[data-theme="light"] .exp-row {
+  --exp-tint: color-mix(in srgb, var(--c) 12%, #fff);
+  --exp-tint-hover: color-mix(in srgb, var(--c) 18%, #fff);
+  --exp-veil: color-mix(in srgb, var(--c) 16%, #fff);
+  --exp-veil-strong: color-mix(in srgb, var(--c) 24%, #fff);
+  --exp-edge: color-mix(in srgb, var(--c) 28%, #fff);
+  --exp-sheen: rgba(255, 255, 255, .55);
+  --exp-dot: color-mix(in srgb, var(--c) 72%, #14151b);
+}
 /* soft top-light sheen, like the featured Spotify card */
-.exp-row::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255, 255, 255, .08), transparent 52%); pointer-events: none; }
-.exp-row:hover { background: color-mix(in srgb, var(--c) 42%, var(--card)); transform: translateY(-3px); }
+.exp-row::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, var(--exp-sheen), transparent 52%); pointer-events: none; }
+.exp-row:hover { background: var(--exp-tint-hover); transform: translateY(-3px); }
 .exp-row > * { position: relative; z-index: 1; }
 /* large faded glyph in the corner — adds depth, no glow */
-.exp-wm { position: absolute; top: -26px; right: -18px; color: #fff; opacity: .05; z-index: 0; pointer-events: none; transition: transform .45s cubic-bezier(.2, .7, .2, 1), opacity .3s ease; }
+.exp-wm { position: absolute; top: -26px; right: -18px; color: currentColor; opacity: .05; z-index: 0; pointer-events: none; transition: transform .45s cubic-bezier(.2, .7, .2, 1), opacity .3s ease; }
 .exp-row:hover .exp-wm { transform: scale(1.07) rotate(-4deg); opacity: .08; }
 
 .exp-ic {
   width: 46px; height: 46px; border-radius: 13px; flex: none; display: inline-flex; align-items: center; justify-content: center;
-  background: rgba(255, 255, 255, .13); color: #fff; transition: transform .3s cubic-bezier(.2, .7, .2, 1), background .3s ease;
+  background: var(--exp-veil); color: inherit; transition: transform .3s cubic-bezier(.2, .7, .2, 1), background .3s ease;
 }
-.exp-row:hover .exp-ic { transform: scale(1.07); background: rgba(255, 255, 255, .18); }
+.exp-row:hover .exp-ic { transform: scale(1.07); background: var(--exp-veil-strong); }
 .exp-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 7px; }
-.exp-kicker { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 255, 255, .78); }
-.exp-period { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: #fff; white-space: nowrap; background: rgba(255, 255, 255, .13); padding: 5px 12px; border-radius: 20px; }
-.exp-org { font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, .94); margin-top: 4px; }
+.exp-kicker { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, currentColor 74%, transparent); }
+.exp-period { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: inherit; white-space: nowrap; background: var(--exp-veil); padding: 5px 12px; border-radius: 20px; }
+.exp-org { font-size: 14px; font-weight: 600; color: color-mix(in srgb, currentColor 92%, transparent); margin-top: 4px; }
 .exp-points { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 9px 26px; margin-top: 16px; }
 .exp-points li { display: flex; gap: 10px; align-items: baseline; font-size: 14px; line-height: 1.5; }
-.exp-dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: color-mix(in srgb, var(--c) 50%, #fff); transform: translateY(-1px); }
+.exp-dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--exp-dot); transform: translateY(-1px); }
 
 /* ===== skills bento ===== */
 .skillcard { transition: transform .35s cubic-bezier(.2, .7, .2, 1), border-color .3s; }
