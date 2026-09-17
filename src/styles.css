@@ -340,6 +340,12 @@ textarea:focus-visible,
   /* about: tighter, smaller body text on phones */
   .about-text p { font-size: 14.5px !important; line-height: 1.62 !important; }
 
+  /* een haarlijn tussen de secties: zonder scheiding lopen ze op een klein
+     scherm in elkaar over */
+  .pageintro > .page-pad + .page-pad { border-top: 1px solid var(--line); }
+  /* in de afsluiter is de knop genoeg; het adres en GitHub staan al op contact */
+  .footlink { display: none !important; }
+
   /* verticaal ritme: de royale witruimte van desktop kost op een telefoon hele
      schermen scrollen */
   .page-pad { padding-top: 30px !important; padding-bottom: 30px !important; }
