@@ -91,8 +91,9 @@ function LiveStatus({ s }: { s: Strings }) {
 export default function Home({ s, lang, go, openDetail, dark }: Props) {
   const featured = PROJECTS.slice(0, 3).map((p) => loc(p, lang));
   const currently = buildCurrently(s);
-  // me_header has a dark backdrop that clashes with light mode; swap to the white version there
-  const heroImg = dark ? 'assets/me_header' : 'assets/me_white';
+  // me_white staat op een zwarte achtergrond, me_header op een witte — kies de
+  // variant waarvan de achtergrond in de pagina wegvalt in plaats van opvalt
+  const heroImg = dark ? 'assets/me_white' : 'assets/me_header';
 
   return (
     <div data-screen-label="Home" className="pageintro">
@@ -110,7 +111,6 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
           </div>
           <div data-reveal="" className="hero-photo" style={sx('position:relative; width:100%; max-width:440px; justify-self:end; aspect-ratio:1/1; border-radius:28px; overflow:hidden; border:1px solid var(--line); box-shadow:0 40px 90px -30px var(--shadow); z-index:1;')}>
             <Img src={heroImg} alt={s.altPortrait} priority style={sx('width:100%; height:100%; object-fit:cover; display:block;')} />
-            <div style={sx('position:absolute; inset:0; background:linear-gradient(135deg, rgba(139,124,255,.12), transparent 55%); pointer-events:none;')}></div>
           </div>
         </div>
       </div>
