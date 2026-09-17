@@ -70,12 +70,12 @@ export default function Contact({ s, lang, form, setForm, submit, sent, sending,
   return (
     <div className="pageintro">
       <div className="page-pad contact-wrap" style={sx('max-width:1320px; margin:0 auto; padding:48px 56px; min-height:calc(100dvh - 74px); display:flex; flex-direction:column; justify-content:center;')}>
-        <div className="contact-grid" style={sx('display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;')}>
-          <div data-reveal="">
+        <div className="contact-grid" style={sx('display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:stretch;')}>
+          <div data-reveal="" style={sx('display:flex; flex-direction:column;')}>
             <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(38px,6vw,72px); line-height:1.0; font-weight:700; letter-spacing:-.03em;")}>{s.contactTitle}</h1>
             <p style={sx('font-size:18px; line-height:1.6; color:var(--muted); margin-top:22px; max-width:380px;')}>{s.contactBody}</p>
 
-            <div style={sx('margin-top:30px;')}>
+            <div style={sx('margin-top:auto; padding-top:30px;')}>
               {links.map((c, i) => {
                 const external = c.href.startsWith('http');
                 const rowStyle = sx('display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 0; border-top:1px solid var(--line); text-decoration:none; color:var(--ink);');
@@ -107,7 +107,7 @@ export default function Contact({ s, lang, form, setForm, submit, sent, sending,
             </div>
           </div>
 
-          <div data-reveal="" style={sx('background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:14px; padding:30px;')}>
+          <div data-reveal="" style={sx('background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:14px; padding:30px; display:flex; flex-direction:column; justify-content:center;')}>
             {/* Screenreaders horen het resultaat doordat deze regio live is. */}
             <div aria-live="polite" role="status">
               {sent && (
