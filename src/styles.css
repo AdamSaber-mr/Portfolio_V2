@@ -208,6 +208,52 @@ textarea:focus-visible,
 .exp-points li { display: flex; gap: 10px; align-items: baseline; font-size: 14px; line-height: 1.5; }
 .exp-dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--exp-dot); transform: translateY(-1px); }
 
+/* ===== uitklapbare kaarten (mobiele opzet) =====
+   Gebruikt op Over mij voor de ontwikkelingsreis en de ervaring: dicht zie je
+   alleen de kop, open de rest. */
+.mlist { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+.mcard {
+  background: var(--card); color: var(--card-ink);
+  border: 1px solid var(--card-line); border-radius: 14px; overflow: hidden;
+}
+.mcard-head {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 13px 14px; min-height: 60px;
+  background: none; border: none; cursor: pointer; text-align: left; color: inherit;
+  font-family: inherit; -webkit-tap-highlight-color: transparent;
+}
+.mcard-ic {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 34px; height: 34px; border-radius: 10px;
+  background: color-mix(in srgb, var(--c, var(--accent)) 16%, transparent);
+  color: var(--c, var(--accent));
+}
+.mcard-t {
+  flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -.01em; line-height: 1.25;
+}
+.mcard-sub { font-family: 'Hanken Grotesk', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--card-muted); }
+.mcard-m { flex: none; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--card-muted); }
+.mcard-chev { flex: none; display: inline-flex; color: var(--card-muted); transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
+.mcard.open .mcard-chev { transform: rotate(180deg); }
+/* 0fr → 1fr laat de kaart vloeiend open vouwen zonder een vaste hoogte te kennen */
+.mcard-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .32s cubic-bezier(.2, .7, .2, 1); }
+.mcard.open .mcard-body { grid-template-rows: 1fr; }
+.mcard-inner { overflow: hidden; }
+.mcard.open .mcard-inner { padding: 0 14px 15px; }
+.mcard-p { font-size: 14px; line-height: 1.6; color: var(--card-ink2); }
+.mcard-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+.mcard-points { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 12px; font-size: 13.5px; line-height: 1.5; }
+.mcard-points li { display: flex; gap: 9px; align-items: baseline; }
+.mcard-note { color: var(--card-muted); }
+.mcard-dot { flex: none; width: 5px; height: 5px; border-radius: 50%; background: var(--c, var(--accent)); transform: translateY(-2px); }
+/* 'lees meer' onder de bio */
+.morebtn {
+  align-self: flex-start; min-height: 44px; padding: 10px 2px;
+  background: none; border: none; cursor: pointer;
+  font-family: inherit; font-size: 15px; font-weight: 600; color: var(--accent);
+}
+
 /* ===== skills bento ===== */
 .skillcard { transition: transform .35s cubic-bezier(.2, .7, .2, 1), border-color .3s; }
 .skillcard:hover { transform: translateY(-4px); border-color: var(--accent); }
@@ -298,6 +344,14 @@ textarea:focus-visible,
   /* sectiekoppen en de 'bekijk alles'-link passen zo naast elkaar op één regel */
   main h2 { font-size: clamp(21px, 6.2vw, 26px) !important; }
   main a.navlink { font-size: 13px !important; white-space: nowrap; }
+
+  /* over mij: de foto stond op 4:5 en vulde daarmee bijna een heel scherm */
+  .about-bio img { aspect-ratio: 16 / 11 !important; object-position: center 42% !important; }
+  .about-bio { gap: 22px !important; padding: 18px 0 !important; }
+  /* vaardighedenkaarten compacter */
+  .skillcard { padding: 17px 17px 15px !important; border-radius: 14px !important; }
+  .skillcard h3 { font-size: 18px !important; }
+  .skills-grid { gap: 12px !important; }
 
   /* home: de drie uitgelichte projecten worden een veegrij, zodat ze samen
      een half scherm kosten in plaats van anderhalf */

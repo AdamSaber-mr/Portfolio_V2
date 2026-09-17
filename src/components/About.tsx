@@ -1,5 +1,7 @@
+import { useState, type ReactNode } from 'react';
 import { sx } from '../lib/sx';
 import Img from './Img';
+import { useIsMobile } from '../hooks/useIsMobile';
 import { buildJourney, buildSkills, buildExperience, type Lang, type Strings } from '../data';
 
 interface Props {
@@ -18,7 +20,35 @@ function ExpIcon({ name, size = 22 }: { name: string; size?: number }) {
   }
 }
 
+/**
+ * Uitklapbare kaart, alleen gebruikt in de mobiele opzet.
+ *
+ * Op telefoon vulde één ervaringskaart bijna een heel scherm. Zo zie je eerst
+ * alleen de kop — wat het is, waar en wanneer — en haal je de rest erbij als je
+ * het wilt lezen. Dicht staat de inhoud op `inert`, zodat je er met een
+ * toetsenbord of schermlezer niet in verdwaalt.
+ */
+function Collapsible({ id, tint, head, children }: { id: string; tint?: string; head: ReactNode; children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const closed = (open ? {} : { inert: '' }) as Record<string, string>;
+  return (
+    <div className={`mcard${open ? ' open' : ''}`} style={tint ? ({ ['--c' as string]: tint }) : undefined}>
+      <button type="button" className="mcard-head" aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)}>
+        {head}
+        <span className="mcard-chev" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+        </span>
+      </button>
+      <div className="mcard-body" id={id} {...closed}>
+        <div className="mcard-inner">{children}</div>
+      </div>
+    </div>
+  );
+}
+
 export default function About({ s, lang }: Props) {
+  const isMobile = useIsMobile();
+  const [bioOpen, setBioOpen] = useState(false);
   const journey = buildJourney(lang);
   const skills = buildSkills(lang);
   const experience = buildExperience(lang);
@@ -33,8 +63,17 @@ export default function About({ s, lang }: Props) {
         <div className="about-bio" style={sx('display:grid; grid-template-columns:1.1fr .82fr; gap:56px; align-items:center; padding:26px 0 22px;')}>
           <div data-reveal="" className="about-text" style={sx('display:flex; flex-direction:column; gap:22px;')}>
             <p style={sx('font-size:18px; line-height:1.7; color:var(--ink);')}>{s.aboutP1}</p>
-            <p style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP2}</p>
-            <p style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP3}</p>
+            {(!isMobile || bioOpen) && (
+              <>
+                <p style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP2}</p>
+                <p style={sx('font-size:16px; line-height:1.7; color:var(--ink2);')}>{s.aboutP3}</p>
+              </>
+            )}
+            {isMobile && (
+              <button type="button" className="morebtn" aria-expanded={bioOpen} onClick={() => setBioOpen((o) => !o)}>
+                {bioOpen ? s.readLess : s.readMore}
+              </button>
+            )}
           </div>
           <div data-reveal="" style={sx('display:flex; justify-content:center; align-items:center;')}>
             <div style={sx('width:100%; max-width:360px; border-radius:22px; overflow:hidden; border:1px solid var(--line); box-shadow:0 34px 64px -26px var(--shadow);')}>
@@ -48,6 +87,40 @@ export default function About({ s, lang }: Props) {
         {/* journey — vertical timeline */}
         <div data-reveal="" style={sx('padding:54px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:40px;")}>{s.journeyTitle}</h2>
+          {isMobile ? (
+            /* Telefoon: de tijdlijn met icoonkolom en jaar-aside perste de tekst
+               in ~200px. Hier is elke stap één regel die je opentikt. */
+            <div className="mlist">
+              {journey.map((j, i) => (
+                <Collapsible
+                  key={i}
+                  id={`journey-${i}`}
+                  tint={j.color}
+                  head={
+                    <>
+                      <span className="mcard-ic">
+                        {j.slug && <img src={`https://cdn.simpleicons.org/${j.slug}/${j.color.replace('#', '')}`} alt="" width={17} height={17} />}
+                      </span>
+                      <span className="mcard-t">{j.title}</span>
+                      <span className="mcard-m">{j.year}</span>
+                    </>
+                  }
+                >
+                  <p className="mcard-p">{j.body}</p>
+                  {j.chips.length > 0 && (
+                    <div className="mcard-chips">
+                      {j.chips.map((c, ci) => (
+                        <span key={ci} className="jchip" style={sx(c.style)}>
+                          {c.icon && <img src={c.icon} alt="" style={{ width: '13px', height: '13px', display: 'block', opacity: c.iconOpacity }} />}
+                          {c.label}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </Collapsible>
+              ))}
+            </div>
+          ) : (
           <div className="tl">
             {journey.map((j, i) => (
               <div key={i} data-reveal="" className={`tl-item jstep${j.current ? ' current' : ''}`} style={{ ['--c' as string]: j.color }}>
@@ -78,12 +151,47 @@ export default function About({ s, lang }: Props) {
               </div>
             ))}
           </div>
+          )}
         </div>
 
         {/* experience & education — editorial ledger */}
         <div data-reveal="" style={sx('padding:54px 0; border-bottom:1px solid var(--line);')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,3.4vw,40px); font-weight:700; letter-spacing:-.02em; margin-bottom:8px;")}>{s.experienceTitle}</h2>
           <p style={sx('font-size:16px; color:var(--muted); margin-bottom:14px; max-width:520px;')}>{s.experienceBody}</p>
+          {isMobile ? (
+            <div className="mlist">
+              {experience.map((e, i) => (
+                <Collapsible
+                  key={i}
+                  id={`exp-${i}`}
+                  tint={e.color}
+                  head={
+                    <>
+                      <span className="mcard-ic"><ExpIcon name={e.icon} size={17} /></span>
+                      <span className="mcard-t">
+                        {e.title}
+                        <span className="mcard-sub">{e.org}</span>
+                      </span>
+                      <span className="mcard-m">{e.period}</span>
+                    </>
+                  }
+                >
+                  <p className="mcard-p">{e.body}</p>
+                  <ul className="mcard-points">
+                    {e.bullets.map((b, bi) => (
+                      <li key={bi}>
+                        <span className="mcard-dot" />
+                        <span>
+                          <strong>{b.title}</strong>
+                          {b.note && <span className="mcard-note"> — {b.note}</span>}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </Collapsible>
+              ))}
+            </div>
+          ) : (
           <div className="exp-list" style={sx('margin-top:30px;')}>
             {experience.map((e, i) => (
               <div key={i} data-reveal="">
@@ -114,6 +222,7 @@ export default function About({ s, lang }: Props) {
               </div>
             ))}
           </div>
+          )}
         </div>
 
         {/* skills */}
