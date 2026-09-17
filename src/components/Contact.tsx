@@ -107,7 +107,7 @@ export default function Contact({ s, lang, form, setForm, submit, sent, sending,
             </div>
           </div>
 
-          <div data-reveal="" style={sx('background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:14px; padding:30px; display:flex; flex-direction:column; justify-content:center;')}>
+          <div data-reveal="" className="formcard" style={sx('background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:14px; padding:30px; display:flex; flex-direction:column; justify-content:center;')}>
             {/* Screenreaders horen het resultaat doordat deze regio live is. */}
             <div aria-live="polite" role="status">
               {sent && (

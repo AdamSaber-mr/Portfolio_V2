@@ -18,11 +18,12 @@ body { -webkit-font-smoothing: antialiased; background: #181a21; }
 }
 .root { overflow-x: clip; }
 .root[data-theme="light"] {
-  --bg: #e7e5f0; --surface: #ffffff; --ink: #16151c; --ink2: #3c3a48; --muted: #5d5b6b;
-  --faint: #63636f; --line: #e3e1ec; --line2: #ecebf3; --accent: #6a5cf0;
-  --accentink: #ffffff; --navbg: rgba(248, 247, 252, .5);
-  --card: #16171f; --card-ink: #f1f1f6; --card-ink2: #cbccd6; --card-muted: #9a9ba8; --card-faint: #7e848f; --card-line: rgba(255, 255, 255, .10); --card-field: #0e0f16;
-  --shadow: rgba(38, 38, 64, .14);
+  --bg: #f4f5f9; --surface: #ffffff; --ink: #14151b; --ink2: #3a3d47; --muted: #5f636e;
+  --faint: #696d78; --line: #e1e3ec; --line2: #edeef4; --accent: #5a4ae0;
+  --accentink: #ffffff; --navbg: rgba(255, 255, 255, .75);
+  /* kaarten zijn hier wit met een fijne rand — geen donkere blokken op licht papier */
+  --card: #ffffff; --card-ink: #14151b; --card-ink2: #3a3d47; --card-muted: #5f636e; --card-faint: #696d78; --card-line: #e1e3ec; --card-field: #f6f7fb;
+  --shadow: rgba(23, 25, 45, .12);
 }
 
 .navlink { position: relative; cursor: pointer; color: var(--muted); transition: color .2s; }
@@ -178,6 +179,28 @@ textarea:focus-visible,
 /* ===== skills bento ===== */
 .skillcard { transition: transform .35s cubic-bezier(.2, .7, .2, 1), border-color .3s; }
 .skillcard:hover { transform: translateY(-4px); border-color: var(--accent); }
+
+/* ===== licht thema =====
+   Witte kaarten op een bijna-wit vlak hebben een fijne schaduw nodig om los te
+   komen van de pagina; in donker doet de kaartkleur dat werk al. */
+.root[data-theme="light"] .card3d,
+.root[data-theme="light"] .skillcard,
+.root[data-theme="light"] .tl-card,
+.root[data-theme="light"] .now-banner,
+.root[data-theme="light"] .formcard,
+.root[data-theme="light"] .detailcard,
+.root[data-theme="light"] .nav-menu-btn {
+  box-shadow: 0 1px 2px rgba(23, 25, 45, .05), 0 10px 26px -18px rgba(23, 25, 45, .30);
+}
+.root[data-theme="light"] .card3d:hover,
+.root[data-theme="light"] .skillcard:hover,
+.root[data-theme="light"] .tl-card:hover {
+  box-shadow: 0 2px 4px rgba(23, 25, 45, .06), 0 18px 40px -22px rgba(23, 25, 45, .38);
+}
+/* de gekleurde tech-chips dragen hun eigen kleur; op wit hoort daar een donkere
+   haarlijn omheen in plaats van de witte rand die voor donkere kaarten is bedoeld */
+.root[data-theme="light"] .chip,
+.root[data-theme="light"] .jchip { border-color: rgba(20, 21, 27, .12) !important; }
 
 /* ===== mobile nav (hamburger + fullscreen menu) ===== */
 .nav-burger { display: none; width: 46px; height: 46px; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; cursor: pointer; padding: 0; }

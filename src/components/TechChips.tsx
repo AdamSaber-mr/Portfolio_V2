@@ -12,7 +12,7 @@ export default function TechChips({ stack, justify = 'flex-start' }: Props) {
   return (
     <div style={sx(`display:flex; flex-wrap:wrap; gap:7px; justify-content:${justify};`)}>
       {chips.map((c, i) => (
-        <span key={i} style={sx(c.style)}>
+        <span key={i} className="chip" style={sx(c.style)}>
           {c.icon && <img src={c.icon} alt="" loading="lazy" style={{ width: '14px', height: '14px', display: 'block', opacity: c.iconOpacity }} />}
           {c.label}
         </span>

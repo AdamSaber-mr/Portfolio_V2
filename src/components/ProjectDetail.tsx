@@ -81,7 +81,7 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
           </div>
 
           {/* details sidebar */}
-          <aside style={sx('background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:18px; padding:8px 22px 18px;')}>
+          <aside className="detailcard" style={sx('background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:18px; padding:8px 22px 18px;')}>
             <h3 style={sx("font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--card-faint); text-transform:uppercase; letter-spacing:.08em; padding:18px 0 6px;")}>{s.pdDetails}</h3>
             {metaRow(s.pdType, catLabel(p.cat, s))}
             {metaRow(s.pdRole, p.role)}

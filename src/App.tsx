@@ -59,7 +59,7 @@ export default function App() {
   useEffect(() => {
     const theme = dark ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
-    document.body.style.background = dark ? '#181a21' : '#e7e5f0';
+    document.body.style.background = dark ? '#181a21' : '#f4f5f9';
     try { localStorage.setItem('theme', theme); } catch { /* private mode */ }
   }, [dark]);
 
