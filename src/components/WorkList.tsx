@@ -17,7 +17,7 @@ interface Props {
  */
 export default function WorkList({ s, projects, openDetail }: Props) {
   return (
-    <div className="workgrid" style={sx('display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:40px 30px;')}>
+    <div className="workgrid" style={sx('display:grid; grid-template-columns:repeat(auto-fill,minmax(min(380px,100%),1fr)); gap:40px 30px;')}>
       {projects.map((p) => (
         <figure key={p.name} style={sx('margin:0;')}>
           <a
@@ -25,7 +25,7 @@ export default function WorkList({ s, projects, openDetail }: Props) {
             href={href({ kind: 'project', slug: p.slug })}
             onClick={(e) => { e.preventDefault(); openDetail(p.slug); }}
             aria-label={`${s.pdView}: ${p.name}`}
-            style={sx('display:block; cursor:pointer; text-decoration:none; color:inherit;')}
+            style={sx('cursor:pointer; text-decoration:none; color:inherit;')}
           >
           <div className="workcard-img" style={sx(`background:${p.color};`)}>
             <Img src={p.image} alt={`${p.name} — ${s.altShot}`} style={sx(`position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:${p.imgPos}; display:block;`)} />

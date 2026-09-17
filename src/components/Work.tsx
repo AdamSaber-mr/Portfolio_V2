@@ -30,7 +30,7 @@ export default function Work({ s, lang, filter, setFilter, openDetail }: Props) 
           <p style={sx('max-width:460px; font-size:17px; line-height:1.55; color:var(--muted); margin-top:20px;')}>{s.workBody}</p>
         </div>
 
-        <div data-reveal="" style={sx("display:flex; gap:8px; flex-wrap:wrap; padding:16px 0 28px; font-family:'JetBrains Mono',monospace;")}>
+        <div data-reveal="" className="workfilters" style={sx("display:flex; gap:8px; flex-wrap:wrap; padding:16px 0 28px; font-family:'JetBrains Mono',monospace;")}>
           {filterDefs.map((f) => (
             <button key={f.key} type="button" className="btn" onClick={() => setFilter(f.key)} aria-pressed={filter === f.key} style={sx(filterStyle(filter === f.key))}>{f.label}</button>
           ))}

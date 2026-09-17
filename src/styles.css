@@ -130,6 +130,7 @@ textarea:focus-visible,
 @keyframes pageintro { 0% { opacity: 0; } 100% { opacity: 1; } }
 
 /* ===== project grid ===== */
+.workcard { display: block; }
 .workcard-img {
   position: relative; aspect-ratio: 16 / 10; border-radius: 16px; overflow: hidden;
   border: 1px solid var(--line); box-shadow: 0 24px 50px -30px var(--shadow);
@@ -276,6 +277,43 @@ textarea:focus-visible,
 
   /* about: tighter, smaller body text on phones */
   .about-text p { font-size: 14.5px !important; line-height: 1.62 !important; }
+
+  /* projecten: de filters worden één scrollbare regel in plaats van twee rijen
+     die een half scherm opeten */
+  .workfilters {
+    flex-wrap: nowrap !important; overflow-x: auto; scroll-snap-type: x proximity;
+    margin: 0 -22px; padding: 16px 22px 24px !important;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .workfilters::-webkit-scrollbar { display: none; }
+  .workfilters > button { flex: none; scroll-snap-align: start; }
+
+  /* Projectlijst op telefoon: het eerste project blijft een grote kaart, de rest
+     wordt een compacte regel met duimnagel. Acht volledige kaarten onder elkaar
+     was vier schermen scrollen voordat je het laatste project zag. */
+  .workgrid { gap: 22px !important; }
+  .workgrid figure:first-child .workcard-img { aspect-ratio: 16 / 11; }
+  .workgrid figure:first-child .workcard-name { font-size: 20px !important; margin: 13px 0 10px !important; }
+  .workgrid figure:first-child .chip:nth-child(n+4) { display: none !important; }
+
+  .workgrid figure:not(:first-child) .workcard {
+    display: grid; grid-template-columns: 104px 1fr; grid-template-rows: auto auto;
+    column-gap: 14px; row-gap: 6px; align-items: center;
+  }
+  .workgrid figure:not(:first-child) .workcard-img {
+    grid-column: 1; grid-row: 1 / span 2; aspect-ratio: 4 / 3; border-radius: 12px;
+  }
+  .workgrid figure:not(:first-child) .workcard-name {
+    grid-column: 2; grid-row: 1; align-self: end; margin: 0 !important; font-size: 17px !important;
+  }
+  .workgrid figure:not(:first-child) .workcard > div:last-child { grid-column: 2; grid-row: 2; align-self: start; }
+  /* twee chips past precies op één regel naast de duimnagel */
+  .workgrid figure:not(:first-child) .chip:nth-child(n+3) { display: none !important; }
+  /* de liftbeweging van de grote kaart past niet bij een lijstregel */
+  .workgrid figure:not(:first-child) .workcard:hover .workcard-img { transform: none; }
+
+  /* koptekst van de projectpagina compacter */
+  .workfilters { padding-top: 6px !important; }
 }
 
 @media (max-width: 760px) {
