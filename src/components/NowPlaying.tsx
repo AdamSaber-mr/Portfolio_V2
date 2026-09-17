@@ -117,6 +117,7 @@ export default function NowPlaying({ s }: { s: Strings }) {
       type="button"
       onClick={() => setTab(id)}
       aria-pressed={tab === id}
+      className="np-tab"
       style={sx(`padding:9px 16px; border:none; border-radius:30px; font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:600; cursor:pointer; transition:background .2s,color .2s; ${
         tab === id ? 'background:var(--accent); color:var(--accentink);' : 'background:transparent; color:var(--muted);'
       }`)}
@@ -156,6 +157,7 @@ export default function NowPlaying({ s }: { s: Strings }) {
               href={spotifySearchUrl(featured)}
               target="_blank"
               rel="noopener noreferrer"
+              className="np-open"
               style={sx('display:inline-flex; align-items:center; gap:9px; margin-top:16px; font-size:13.5px; font-weight:600; color:rgba(255,255,255,.92); cursor:pointer; text-decoration:none;')}
             >
               <span style={sx('display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(255,255,255,.7);')}><PlusIcon size={15} /></span>

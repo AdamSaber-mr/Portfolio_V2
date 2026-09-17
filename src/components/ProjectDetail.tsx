@@ -28,7 +28,7 @@ export default function ProjectDetail({ s, project: p, back, go }: Props) {
       <div className="page-pad" style={sx('max-width:1100px; margin:0 auto; padding:40px 56px 10px;')}>
         {/* back */}
         <a
-          className="btn"
+          className="btn backlink"
           href={href({ kind: 'work' })}
           onClick={(e) => { e.preventDefault(); back(); }}
           style={sx("display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); cursor:pointer; text-decoration:none;")}

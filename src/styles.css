@@ -345,6 +345,16 @@ textarea:focus-visible,
   main h2 { font-size: clamp(21px, 6.2vw, 26px) !important; }
   main a.navlink { font-size: 13px !important; white-space: nowrap; }
 
+  /* Tikdoelen: alles wat je met een duim moet raken is minstens 44px hoog.
+     Gemeten waren dit er onder meer 17px (terug-link, footerlinks) en 26px
+     (open in Spotify) — te klein om betrouwbaar te raken. */
+  .nav-logo { min-height: 44px; }
+  .backlink, .footlink { min-height: 44px; align-items: center; display: inline-flex; }
+  main a.navlink { min-height: 44px; display: inline-flex; align-items: center; }
+  .np-tab { min-height: 44px; }
+  .np-open { min-height: 44px; display: inline-flex !important; align-items: center; }
+  .root > .skiplink { padding: 13px 20px; }
+
   /* over mij: de foto stond op 4:5 en vulde daarmee bijna een heel scherm */
   .about-bio img { aspect-ratio: 16 / 11 !important; object-position: center 42% !important; }
   .about-bio { gap: 22px !important; padding: 18px 0 !important; }
@@ -377,7 +387,7 @@ textarea:focus-visible,
     scrollbar-width: none; -ms-overflow-style: none;
   }
   .workfilters::-webkit-scrollbar { display: none; }
-  .workfilters > button { flex: none; scroll-snap-align: start; }
+  .workfilters > button { flex: none; scroll-snap-align: start; min-height: 44px; }
 
   /* Projectlijst op telefoon: het eerste project blijft een grote kaart, de rest
      wordt een compacte regel met duimnagel. Acht volledige kaarten onder elkaar

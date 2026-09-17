@@ -19,10 +19,10 @@ export default function FooterCTA({ s, maxw, goContact }: Props) {
           <a href={href({ kind: 'contact' })} onClick={(e) => { e.preventDefault(); goContact(); }} style={sx('cursor:pointer; background:var(--accent); color:var(--accentink); padding:15px 26px; border-radius:30px; font-size:15px; font-weight:600; text-decoration:none;')}>
             {s.contactKicker} →
           </a>
-          <a href={`mailto:${CONTACT_EMAIL}`} style={sx("font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); text-decoration:none;")}>
+          <a className="footlink" href={`mailto:${CONTACT_EMAIL}`} style={sx("font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); text-decoration:none;")}>
             {CONTACT_EMAIL}
           </a>
-          <a href="https://github.com/adamsaber-mr" target="_blank" rel="noopener noreferrer" style={sx("font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); text-decoration:none;")}>
+          <a className="footlink" href="https://github.com/adamsaber-mr" target="_blank" rel="noopener noreferrer" style={sx("font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); text-decoration:none;")}>
             GitHub ↗
           </a>
         </div>
