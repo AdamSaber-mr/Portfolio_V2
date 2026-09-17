@@ -110,14 +110,24 @@ test('leeg contactformulier meldt geen succes', async ({ page }) => {
   await expect(page.getByText(/verzonden!|sent!/i)).toHaveCount(0);
 });
 
-test('het mobiele menu ligt boven de pagina', async ({ page }) => {
+test('de tabbalk navigeert op telefoonformaat', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(BASE);
-  await page.getByRole('button', { name: /menu/i }).click();
 
-  // Het menu dekt de pagina af; zonder de juiste stapelvolgorde prikt een klik
-  // midden in het menu door naar de hero eronder.
-  await expect
-    .poll(async () => page.evaluate(() => !!document.elementFromPoint(120, 300)?.closest('#nav-menu')))
-    .toBe(true);
+  const bar = page.locator('.tabbar');
+  await expect(bar).toBeVisible();
+  // De balk mag nooit over de laatste regel van een pagina vallen.
+  const overlap = await page.evaluate(() => {
+    const b = document.querySelector('.tabbar').getBoundingClientRect();
+    return getComputedStyle(document.querySelector('main')).paddingBottom >= b.height + 'px';
+  });
+  expect(overlap).toBe(true);
+
+  await page.locator('.tab', { hasText: /over mij|about/i }).click();
+  await expect(page).toHaveURL(/\/about\/$/);
+  await expect(page.locator('.tab.active')).toHaveText(/over mij|about/i);
+
+  // op desktop hoort hij er niet te zijn
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await expect(bar).toBeHidden();
 });

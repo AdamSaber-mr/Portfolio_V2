@@ -5,6 +5,7 @@ import { useReveal } from './hooks/useReveal';
 import { useHead } from './hooks/useHead';
 import { useRoute, navigate, topPageOf, type TopPage } from './lib/router';
 import Nav from './components/Nav';
+import MobileTabBar from './components/MobileTabBar';
 import Home from './components/Home';
 import ErrorBoundary from './components/ErrorBoundary';
 import NotFound from './components/NotFound';
@@ -175,6 +176,8 @@ export default function App() {
           </Suspense>
         </ErrorBoundary>
       </main>
+
+      <MobileTabBar s={s} page={page} go={go} />
     </div>
   );
 }

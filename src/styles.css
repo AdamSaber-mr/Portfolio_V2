@@ -206,8 +206,7 @@ textarea:focus-visible,
 .root[data-theme="light"] .tl-card,
 .root[data-theme="light"] .now-banner,
 .root[data-theme="light"] .formcard,
-.root[data-theme="light"] .detailcard,
-.root[data-theme="light"] .nav-menu-btn {
+.root[data-theme="light"] .detailcard {
   box-shadow: 0 1px 2px rgba(23, 25, 45, .05), 0 10px 26px -18px rgba(23, 25, 45, .30);
 }
 .root[data-theme="light"] .card3d:hover,
@@ -220,28 +219,29 @@ textarea:focus-visible,
 .root[data-theme="light"] .chip,
 .root[data-theme="light"] .jchip { border-color: rgba(20, 21, 27, .12) !important; }
 
-/* ===== mobile nav (hamburger + fullscreen menu) ===== */
-.nav-burger { display: none; width: 46px; height: 46px; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; cursor: pointer; padding: 0; }
-.nav-burger span { display: block; width: 20px; height: 2px; border-radius: 2px; background: var(--ink); transition: transform .3s cubic-bezier(.2, .7, .2, 1), opacity .2s ease; }
-.nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-burger.open span:nth-child(2) { opacity: 0; }
-.nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-.nav-menu { display: none; position: fixed; inset: 0; z-index: 95; flex-direction: column; justify-content: center; gap: 4px; padding: 96px 30px 48px; background: var(--bg); opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity .35s ease, transform .42s cubic-bezier(.2, .7, .2, 1), visibility .35s; }
-.nav-menu.open { opacity: 1; visibility: visible; transform: none; }
-.nav-menu-links { display: flex; flex-direction: column; gap: 2px; }
-.nav-mlink { font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 9vw, 40px); font-weight: 600; letter-spacing: -.02em; color: var(--muted); text-decoration: none; cursor: pointer; padding: 9px 0; opacity: 0; transform: translateY(16px); transition: color .2s ease, opacity .45s ease, transform .45s cubic-bezier(.2, .7, .2, 1); }
-.nav-mlink.active { color: var(--ink); }
-.nav-menu.open .nav-mlink { opacity: 1; transform: none; }
-.nav-menu.open .nav-mlink:nth-child(1) { transition-delay: .10s; }
-.nav-menu.open .nav-mlink:nth-child(2) { transition-delay: .16s; }
-.nav-menu.open .nav-mlink:nth-child(3) { transition-delay: .22s; }
-.nav-menu.open .nav-mlink:nth-child(4) { transition-delay: .28s; }
-.nav-menu-foot { display: flex; flex-direction: column; align-items: stretch; gap: 12px; margin-top: 40px; opacity: 0; transform: translateY(16px); transition: opacity .45s ease .32s, transform .45s cubic-bezier(.2, .7, .2, 1) .32s; }
-.nav-menu.open .nav-menu-foot { opacity: 1; transform: none; }
-.nav-menu-btn { display: flex; align-items: center; gap: 14px; text-decoration: none; width: 100%; padding: 17px 20px; background: var(--card); border: 1px solid var(--card-line); border-radius: 14px; font-size: 16px; font-weight: 600; color: var(--card-ink); cursor: pointer; transition: border-color .2s ease; }
-.nav-menu-btn:active { border-color: var(--accent); }
-.nav-menu-btn .nm-right { margin-left: auto; color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 14px; }
+/* ===== mobiele tabbalk =====
+   Alleen onder 761px. De vier pagina's staan onderin binnen duimbereik, zodat
+   navigeren op een telefoon één tik is in plaats van eerst een menu openen. */
+.tabbar {
+  display: none;
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 120;
+  grid-template-columns: repeat(4, 1fr); gap: 4px;
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+  background: var(--navbg);
+  backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border-top: 1px solid var(--line);
+}
+.tab {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  min-height: 52px; padding: 6px 4px; border-radius: 14px;
+  font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; font-weight: 600;
+  color: var(--muted); text-decoration: none; -webkit-tap-highlight-color: transparent;
+  transition: color .2s ease;
+}
+.tab-ic { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 26px; border-radius: 20px; transition: background .2s ease; }
+.tab.active { color: var(--accent); }
+.tab.active .tab-ic { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.tab:active .tab-ic { transform: scale(.94); }
 
 @media (max-width: 860px) {
   .nav-inner { padding: 16px 22px !important; }
@@ -258,10 +258,17 @@ textarea:focus-visible,
 }
 
 @media (max-width: 760px) {
-  /* swap the desktop links for a hamburger that opens the fullscreen menu */
+  /* paginalinks verhuizen naar de tabbalk onderin */
   .nav-links { display: none !important; }
-  .nav-burger { display: flex; }
-  .nav-menu { display: flex; }
+  .tabbar { display: grid; }
+  /* ruimte zodat de tabbalk nooit over de laatste regel van een pagina valt */
+  main { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+
+  /* wat overblijft in de bovenbalk is met de duim te raken */
+  .nav-tools > * { min-width: 44px; min-height: 44px; }
+  .nav-tools .nav-cv { padding: 9px 12px; }
+  .cv-label { display: none; }
+  .nav-logo img { width: 36px !important; height: 36px !important; }
 
   /* hero portrait: full content width but kept short (wide crop), face stays in view */
   .hero-photo { max-width: none !important; justify-self: stretch !important; aspect-ratio: 16 / 10 !important; }
