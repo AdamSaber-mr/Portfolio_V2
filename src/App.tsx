@@ -6,7 +6,6 @@ import { useHead } from './hooks/useHead';
 import { useRoute, navigate, topPageOf, type TopPage } from './lib/router';
 import Nav from './components/Nav';
 import Home from './components/Home';
-import AuroraBackground from './components/AuroraBackground';
 import ErrorBoundary from './components/ErrorBoundary';
 import NotFound from './components/NotFound';
 import type { ContactForm } from './components/Contact';
@@ -146,8 +145,6 @@ export default function App() {
       data-theme={dark ? 'dark' : 'light'}
       style={sx("background:var(--bg); color:var(--ink); font-family:'Hanken Grotesk',sans-serif; min-height:100dvh; transition:background .35s ease,color .35s ease;")}
     >
-      <AuroraBackground page={page} />
-
       <a className="skiplink" href="#main">{s.skipToContent}</a>
 
       <Nav
