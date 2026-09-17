@@ -112,6 +112,19 @@ textarea:focus-visible,
   }
 }
 
+/* ===== home: lopende statusregel (telefoon) =====
+   Twee identieke sets achter elkaar; de animatie schuift precies één set op,
+   waardoor de lus naadloos doorloopt. */
+.ticker {
+  position: relative; display: flex; overflow: hidden;
+  background: var(--card); border: 1px solid var(--card-line); border-radius: 16px;
+  padding: 13px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+}
+.ticker-set { display: flex; align-items: center; gap: 26px; padding-right: 26px; flex: none; animation: ticker 30s linear infinite; }
+.ticker:active .ticker-set { animation-play-state: paused; }
+@keyframes ticker { to { transform: translateX(-100%); } }
+
 /* ===== home: now playing ===== */
 .np-row { transition: transform .25s cubic-bezier(.2, .7, .2, 1), filter .25s; }
 .np-row:hover { transform: translateX(3px); filter: brightness(1.08); }
@@ -278,6 +291,30 @@ textarea:focus-visible,
   /* about: tighter, smaller body text on phones */
   .about-text p { font-size: 14.5px !important; line-height: 1.62 !important; }
 
+  /* verticaal ritme: de royale witruimte van desktop kost op een telefoon hele
+     schermen scrollen */
+  .page-pad { padding-top: 30px !important; padding-bottom: 30px !important; }
+  .home-divider { display: none; }
+  /* sectiekoppen en de 'bekijk alles'-link passen zo naast elkaar op één regel */
+  main h2 { font-size: clamp(21px, 6.2vw, 26px) !important; }
+  main a.navlink { font-size: 13px !important; white-space: nowrap; }
+
+  /* home: de drie uitgelichte projecten worden een veegrij, zodat ze samen
+     een half scherm kosten in plaats van anderhalf */
+  .home-cards {
+    display: flex !important; gap: 12px !important;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    margin: 0 -22px; padding: 4px 22px 8px;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .home-cards::-webkit-scrollbar { display: none; }
+  .home-cards > * { flex: 0 0 76%; scroll-snap-align: start; }
+  .home-cards .chip:nth-child(n+4) { display: none !important; }
+
+  /* muziek: alleen de drie laatste nummers, zonder de grote uitgelichte kaart */
+  .np-grid > div:first-child { display: none !important; }
+  .np-row:nth-child(n+4) { display: none !important; }
+
   /* projecten: de filters worden één scrollbare regel in plaats van twee rijen
      die een half scherm opeten */
   .workfilters {
@@ -342,4 +379,8 @@ textarea:focus-visible,
     scroll-behavior: auto !important;
   }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
+  /* de lopende regel blijft staan en wordt met de vinger verschuifbaar */
+  .ticker { overflow-x: auto; }
+  .ticker-set { animation: none !important; transform: none !important; }
+  .ticker-set[aria-hidden] { display: none; }
 }

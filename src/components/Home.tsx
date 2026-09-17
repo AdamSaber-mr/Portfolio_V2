@@ -6,6 +6,7 @@ import { PROJECTS, loc, buildCurrently, DISCORD_USER_ID, type Lang, type Strings
 import FooterCTA from './FooterCTA';
 import TechChips from './TechChips';
 import NowPlaying from './NowPlaying';
+import { useIsMobile } from '../hooks/useIsMobile';
 import type { Page } from '../App';
 
 interface Props {
@@ -30,7 +31,19 @@ function NowIcon({ name }: { name: string }) {
   }
 }
 
-function NowCell({ icon, label, value, accent = false }: { icon: string; label: string; value: string; accent?: boolean }) {
+function NowCell({ icon, label, value, accent = false, compact = false }: { icon: string; label: string; value: string; accent?: boolean; compact?: boolean }) {
+  // compacte variant: alles op één regel, voor de lopende statusregel op telefoon
+  if (compact) {
+    return (
+      <span style={sx('display:inline-flex; align-items:center; gap:9px; white-space:nowrap;')}>
+        <span style={sx(`display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:9px; flex:none; ${accent ? 'background:color-mix(in srgb, var(--accent) 16%, transparent); color:var(--accent);' : 'background:var(--card-line); color:var(--card-muted);'}`)}>
+          <NowIcon name={icon} />
+        </span>
+        <span style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--card-faint);")}>{label}</span>
+        <span style={sx(`font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; letter-spacing:-.01em; color:${accent ? 'var(--accent)' : 'var(--card-ink)'};`)}>{value}</span>
+      </span>
+    );
+  }
   return (
     <div style={sx('display:flex; align-items:center; gap:12px; min-width:0;')}>
       <span style={sx(`display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:11px; flex:none; ${accent ? 'background:color-mix(in srgb, var(--accent) 16%, transparent); color:var(--accent);' : 'background:var(--card-line); color:var(--card-muted);'}`)}>
@@ -44,8 +57,8 @@ function NowCell({ icon, label, value, accent = false }: { icon: string; label: 
   );
 }
 
-/** Live local time in Rotterdam; isolated so it re-renders on its own. */
-function LocalTime({ lang, label }: { lang: Lang; label: string }) {
+/** Live local time in Rotterdam. */
+function useLocalTime(lang: Lang): string {
   const [time, setTime] = useState('');
   useEffect(() => {
     const fmt = () => new Date().toLocaleTimeString(lang === 'nl' ? 'nl-NL' : 'en-GB', { timeZone: 'Europe/Amsterdam', hour: '2-digit', minute: '2-digit' });
@@ -53,7 +66,7 @@ function LocalTime({ lang, label }: { lang: Lang; label: string }) {
     const id = setInterval(() => setTime(fmt()), 10000);
     return () => clearInterval(id);
   }, [lang]);
-  return <NowCell icon="clock" label={label} value={time || '—'} />;
+  return time || '—';
 }
 
 interface Status { value: string; icon: string; }
@@ -69,7 +82,7 @@ function deriveStatus(d: any, s: Strings): Status {
 }
 
 /** Live Discord presence via Lanyard; falls back to the static "Aan het werk". */
-function LiveStatus({ s }: { s: Strings }) {
+function useLiveStatus(s: Strings): Status {
   const [status, setStatus] = useState<Status>({ value: s.curAvailable, icon: 'work' });
   useEffect(() => {
     if (!DISCORD_USER_ID) { setStatus({ value: s.curAvailable, icon: 'work' }); return; }
@@ -85,12 +98,19 @@ function LiveStatus({ s }: { s: Strings }) {
     const id = setInterval(load, 15000);
     return () => { active = false; clearInterval(id); };
   }, [s]);
-  return <NowCell icon={status.icon} label={s.curStatus} value={status.value} accent />;
+  return status;
 }
 
 export default function Home({ s, lang, go, openDetail, dark }: Props) {
+  const isMobile = useIsMobile();
   const featured = PROJECTS.slice(0, 3).map((p) => loc(p, lang));
-  const currently = buildCurrently(s);
+  const status = useLiveStatus(s);
+  const time = useLocalTime(lang);
+  const nowCells = [
+    { icon: status.icon, label: s.curStatus, value: status.value, accent: true },
+    ...buildCurrently(s).map((c) => ({ icon: c.icon, label: c.label, value: c.value, accent: false })),
+    { icon: 'clock', label: s.curTime, value: time, accent: false },
+  ];
   // me_white staat op een zwarte achtergrond, me_header op een witte — kies de
   // variant waarvan de achtergrond in de pagina wegvalt in plaats van opvalt
   const heroImg = dark ? 'assets/me_white' : 'assets/me_header';
@@ -98,6 +118,28 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
   return (
     <div data-screen-label="Home" className="pageintro">
       <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:64px 56px 20px; padding-bottom:100px; padding-top:100px;')}>
+        {isMobile ? (
+          /* Telefoon: naam en portret als één regel bovenaan, daarna de kop en
+             één korte zin. De paginavullende foto van desktop kostte hier een
+             half scherm voordat je bij de knoppen was. */
+          <div data-reveal="">
+            <div style={sx('display:flex; align-items:center; gap:13px; margin-bottom:22px;')}>
+              <Img src={heroImg} alt={s.altPortrait} priority style={sx('width:60px; height:60px; border-radius:50%; object-fit:cover; object-position:center 20%; display:block; border:1px solid var(--line); flex:none;')} />
+              <div style={sx('min-width:0;')}>
+                <div style={sx("font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; letter-spacing:-.01em;")}>Adam Saber</div>
+                <div style={sx('font-size:13.5px; color:var(--muted); margin-top:2px;')}>{s.heroRole}</div>
+              </div>
+            </div>
+            <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(31px,8.6vw,38px); line-height:1.08; font-weight:700; letter-spacing:-.03em;")}>
+              {s.heroL1}<br />{s.heroL2}<br /><span style={sx('color:var(--accent);')}>{s.heroL3}</span>
+            </h1>
+            <p style={sx('font-size:15.5px; line-height:1.55; color:var(--muted); margin-top:16px;')}>{s.heroBodyShort}</p>
+            <div style={sx('display:flex; gap:10px; margin-top:22px;')}>
+              <a className="btn" href={href({ kind: 'work' })} onClick={(e) => { e.preventDefault(); go('work'); }} style={sx('flex:1; text-align:center; background:var(--accent); color:var(--accentink); padding:15px 18px; border-radius:30px; font-size:15px; font-weight:600; text-decoration:none;')}>{s.heroCta1}</a>
+              <a className="btn" href={href({ kind: 'about' })} onClick={(e) => { e.preventDefault(); go('about'); }} style={sx('flex:1; text-align:center; border:1px solid var(--line); color:var(--ink); padding:14px 18px; border-radius:30px; font-size:15px; font-weight:500; text-decoration:none;')}>{s.heroCta2}</a>
+            </div>
+          </div>
+        ) : (
         <div className="hero-grid" style={sx('display:grid; grid-template-columns:1.05fr .8fr; gap:64px; align-items:center;')}>
           <div data-reveal="" style={sx('position:relative; z-index:2; max-width:760px;')}>
             <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(44px,6vw,82px); line-height:1.02; font-weight:700; letter-spacing:-.03em; pointer-events:auto;")}>
@@ -113,6 +155,7 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
             <Img src={heroImg} alt={s.altPortrait} priority style={sx('width:100%; height:100%; object-fit:cover; display:block;')} />
           </div>
         </div>
+        )}
       </div>
 
       <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:56px 56px 44px;')}>
@@ -145,17 +188,30 @@ export default function Home({ s, lang, go, openDetail, dark }: Props) {
 
       {/* "Right now" banner between the projects and the music */}
       <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:8px 56px 36px;')}>
-        <div className="now-banner" data-reveal="" style={sx('display:flex; align-items:center; justify-content:space-between; gap:32px 44px; flex-wrap:wrap; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:20px; padding:52px 44px;')}>
-          <LiveStatus s={s} />
-          {currently.map((c, i) => (
-            <NowCell key={i} icon={c.icon} label={c.label} value={c.value} />
-          ))}
-          <LocalTime lang={lang} label={s.curTime} />
-        </div>
+        {isMobile ? (
+          /* Vijf cellen onder elkaar kostte op telefoon een half scherm. Ze
+             schuiven nu als één regel voorbij; de tweede set staat er alleen
+             zodat de lus naadloos rondgaat en blijft buiten de voorleesvolgorde. */
+          <div className="ticker" data-reveal="" role="group" aria-label={s.curStatus}>
+            {[0, 1].map((set) => (
+              <div className="ticker-set" key={set} {...(set === 1 ? { 'aria-hidden': true } : {})}>
+                {nowCells.map((c, i) => (
+                  <NowCell key={i} icon={c.icon} label={c.label} value={c.value} accent={c.accent} compact />
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="now-banner" data-reveal="" style={sx('display:flex; align-items:center; justify-content:space-between; gap:32px 44px; flex-wrap:wrap; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:20px; padding:52px 44px;')}>
+            {nowCells.map((c, i) => (
+              <NowCell key={i} icon={c.icon} label={c.label} value={c.value} accent={c.accent} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* hairline divider between the status banner and the music section */}
-      <div className="page-pad" style={sx('max-width:1440px; margin:0 auto; padding:0 56px;')}>
+      <div className="page-pad home-divider" style={sx('max-width:1440px; margin:0 auto; padding:0 56px;')}>
         <div data-reveal="" style={sx('border-top:1px solid var(--line);')}></div>
       </div>
 
