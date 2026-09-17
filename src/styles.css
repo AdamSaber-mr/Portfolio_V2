@@ -3,18 +3,18 @@ html, body { width: 100%; }
 /* <picture> mag de layout niet beïnvloeden: de <img> erbinnen moet zich gedragen
    alsof hij een direct kind van zijn container is (zie components/Img.tsx). */
 picture { display: contents; }
-body { -webkit-font-smoothing: antialiased; background: #0a0b0d; }
-::selection { background: #8b7cff; color: #0a0b0d; }
+body { -webkit-font-smoothing: antialiased; background: #181a21; }
+::selection { background: #8b7cff; color: #14161c; }
 
 .root {
-  --bg: #0a0b0d; --surface: #121419; --ink: #eef0f3; --ink2: #c7ccd6; --muted: #9aa0aa;
-  --faint: #7e848f; --line: #1e222b; --line2: #1a1d24; --accent: #8b7cff;
-  --accentink: #0a0b0d; --navbg: rgba(12, 13, 17, .45);
+  --bg: #181a21; --surface: #23262f; --ink: #f2f4f7; --ink2: #cdd2dc; --muted: #a2a8b4;
+  --faint: #878d99; --line: #30343f; --line2: #2a2e38; --accent: #8b7cff;
+  --accentink: #14161c; --navbg: rgba(24, 26, 33, .72);
   /* content-card surface + text. In dark mode these equal the page colours; in
      light mode they flip dark so cards read as dark tiles on a light canvas. */
-  --card: #121419; --card-ink: #eef0f3; --card-ink2: #c7ccd6; --card-muted: #9aa0aa; --card-faint: #7e848f; --card-line: #1e222b; --card-field: #0a0b0d;
+  --card: #22252e; --card-ink: #f2f4f7; --card-ink2: #cdd2dc; --card-muted: #a2a8b4; --card-faint: #878d99; --card-line: #333743; --card-field: #1b1e26;
   /* elevation shadow, softened per theme */
-  --shadow: rgba(0, 0, 0, .6);
+  --shadow: rgba(0, 0, 0, .45);
 }
 .root { overflow-x: clip; }
 .root[data-theme="light"] {
