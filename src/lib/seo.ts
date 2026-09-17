@@ -49,7 +49,7 @@ const STATIC_META: Record<RouteKind, RouteMeta> = {
   contact: {
     title: 'Contact — Adam Saber',
     description:
-      'Neem contact op met Adam Saber over een stageplek of samenwerking. Full-stack developer uit Rotterdam, open voor stage.',
+      'Neem contact op met Adam Saber over een project of samenwerking. Full-stack developer uit Rotterdam.',
   },
   notfound: {
     title: 'Pagina niet gevonden — Adam Saber',

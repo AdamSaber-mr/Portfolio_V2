@@ -25,9 +25,9 @@ export const STR: Record<Lang, Strings> = {
     experienceTitle: 'Ervaring & opleiding', experienceBody: 'Waar ik heb geleerd en gewerkt — van school tot de praktijk.',
     skillsTitle: 'Vaardigheden', skillsBody: 'Geen percentages, gewoon wat ik gebruik en waar ik het voor heb ingezet.',
     contactKicker: 'Contact', contactTitle: 'Laten we iets bouwen.',
-    contactBody: 'Heb je een stageplek of wil je samenwerken? Ik hoor graag van je.',
+    contactBody: 'Heb je een project of wil je samenwerken? Ik hoor graag van je.',
     fName: 'Naam', fEmail: 'E-mail', fSubject: 'Onderwerp', fMsg: 'Bericht', send: 'Verstuur bericht',
-    phName: 'Je naam', phEmail: 'jij@voorbeeld.nl', phSubject: 'Bijv. Stageplek front-end', phMsg: 'Vertel kort waar het over gaat…',
+    phName: 'Je naam', phEmail: 'jij@voorbeeld.nl', phSubject: 'Bijv. Samenwerking front-end', phMsg: 'Vertel kort waar het over gaat…',
     formNote: 'Je bericht komt direct in mijn inbox terecht.',
     sentTitle: 'Verzonden!', sentBody: 'Bedankt voor je bericht — ik reageer zo snel mogelijk!',
     pdView: 'Bekijk project', pdBack: 'Terug naar projecten', pdLive: 'Bezoek website', pdCode: 'Code op GitHub',
@@ -36,7 +36,6 @@ export const STR: Record<Lang, Strings> = {
     altPortrait: 'Adam Saber — portret', altWorking: 'Adam Saber aan het werk',
     altShot: 'schermafbeelding', themeToggle: 'Thema wisselen', menu: 'Menu',
     skipToContent: 'Naar de inhoud', navLabel: 'Hoofdnavigatie',
-    stageTitle: 'Beschikbaar voor stage',
     errName: 'Vul je naam in.', errEmail: 'Vul een geldig e-mailadres in.',
     errMsg: 'Schrijf even kort waar het over gaat (minimaal 10 tekens).',
     nfTitle: 'Deze pagina bestaat niet.', nfHome: 'Naar home', nfWork: 'Bekijk mijn werk',
@@ -63,9 +62,9 @@ export const STR: Record<Lang, Strings> = {
     experienceTitle: 'Experience & education', experienceBody: 'Where I have learned and worked — from school to practice.',
     skillsTitle: 'Skills', skillsBody: 'No percentages, just what I use and where I have applied it.',
     contactKicker: 'Contact', contactTitle: 'Let us build something.',
-    contactBody: 'Got an internship opening or want to collaborate? I would love to hear from you.',
+    contactBody: 'Got a project or want to collaborate? I would love to hear from you.',
     fName: 'Name', fEmail: 'Email', fSubject: 'Subject', fMsg: 'Message', send: 'Send message',
-    phName: 'Your name', phEmail: 'you@example.com', phSubject: 'e.g. Front-end internship', phMsg: 'Tell me briefly what it is about…',
+    phName: 'Your name', phEmail: 'you@example.com', phSubject: 'e.g. Front-end collaboration', phMsg: 'Tell me briefly what it is about…',
     formNote: 'Your message lands straight in my inbox.',
     sentTitle: 'Sent!', sentBody: 'Thanks for your message — I will reply as soon as I can!',
     pdView: 'View project', pdBack: 'Back to projects', pdLive: 'Visit website', pdCode: 'Code on GitHub',
@@ -74,7 +73,6 @@ export const STR: Record<Lang, Strings> = {
     altPortrait: 'Adam Saber — portrait', altWorking: 'Adam Saber at work',
     altShot: 'screenshot', themeToggle: 'Switch theme', menu: 'Menu',
     skipToContent: 'Skip to content', navLabel: 'Main navigation',
-    stageTitle: 'Available for an internship',
     errName: 'Please enter your name.', errEmail: 'Please enter a valid email address.',
     errMsg: 'Tell me briefly what it is about (at least 10 characters).',
     nfTitle: 'This page does not exist.', nfHome: 'Go home', nfWork: 'View my work',
@@ -566,18 +564,6 @@ export function buildContactLinks(lang: Lang): ContactLink[] {
  */
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/adam-saber-a47586365/';
 
-/** Stage-informatie: precies wat een stagecoördinator als eerste wil weten. */
-export interface StageInfo { label: string; value: string; }
-
-export function buildStage(lang: Lang): StageInfo[] {
-  const nl = lang === 'nl';
-  return [
-    { label: nl ? 'Periode' : 'Period', value: nl ? 'September 2026 – februari 2027' : 'September 2026 – February 2027' },
-    { label: nl ? 'Omvang' : 'Days', value: nl ? '4 dagen per week' : '4 days a week' },
-    { label: nl ? 'Regio' : 'Region', value: nl ? 'Rotterdam en omgeving' : 'Rotterdam area' },
-    { label: nl ? 'Opleiding' : 'Programme', value: nl ? 'MBO Software Development, niveau 4' : 'MBO Software Development, level 4' },
-  ];
-}
 
 export const CONTACT_EMAIL = 'mt.adamsaber@gmail.com';
 

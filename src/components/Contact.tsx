@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { sx } from '../lib/sx';
-import { buildContactLinks, buildStage, type Lang, type Strings } from '../data';
+import { buildContactLinks, type Lang, type Strings } from '../data';
 
 export interface ContactForm {
   fName: string;
@@ -33,7 +33,6 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export default function Contact({ s, lang, form, setForm, submit, sent, sending, error }: Props) {
   const links = buildContactLinks(lang);
-  const stage = buildStage(lang);
   const [errors, setErrors] = useState<FieldErrors>({});
 
   /**
@@ -75,22 +74,6 @@ export default function Contact({ s, lang, form, setForm, submit, sent, sending,
           <div data-reveal="">
             <h1 style={sx("font-family:'Space Grotesk',sans-serif; font-size:clamp(38px,6vw,72px); line-height:1.0; font-weight:700; letter-spacing:-.03em;")}>{s.contactTitle}</h1>
             <p style={sx('font-size:18px; line-height:1.6; color:var(--muted); margin-top:22px; max-width:380px;')}>{s.contactBody}</p>
-
-            {/* Stage-details: haalt de eerste drie vragen weg die een
-                stagecoördinator anders per mail zou moeten stellen. */}
-            <section aria-labelledby="stage-title" style={sx('margin-top:34px; padding:22px 24px; background:var(--card); color:var(--card-ink); border:1px solid var(--card-line); border-radius:16px;')}>
-              <h2 id="stage-title" style={sx("font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:14px;")}>
-                {s.stageTitle}
-              </h2>
-              <dl style={sx('display:grid; grid-template-columns:auto 1fr; gap:9px 18px; margin:0; font-size:14px;')}>
-                {stage.map((row, i) => (
-                  <div key={i} style={sx('display:contents;')}>
-                    <dt style={sx('color:var(--card-muted);')}>{row.label}</dt>
-                    <dd style={sx('margin:0; font-weight:600; color:var(--card-ink); text-align:right;')}>{row.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </section>
 
             <div style={sx('margin-top:30px;')}>
               {links.map((c, i) => {
