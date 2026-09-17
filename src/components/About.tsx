@@ -127,7 +127,7 @@ export default function About({ s, lang }: Props) {
                   <h3 style={sx("font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; letter-spacing:-.01em;")}>{g.area}</h3>
                   <span style={sx("font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--card-faint);")}>{g.tag}</span>
                 </div>
-                <div style={sx('display:flex; flex-wrap:wrap; gap:9px; margin-bottom:16px;')}>
+                <div style={sx('display:flex; flex-wrap:wrap; gap:9px;')}>
                   {g.chips.map((c, ci) => (
                     <span key={ci} className="jchip" style={sx(c.style)}>
                       {c.icon && <img src={c.icon} alt="" style={{ width: '15px', height: '15px', display: 'block', opacity: c.iconOpacity }} />}
@@ -135,7 +135,6 @@ export default function About({ s, lang }: Props) {
                     </span>
                   ))}
                 </div>
-                <p style={sx('font-size:14.5px; color:var(--card-ink2); line-height:1.6;')}>{g.note}</p>
               </div>
             ))}
           </div>
